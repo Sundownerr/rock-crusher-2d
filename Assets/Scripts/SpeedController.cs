@@ -2,12 +2,6 @@ using UnityEngine;
 
 namespace Game
 {
-    public interface ISpeedController : IUpdate
-    {
-        float Speed { get; }
-        void Accelerate();
-    }
-
     public class SpeedController : ISpeedController
     {
         private readonly SpeedModel model;
