@@ -4,6 +4,7 @@ namespace Game
 {
     public class MovementModel : MonoBehaviour
     {
-        [SerializeField] public float inertiaFadeForce;
+        [Range(0f, 1f)] [SerializeField] public float inertiaFadeForce;
+        [SerializeField] public float turnSpeed;
     }
 }

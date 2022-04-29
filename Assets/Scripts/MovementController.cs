@@ -5,6 +5,9 @@ namespace Game
     public interface IMovementController : IUpdate
     {
         void Move(float speed);
+        void Turn(Vector2 direction);
+
+        void Stop();
     }
 
     public class MovementController : IMovementController
@@ -12,6 +15,7 @@ namespace Game
         private readonly MovementModel model;
         private readonly Transform targetTransform;
         private Vector3 inertia;
+        private bool isMoving;
 
         public MovementController(MovementModel model, Transform targetTransform)
         {
@@ -21,15 +25,31 @@ namespace Game
 
         public void Update()
         {
-            if (inertia.sqrMagnitude > 0)
-                inertia -= inertia * model.inertiaFadeForce;
+            if (isMoving)
+                return;
 
             targetTransform.position += inertia;
+            inertia *= model.inertiaFadeForce;
         }
 
         public void Move(float speed)
         {
-            inertia = targetTransform.forward * speed * Time.deltaTime;
+            isMoving = true;
+
+            var direction = targetTransform.up * (speed * Time.deltaTime);
+
+            inertia = Vector3.Lerp(inertia, direction, Time.deltaTime);
+            targetTransform.position += inertia;
+        }
+
+        public void Stop()
+        {
+            isMoving = false;
+        }
+
+        public void Turn(Vector2 direction)
+        {
+            targetTransform.Rotate(Vector3.back, direction.x * model.turnSpeed);
         }
     }
 }

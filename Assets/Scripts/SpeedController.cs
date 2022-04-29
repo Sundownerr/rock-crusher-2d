@@ -4,37 +4,32 @@ namespace Game
 {
     public interface ISpeedController : IUpdate
     {
-        void StartAccelerating();
-        void StopAccelerating();
+        float Speed { get; }
+        void Accelerate();
     }
 
     public class SpeedController : ISpeedController
     {
         private readonly SpeedModel model;
-        private bool isAccelerating;
+
+        private float speedDelta;
 
         public SpeedController(SpeedModel model)
         {
             this.model = model;
         }
 
-        public float Speed { get; private set; }
-
         public void Update()
         {
-            var speedDelta = isAccelerating ? model.acceleration : model.deceleration;
-
             Speed = Mathf.Clamp(Speed + speedDelta, 0, model.maxSpeed);
+            speedDelta = -model.deceleration;
         }
 
-        public void StartAccelerating()
+        public void Accelerate()
         {
-            isAccelerating = true;
+            speedDelta = model.acceleration;
         }
 
-        public void StopAccelerating()
-        {
-            isAccelerating = false;
-        }
+        public float Speed { get; private set; }
     }
 }

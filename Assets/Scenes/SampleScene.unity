@@ -152,7 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b3deffba094c268281f41c963a05e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inertiaFadeForce: 0
+  inertiaFadeForce: 0.995
+  turnSpeed: 1
 --- !u!4 &404783648
 Transform:
   m_ObjectHideFlags: 0
@@ -279,9 +280,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11e1e929bc5d49de94b3f9d83a6e308f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 2
-  deceleration: 1
-  maxSpeed: 6
+  acceleration: 0.2
+  deceleration: 0.1
+  maxSpeed: 9
 --- !u!4 &1133114424
 Transform:
   m_ObjectHideFlags: 0
@@ -306,6 +307,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1881456890}
   - component: {fileID: 1881456889}
+  - component: {fileID: 1881456892}
+  - component: {fileID: 1881456891}
   m_Layer: 0
   m_Name: constructor
   m_TagString: Untagged
@@ -328,6 +331,7 @@ MonoBehaviour:
   shipPrefab: {fileID: 751969028201604230, guid: ccf357fb9ccf3734a96c12e27980e47a, type: 3}
   movementModel: {fileID: 404783647}
   speedModel: {fileID: 1133114423}
+  playerInputModel: {fileID: 1881456892}
 --- !u!4 &1881456890
 Transform:
   m_ObjectHideFlags: 0
@@ -344,3 +348,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1881456891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881456888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: d26443ca8edad694dbdf66668264749c, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &1881456892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881456888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a979219f13b4605a70609ea43718606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fire: {fileID: -2655756150257718284, guid: d26443ca8edad694dbdf66668264749c, type: 3}
+  move: {fileID: -730614823580738913, guid: d26443ca8edad694dbdf66668264749c, type: 3}
