@@ -4,12 +4,12 @@ namespace Game
     {
         private readonly IWeaponController bulletWeaponController;
         private readonly IWeaponController laserWeaponController;
-        private readonly IMovementController movementController;
+        private readonly IShipMovementController movementController;
         private readonly IPlayerInputController playerInputController;
         private readonly ISpeedController speedController;
 
         public ShipController(
-            IMovementController movementController,
+            IShipMovementController movementController,
             ISpeedController speedController,
             IWeaponController bulletWeaponController,
             IWeaponController laserWeaponController,

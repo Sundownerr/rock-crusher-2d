@@ -1,0 +1,17 @@
+{
+  "name": "Game.Weapons",
+  "rootNamespace": "",
+  "references": [
+    "GUID:b13dc4bde7cb6a84dbc3938e3be80240",
+    "GUID:82d212a632a26f34f9b861234f8ecbce"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

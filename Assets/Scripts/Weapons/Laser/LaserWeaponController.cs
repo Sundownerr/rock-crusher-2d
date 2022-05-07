@@ -1,8 +1,11 @@
+using System;
+using UnityEngine;
+
 namespace Game
 {
     public class LaserWeaponController : ShipWeapon, IWeaponController
     {
-        public LaserWeaponController(ShipModel shipModel) : base(shipModel)
+        public LaserWeaponController(Transform shootPoint) : base(shootPoint)
         {
         }
 
@@ -11,6 +14,8 @@ namespace Game
         {
             // throw new NotImplementedException();
         }
+
+        public event Action<Transform> Hit;
 
         public void Shoot()
         {

@@ -1,26 +1,29 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Game
 {
-    public class BulletWeaponController : ShipWeapon, IWeaponController
+    public class BulletWeaponController : ShipWeapon, IWeaponController, IScreenBoundObjectFactory
     {
         private readonly BulletFactory bulletFactory;
         private readonly Transform bulletParent;
         private readonly List<Transform> bullets = new List<Transform>();
         private readonly BulletWeaponModel model;
-        private readonly ScreenBoundsController screenBoundsController;
 
-        public BulletWeaponController(BulletWeaponModel model, ShipModel shipModel,
-            ScreenBoundsController screenBoundsController, Transform bulletParent) :
-            base(shipModel)
+        public BulletWeaponController(BulletWeaponModel model, Transform shootPoint, Transform bulletParent) :
+            base(shootPoint)
         {
             this.model = model;
-            this.screenBoundsController = screenBoundsController;
+
             this.bulletParent = bulletParent;
 
             bulletFactory = new BulletFactory(model.bulletPrefab);
         }
+
+        public event Action<Transform> ObjectCreated;
+        public event Action<Transform> Hit;
 
         public void Update()
         {
@@ -41,22 +44,20 @@ namespace Game
                 {
                     bullets.Remove(bullet);
                     Object.Destroy(bullet.gameObject);
+
+                    Hit?.Invoke(hit.transform);
                 }
             }
         }
 
         public void Shoot()
         {
-            CreateBullet(shipModel.BulletShootPoint);
-        }
-
-        public void CreateBullet(Transform shootPoint)
-        {
             var bullet = bulletFactory.CreateBullet(shootPoint.position, shootPoint.rotation, bulletParent)
                 .transform;
 
             bullets.Add(bullet);
-            screenBoundsController.Add(bullet);
+
+            ObjectCreated?.Invoke(bullet);
 
             Object.Destroy(bullet.gameObject, 3);
         }

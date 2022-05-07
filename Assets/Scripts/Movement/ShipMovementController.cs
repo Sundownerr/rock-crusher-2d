@@ -2,14 +2,14 @@ using UnityEngine;
 
 namespace Game
 {
-    public class MovementController : IMovementController
+    public class ShipMovementController : IShipMovementController
     {
-        private readonly MovementModel model;
+        private readonly ShipMovementModel model;
         private readonly Transform targetTransform;
         private Vector3 inertia;
         private bool isMoving;
 
-        public MovementController(MovementModel model, Transform targetTransform)
+        public ShipMovementController(ShipMovementModel model, Transform targetTransform)
         {
             this.model = model;
             this.targetTransform = targetTransform;
@@ -21,7 +21,6 @@ namespace Game
                 return;
 
             targetTransform.position += inertia;
-            inertia *= model.inertiaFadeForce;
         }
 
         public void Move(float speed)

@@ -6,6 +6,7 @@ namespace Game
     public class ScreenBoundsController : IUpdate
     {
         private readonly Camera camera;
+        private readonly List<IScreenBoundObjectFactory> factories = new List<IScreenBoundObjectFactory>();
         private readonly List<Transform> targetTransforms = new List<Transform>();
 
         public ScreenBoundsController()
@@ -49,6 +50,23 @@ namespace Game
         public void Add(Transform targetTransform)
         {
             targetTransforms.Add(targetTransform);
+        }
+
+        public void Add(IScreenBoundObjectFactory factory)
+        {
+            factory.ObjectCreated += FactoryOnObjectCreated;
+            factories.Add(factory);
+        }
+
+        public void Destroy()
+        {
+            foreach (var factory in factories)
+                factory.ObjectCreated -= FactoryOnObjectCreated;
+        }
+
+        private void FactoryOnObjectCreated(Transform obj)
+        {
+            targetTransforms.Add(obj);
         }
     }
 }
