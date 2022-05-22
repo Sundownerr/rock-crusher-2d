@@ -1,25 +1,31 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Game
 {
     public class PlayerInputController : IPlayerInputController
     {
-        private readonly PlayerInputModel playerInputModel;
+        private readonly PlayerInputData playerInputData;
 
-        public PlayerInputController(PlayerInputModel playerInputModel)
+        public PlayerInputController(PlayerInputData playerInputData)
         {
-            this.playerInputModel = playerInputModel;
+            this.playerInputData = playerInputData;
+
+            playerInputData.move.action.started += OnStartMove;
+            playerInputData.move.action.canceled += OnEndMove;
+            playerInputData.shootBullet.action.performed += OnShootBullet;
         }
 
         public void Update()
         {
-            IsShootBulletPressed = playerInputModel.shootBullet.action.WasPressedThisFrame();
-            IsShootLaserPressed = playerInputModel.shootLaser.action.WasPressedThisFrame();
+            IsShootBulletPressed = playerInputData.shootBullet.action.WasPressedThisFrame();
+            IsShootLaserPressed = playerInputData.shootLaser.action.WasPressedThisFrame();
 
             IsMovingForwardPressed = false;
             TurnDirection = Vector2.zero;
 
-            var value = playerInputModel.move.action.ReadValue<Vector2>();
+            var value = playerInputData.move.action.ReadValue<Vector2>();
 
             if (value == Vector2.zero)
                 return;
@@ -34,5 +40,23 @@ namespace Game
         public bool IsMovingForwardPressed { get; private set; }
         public bool IsShootBulletPressed { get; private set; }
         public bool IsShootLaserPressed { get; private set; }
+        public event Action StartedMoving;
+        public event Action ShootedBullet;
+        public event Action EndedMoving;
+
+        private void OnShootBullet(InputAction.CallbackContext obj)
+        {
+            ShootedBullet?.Invoke();
+        }
+
+        private void OnEndMove(InputAction.CallbackContext obj)
+        {
+            EndedMoving?.Invoke();
+        }
+
+        private void OnStartMove(InputAction.CallbackContext obj)
+        {
+            StartedMoving?.Invoke();
+        }
     }
 }

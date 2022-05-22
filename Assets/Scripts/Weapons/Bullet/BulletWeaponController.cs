@@ -5,14 +5,14 @@ using Object = UnityEngine.Object;
 
 namespace Game
 {
-    public class BulletWeaponController : ShipWeapon, IWeaponController, IScreenBoundObjectFactory
+    public class BulletWeaponController : ShipWeapon, IWeaponController, IFactory<Transform>
     {
         private readonly BulletFactory bulletFactory;
         private readonly Transform bulletParent;
         private readonly List<Transform> bullets = new List<Transform>();
-        private readonly BulletWeaponModel model;
+        private readonly BulletWeapon model;
 
-        public BulletWeaponController(BulletWeaponModel model, Transform shootPoint, Transform bulletParent) :
+        public BulletWeaponController(BulletWeapon model, Transform shootPoint, Transform bulletParent) :
             base(shootPoint)
         {
             this.model = model;
@@ -22,7 +22,8 @@ namespace Game
             bulletFactory = new BulletFactory(model.bulletPrefab);
         }
 
-        public event Action<Transform> ObjectCreated;
+        public event Action<Transform> Created;
+
         public event Action<Transform> Hit;
 
         public void Update()
@@ -57,7 +58,7 @@ namespace Game
 
             bullets.Add(bullet);
 
-            ObjectCreated?.Invoke(bullet);
+            Created?.Invoke(bullet);
 
             Object.Destroy(bullet.gameObject, 3);
         }

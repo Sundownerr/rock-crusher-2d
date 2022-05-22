@@ -4,11 +4,11 @@ namespace Game
 {
     public class SpeedController : ISpeedController
     {
-        private readonly SpeedModel model;
+        private readonly SpeedData model;
 
         private float speedDelta;
 
-        public SpeedController(SpeedModel model)
+        public SpeedController(SpeedData model)
         {
             this.model = model;
         }

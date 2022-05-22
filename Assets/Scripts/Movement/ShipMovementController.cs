@@ -4,12 +4,12 @@ namespace Game
 {
     public class ShipMovementController : IShipMovementController
     {
-        private readonly ShipMovementModel model;
+        private readonly ShipMovement model;
         private readonly Transform targetTransform;
         private Vector3 inertia;
         private bool isMoving;
 
-        public ShipMovementController(ShipMovementModel model, Transform targetTransform)
+        public ShipMovementController(ShipMovement model, Transform targetTransform)
         {
             this.model = model;
             this.targetTransform = targetTransform;
