@@ -22,6 +22,9 @@ namespace Game.Weapons.Bullet
         public Transform Create()
         {
             var bullet = Object.Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation, parent);
+
+            Created?.Invoke(bullet.transform);
+
             return bullet.transform;
         }
     }

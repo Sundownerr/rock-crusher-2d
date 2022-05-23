@@ -10,16 +10,16 @@ namespace Game.Gameplay.Utility
         private readonly List<IFactory<Transform>> factoriesTransform = new List<IFactory<Transform>>();
         private readonly List<Transform> targetTransforms = new List<Transform>();
 
-        public ScreenBoundsController()
+        public ScreenBoundsController(Camera camera)
         {
-            camera = Camera.main;
+            this.camera = camera;
         }
 
         public void Update()
         {
-            for (var index = 0; index < targetTransforms.Count; index++)
+            for (var i = 0; i < targetTransforms.Count; i++)
             {
-                var targetTransform = targetTransforms[index];
+                var targetTransform = targetTransforms[i];
 
                 if (targetTransform == null)
                 {
@@ -53,36 +53,28 @@ namespace Game.Gameplay.Utility
             targetTransforms.Add(targetTransform);
         }
 
+        private void OnObjectCreated(Transform obj) => Add(obj);
+        private void OnObjectCreated(GameObject obj) => Add(obj.transform);
+
         public void Add(IFactory<GameObject> factory)
         {
-            factory.Created += FactoryOnObjectCreated;
+            factory.Created += OnObjectCreated;
             factoriesGameObject.Add(factory);
         }
 
         public void Add(IFactory<Transform> factory)
         {
-            factory.Created += FactoryOnObjectCreated;
+            factory.Created += OnObjectCreated;
             factoriesTransform.Add(factory);
-        }
-
-        private void FactoryOnObjectCreated(Transform obj)
-        {
-            targetTransforms.Add(obj);
         }
 
         public void Destroy()
         {
             foreach (var factory in factoriesGameObject)
-                factory.Created -= FactoryOnObjectCreated;
+                factory.Created -= OnObjectCreated;
 
             foreach (var factory in factoriesTransform)
-                factory.Created -= FactoryOnObjectCreated;
-        }
-
-        private void FactoryOnObjectCreated(GameObject obj)
-        {
-            Debug.Log("FactoryOnObjectCreated");
-            targetTransforms.Add(obj.transform);
+                factory.Created -= OnObjectCreated;
         }
     }
 }

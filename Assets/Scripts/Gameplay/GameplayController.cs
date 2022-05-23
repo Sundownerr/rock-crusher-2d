@@ -1,9 +1,9 @@
 ﻿using Game.Base;
 using Game.Enemies.Asteroid;
 using Game.Enemies.UFO;
-using Game.Gameplay;
 using Game.Gameplay.Utility;
 using Game.PlayerShip;
+using UnityEngine;
 
 namespace Game
 {
@@ -20,7 +20,7 @@ namespace Game
         {
             this.parentData = parentData;
 
-            screenBoundsController = new ScreenBoundsController();
+            screenBoundsController = new ScreenBoundsController(Camera.main);
             shipSpawner = new ShipSpawner(model.shipSpawnerData);
             asteroidSpawner = new AsteroidSpawner(model.asteroidSpawnerData, runner, parentData.AsteroidParent);
             ufoSpawner = new UfoSpawner(model.ufoSpawnerData, runner, parentData.UfoParent);
