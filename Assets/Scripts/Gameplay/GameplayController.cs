@@ -1,21 +1,23 @@
 ﻿using System.Collections.Generic;
 using Game.Base;
 using Game.Enemies.Asteroid.Spawner;
+using Game.Enemies.Asteroid.Spawner.Interface;
 using Game.Enemies.UFO.Spawner;
 using Game.Gameplay.Utility;
 using Game.Ship.Interface;
 using Game.Ship.Spawner;
+using Game.Ship.Spawner.Interface;
 using UnityEngine;
 
 namespace Game
 {
     public class GameplayController : Controller<GameplayData>, IUpdate, IDestroyable
     {
-        private readonly AsteroidSpawner asteroidSpawner;
+        private readonly IEnemySpawner asteroidSpawner;
         private readonly CoroutineRunner runner;
         private readonly ScreenBoundsController screenBoundsController;
-        private readonly ShipSpawner shipSpawner;
-        private readonly UfoSpawner ufoSpawner;
+        private readonly IShipSpawner shipSpawner;
+        private readonly IEnemySpawner ufoSpawner;
         private readonly List<IUpdate> updatees = new List<IUpdate>();
         private IShipController shipController;
 
@@ -24,6 +26,7 @@ namespace Game
             this.runner = runner;
 
             screenBoundsController = new ScreenBoundsController(Camera.main);
+            updatees.Add(screenBoundsController);
 
             shipSpawner = new ShipSpawner(
                 model.ShipSpawnerData,
@@ -50,6 +53,8 @@ namespace Game
 
         public void Destroy()
         {
+            updatees.Clear();
+
             screenBoundsController.Destroy();
             shipController.Destroy();
             asteroidSpawner.Destroy();
@@ -61,9 +66,6 @@ namespace Game
 
         public void Update()
         {
-            screenBoundsController.Update();
-            shipController.Update();
-
             for (var i = 0; i < updatees.Count; i++)
                 updatees[i].Update();
         }

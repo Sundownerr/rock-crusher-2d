@@ -4,6 +4,7 @@ using Game.Gameplay.Utility;
 using Game.Input;
 using Game.Ship.Interface;
 using Game.Ship.Movement;
+using Game.Ship.Spawner.Interface;
 using Game.Ship.Weapons;
 using Game.Ship.Weapons.Bullet;
 using UnityEngine;
@@ -11,7 +12,7 @@ using Object = UnityEngine.Object;
 
 namespace Game.Ship.Spawner
 {
-    public class ShipSpawner : Controller<ShipSpawnerData>, IFactory<(IShipController, IFactory<Transform>, Transform)>
+    public class ShipSpawner : Controller<ShipSpawnerData>, IShipSpawner
     {
         private readonly Transform bulletParent;
         private readonly PlayerInputData playerInputData;

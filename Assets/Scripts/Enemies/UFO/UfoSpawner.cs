@@ -1,10 +1,11 @@
 ﻿using System;
 using Game.Base;
+using Game.Enemies.Asteroid.Spawner.Interface;
 using UnityEngine;
 
 namespace Game.Enemies.UFO.Spawner
 {
-    public class UfoSpawner : Controller<UfoSpawnerData>, IFactory<(IUpdate, Transform)>, IDestroyable
+    public class UfoSpawner : Controller<UfoSpawnerData>, IEnemySpawner
     {
         private readonly MonoBehaviour coroutineRunner;
         private readonly Transform parent;
@@ -24,7 +25,7 @@ namespace Game.Enemies.UFO.Spawner
 
         public void StartSpawn()
         {
-            // throw new NotImplementedException();
+            // throw new NotImplementedException(); 
         }
     }
 }

@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections;
 using Game.Base;
+using Game.Enemies.Asteroid.Spawner.Interface;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace Game.Enemies.Asteroid.Spawner
 {
-    public class AsteroidSpawner : Controller<AsteroidSpawnerData>,
-                                   IFactory<(IUpdate, Transform)>,
-                                   IDestroyable
+    public class AsteroidSpawner : Controller<AsteroidSpawnerData>, IEnemySpawner, IDestroyable
     {
         private readonly MonoBehaviour coroutineRunner;
         private readonly Transform parent;

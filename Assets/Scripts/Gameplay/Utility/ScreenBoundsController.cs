@@ -3,16 +3,21 @@ using UnityEngine;
 
 namespace Game.Gameplay.Utility
 {
-    public class ScreenBoundsController : IUpdate
+    public class ScreenBoundsController : IUpdate, IDestroyable
     {
         private readonly Camera camera;
-        private readonly List<IFactory<GameObject>> factoriesGameObject = new List<IFactory<GameObject>>();
         private readonly List<IFactory<Transform>> factoriesTransform = new List<IFactory<Transform>>();
         private readonly List<Transform> targetTransforms = new List<Transform>();
 
         public ScreenBoundsController(Camera camera)
         {
             this.camera = camera;
+        }
+
+        public void Destroy()
+        {
+            foreach (var factory in factoriesTransform)
+                factory.Created -= OnObjectCreated;
         }
 
         public void Update()
@@ -48,33 +53,13 @@ namespace Game.Gameplay.Utility
             }
         }
 
-        public void Add(Transform targetTransform)
-        {
-            targetTransforms.Add(targetTransform);
-        }
-
+        public void Add(Transform targetTransform) => targetTransforms.Add(targetTransform);
         private void OnObjectCreated(Transform obj) => Add(obj);
-        private void OnObjectCreated(GameObject obj) => Add(obj.transform);
-
-        public void Add(IFactory<GameObject> factory)
-        {
-            factory.Created += OnObjectCreated;
-            factoriesGameObject.Add(factory);
-        }
 
         public void Add(IFactory<Transform> factory)
         {
             factory.Created += OnObjectCreated;
             factoriesTransform.Add(factory);
-        }
-
-        public void Destroy()
-        {
-            foreach (var factory in factoriesGameObject)
-                factory.Created -= OnObjectCreated;
-
-            foreach (var factory in factoriesTransform)
-                factory.Created -= OnObjectCreated;
         }
     }
 }
