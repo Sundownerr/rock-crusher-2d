@@ -15,3 +15,7 @@ MonoBehaviour:
   asteroidSpawnerData: {fileID: 11400000, guid: 5bd3975c5555dcc48b8b9c4faed4fa37, type: 2}
   ufoSpawnerData: {fileID: 11400000, guid: 391c9afba7d775a49bed9f125717e483, type: 2}
   shipSpawnerData: {fileID: 11400000, guid: 1b1bc5056313841499be940b8963f092, type: 2}
+  shipWeaponsData: {fileID: 11400000, guid: ff9221dd3ca9217488b20455851bab80, type: 2}
+  shipMovementData: {fileID: 11400000, guid: eec0cddfaa96a954d9921421eb3b6531, type: 2}
+  playerInputData: {fileID: 11400000, guid: a6adeafb70cbaae43ba7d68961301759, type: 2}
+  shipSpeedData: {fileID: 11400000, guid: 0f694a27fa8584e47ba9e2a06c5d99fb, type: 2}

@@ -3,12 +3,11 @@ using Game.Enemies.Asteroid;
 using Game.Enemies.UFO;
 using Game.Gameplay.Utility;
 using Game.PlayerShip;
-using Game.Weapons.Laser;
 using UnityEngine;
 
 namespace Game
 {
-    public class GameplayController : Controller<GameplayData>, IUpdate
+    public class GameplayController : Controller<GameplayData>, IUpdate, IDestroyable
     {
         private readonly AsteroidSpawner asteroidSpawner;
         private readonly ParentData parentData;
@@ -24,12 +23,32 @@ namespace Game
             this.parentData = parentData;
 
             screenBoundsController = new ScreenBoundsController(Camera.main);
-            shipSpawner = new ShipSpawner(model.shipSpawnerData);
-            asteroidSpawner = new AsteroidSpawner(model.asteroidSpawnerData, runner, parentData.AsteroidParent);
-            ufoSpawner = new UfoSpawner(model.ufoSpawnerData, runner, parentData.UfoParent);
+
+            shipSpawner = new ShipSpawner(
+                model.ShipSpawnerData,
+                model.ShipWeaponsData,
+                model.ShipMovementData,
+                model.ShipSpeedData,
+                model.PlayerInputData);
+
+            asteroidSpawner = new AsteroidSpawner(
+                model.AsteroidSpawnerData,
+                runner,
+                parentData.AsteroidParent);
+
+            ufoSpawner = new UfoSpawner(
+                model.UfoSpawnerData,
+                runner,
+                parentData.UfoParent);
 
             screenBoundsController.Add(ufoSpawner);
             screenBoundsController.Add(asteroidSpawner);
+        }
+
+        public void Destroy()
+        {
+            screenBoundsController.Destroy();
+            shipController.Destroy();
         }
 
         public void Update()
@@ -38,24 +57,12 @@ namespace Game
             shipController.Update();
         }
 
-        public (ShipData shipData, LaserWeaponData laserWeaponData) CreateShip()
-        {
-            var spawnResult = shipSpawner.Spawn(parentData.BulletParent, screenBoundsController, runner);
-            shipController = spawnResult.controller;
-
-            return (spawnResult.model, spawnResult.laserWeaponData);
-        }
-
         public void CreateGameplayObjects()
         {
+            shipController = shipSpawner.Spawn(parentData.BulletParent, screenBoundsController, runner);
+
             asteroidSpawner.StartSpawn();
             ufoSpawner.StartSpawn();
-        }
-
-        public void Destroy()
-        {
-            screenBoundsController.Destroy();
-            shipSpawner.Destroy();
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Game.Base;
 using Game.Gameplay.Utility;
+using Game.Weapons.Laser.Interface;
 using UnityEngine;
 using Object = UnityEngine.Object;
 

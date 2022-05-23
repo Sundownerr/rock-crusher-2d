@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using Game.PlayerShip;
+using Game.Movement;
 using Game.UI.Interface;
 using Game.Weapons.Laser;
 using UnityEngine.SceneManagement;
@@ -12,7 +12,7 @@ namespace Game.UI
         private GameplayUI gameplayUI;
         private LaserWeaponData laserData;
 
-        private ShipData shipData;
+        private ShipMovementData shipMovementData;
 
         public void HandleSceneLoad(Scene scene)
         {
@@ -34,9 +34,9 @@ namespace Game.UI
             UpdateLaserValues();
         }
 
-        public void SetShipData(ShipData data)
+        public void SetShipMovemenData(ShipMovementData data)
         {
-            shipData = data;
+            shipMovementData = data;
             UpdateShipValues();
         }
 
@@ -55,10 +55,11 @@ namespace Game.UI
 
         private void UpdateShipValues()
         {
-            gameplayUI.ShipCoordinatesX.text = Math.Round(shipData.X, 1).ToString(CultureInfo.InvariantCulture);
-            gameplayUI.ShipCoordinatesY.text = Math.Round(shipData.Y, 1).ToString(CultureInfo.InvariantCulture);
-            gameplayUI.ShipTurnAngle.text = Math.Round(shipData.Angle, 0).ToString(CultureInfo.InvariantCulture);
-            gameplayUI.ShipSpeed.text = Math.Round(shipData.Speed, 1).ToString(CultureInfo.InvariantCulture);
+            gameplayUI.ShipCoordinatesX.text = Math.Round(shipMovementData.X, 1).ToString(CultureInfo.InvariantCulture);
+            gameplayUI.ShipCoordinatesY.text = Math.Round(shipMovementData.Y, 1).ToString(CultureInfo.InvariantCulture);
+            gameplayUI.ShipTurnAngle.text =
+                Math.Round(shipMovementData.Angle, 0).ToString(CultureInfo.InvariantCulture);
+            gameplayUI.ShipSpeed.text = Math.Round(shipMovementData.Speed, 1).ToString(CultureInfo.InvariantCulture);
         }
     }
 }

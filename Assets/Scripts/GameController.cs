@@ -54,11 +54,10 @@ namespace Game
 
             gameplayController = new GameplayController(gameplayData, runner, parentData);
             gameplayController.CreateGameplayObjects();
-            var spawnResult = gameplayController.CreateShip();
             updatees.Add(gameplayController);
 
-            uiController.GameplayUIController.SetShipData(spawnResult.shipData);
-            uiController.GameplayUIController.SetLaserData(spawnResult.laserWeaponData);
+            uiController.GameplayUIController.SetShipMovemenData(gameplayData.ShipMovementData);
+            uiController.GameplayUIController.SetLaserData(gameplayData.ShipWeaponsData.LaserWeaponData);
 
             updatees.Add(uiController.GameplayUIController);
         }

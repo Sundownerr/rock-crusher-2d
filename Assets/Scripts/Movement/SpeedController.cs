@@ -11,11 +11,9 @@ namespace Game.Movement
         public SpeedController(SpeedData model) : base(model)
         { }
 
-        public float Speed { get; private set; }
-
         public void Update()
         {
-            Speed = Mathf.Clamp(Speed + speedDelta, 0, model.maxSpeed);
+            model.CurrentSpeed = Mathf.Clamp(model.CurrentSpeed + speedDelta, 0, model.maxSpeed);
             speedDelta = -model.deceleration;
         }
 
