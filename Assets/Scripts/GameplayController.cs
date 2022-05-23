@@ -9,7 +9,7 @@
         private readonly UfoSpawner ufoSpawner;
         private ShipController shipController;
 
-        public GameplayController(Level model, CoroutineRunner runner, ParentData parentData)
+        public GameplayController(GameplayData model, CoroutineRunner runner, ParentData parentData)
         {
             this.parentData = parentData;
 

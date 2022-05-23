@@ -30,8 +30,8 @@ namespace Game
             Ship = Object.Instantiate(shipSpawnerData.Prefab).GetComponent<Ship>();
 
             var speedController = new SpeedController(model.SpeedData);
-            var movementController = new ShipMovementController(model.ShipMovement, Ship.transform);
-            var bulletWeaponController = new BulletWeaponController(model.BulletWeapon, Ship.BulletShootPoint,
+            var movementController = new ShipMovementController(model.ShipMovementData, Ship.transform);
+            var bulletWeaponController = new BulletWeaponController(model.BulletWeaponData, Ship.BulletShootPoint,
                 bulletParent);
 
             var laserWeaponController = new LaserWeaponController(Ship.LaserShootPoint);

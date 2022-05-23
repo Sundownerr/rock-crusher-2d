@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a979219f13b4605a70609ea43718606, type: 3}
-  m_Name: PlayerInputModel
+  m_Name: PlayerInputData
   m_EditorClassIdentifier: 
   shootBullet: {fileID: -2655756150257718284, guid: d26443ca8edad694dbdf66668264749c, type: 3}
   shootLaser: {fileID: -3737757194366205898, guid: d26443ca8edad694dbdf66668264749c, type: 3}

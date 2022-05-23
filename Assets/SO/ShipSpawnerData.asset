@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a359d3f7370d40f5b1b17313123fcff7, type: 3}
-  m_Name: ShipConfig
+  m_Name: ShipSpawnerData
   m_EditorClassIdentifier: 
   prefab: {fileID: 751969028201604230, guid: ccf357fb9ccf3734a96c12e27980e47a, type: 3}
   shipMovement: {fileID: 11400000, guid: eec0cddfaa96a954d9921421eb3b6531, type: 2}

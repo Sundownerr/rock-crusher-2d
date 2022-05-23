@@ -2,8 +2,8 @@
 
 namespace Game
 {
-    [CreateAssetMenu(fileName = "Level", menuName = "Data/Level")]
-    public class Level : ScriptableObject
+    [CreateAssetMenu(fileName = "GameplayData", menuName = "Data/Gameplay")]
+    public class GameplayData : ScriptableObject
     {
         [SerializeField] public AsteroidSpawnerData asteroidSpawnerData;
         [SerializeField] public UfoSpawnerData ufoSpawnerData;

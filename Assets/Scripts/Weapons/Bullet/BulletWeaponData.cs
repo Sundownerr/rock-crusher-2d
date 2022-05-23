@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace Game
 {
-    [CreateAssetMenu(fileName = "BulletWeapon", menuName = "Data/Bullet Weapon")]
-    public class BulletWeapon : ScriptableObject
+    [CreateAssetMenu(fileName = "BulletWeaponData", menuName = "Data/Bullet Weapon")]
+    public class BulletWeaponData : ScriptableObject
     {
         [SerializeField] public GameObject bulletPrefab;
         [SerializeField] public float bulletSpeed;

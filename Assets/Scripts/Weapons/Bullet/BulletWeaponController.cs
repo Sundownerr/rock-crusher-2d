@@ -10,9 +10,9 @@ namespace Game
         private readonly BulletFactory bulletFactory;
         private readonly Transform bulletParent;
         private readonly List<Transform> bullets = new List<Transform>();
-        private readonly BulletWeapon model;
+        private readonly BulletWeaponData model;
 
-        public BulletWeaponController(BulletWeapon model, Transform shootPoint, Transform bulletParent) :
+        public BulletWeaponController(BulletWeaponData model, Transform shootPoint, Transform bulletParent) :
             base(shootPoint)
         {
             this.model = model;

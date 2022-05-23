@@ -6,15 +6,15 @@ namespace Game
     public class ShipSpawnerData : ScriptableObject
     {
         [SerializeField] private GameObject prefab;
-        [SerializeField] private ShipMovement shipMovement;
+        [SerializeField] private ShipMovementData shipMovementData;
         [SerializeField] private SpeedData speedData;
         [SerializeField] private PlayerInputData playerInputData;
-        [SerializeField] private BulletWeapon bulletWeapon;
+        [SerializeField] private BulletWeaponData bulletWeaponData;
 
         public GameObject Prefab => prefab;
-        public ShipMovement ShipMovement => shipMovement;
+        public ShipMovementData ShipMovementData => shipMovementData;
         public SpeedData SpeedData => speedData;
         public PlayerInputData PlayerInputData => playerInputData;
-        public BulletWeapon BulletWeapon => bulletWeapon;
+        public BulletWeaponData BulletWeaponData => bulletWeaponData;
     }
 }

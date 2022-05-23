@@ -6,16 +6,16 @@ namespace Game
 {
     public class GameController : IUpdate
     {
-        private readonly Level level;
+        private readonly GameplayData gameplayData;
         private readonly ISceneController sceneController;
         private readonly ISceneLoader sceneLoader;
         private readonly UIController uiController;
         private readonly List<IUpdate> updatees = new List<IUpdate>();
         private GameplayController gameplayController;
 
-        public GameController(Level level, SceneData sceneData, MonoBehaviour coroutineRunner)
+        public GameController(GameplayData gameplayData, SceneData sceneData, MonoBehaviour coroutineRunner)
         {
-            this.level = level;
+            this.gameplayData = gameplayData;
 
             sceneController = new SceneController(sceneData);
 
@@ -50,7 +50,7 @@ namespace Game
             var parentData = Object.FindObjectOfType<ParentData>();
             var runner = Object.FindObjectOfType<CoroutineRunner>();
 
-            gameplayController = new GameplayController(level, runner, parentData);
+            gameplayController = new GameplayController(gameplayData, runner, parentData);
             gameplayController.CreateGameplayObjects();
             var shipController = gameplayController.CreateShip();
 
