@@ -5,7 +5,7 @@ using Object = UnityEngine.Object;
 
 namespace Game
 {
-    public class BulletWeaponController : ShipWeapon, IWeaponController, IFactory<Transform>
+    public class BulletWeaponController : ShipWeapon, IBulletWeaponController
     {
         private readonly BulletFactory bulletFactory;
         private readonly Transform bulletParent;

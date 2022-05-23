@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Game
 {
-    public class PlayerInputController : IPlayerInputController
+    public class PlayerInputController : IPlayerInputController, IDestroyable
     {
         private readonly PlayerInputData playerInputData;
 
@@ -15,14 +15,27 @@ namespace Game
             playerInputData.move.action.started += OnStartMove;
             playerInputData.move.action.canceled += OnEndMove;
             playerInputData.shootBullet.action.performed += OnShootBullet;
+            playerInputData.shootLaser.action.performed += OnShootLaser;
         }
+
+        public void Destroy()
+        {
+            playerInputData.move.action.started -= OnStartMove;
+            playerInputData.move.action.canceled -= OnEndMove;
+            playerInputData.shootBullet.action.performed -= OnShootBullet;
+            playerInputData.shootLaser.action.performed -= OnShootLaser;
+        }
+
+        public Vector2 TurnDirection { get; private set; }
+        public bool IsMovingForwardPressed { get; private set; }
+
+        public event Action MovingForwardPressed;
+        public event Action ShootBulletPressed;
+        public event Action ShootLaserPressed;
+        public event Action MovingReleased;
 
         public void Update()
         {
-            IsShootBulletPressed = playerInputData.shootBullet.action.WasPressedThisFrame();
-            IsShootLaserPressed = playerInputData.shootLaser.action.WasPressedThisFrame();
-
-            IsMovingForwardPressed = false;
             TurnDirection = Vector2.zero;
 
             var value = playerInputData.move.action.ReadValue<Vector2>();
@@ -36,27 +49,24 @@ namespace Game
                 TurnDirection = value;
         }
 
-        public Vector2 TurnDirection { get; private set; }
-        public bool IsMovingForwardPressed { get; private set; }
-        public bool IsShootBulletPressed { get; private set; }
-        public bool IsShootLaserPressed { get; private set; }
-        public event Action StartedMoving;
-        public event Action ShootedBullet;
-        public event Action EndedMoving;
-
-        private void OnShootBullet(InputAction.CallbackContext obj)
+        private void OnShootLaser(InputAction.CallbackContext ctx)
         {
-            ShootedBullet?.Invoke();
+            ShootLaserPressed?.Invoke();
         }
 
-        private void OnEndMove(InputAction.CallbackContext obj)
+        private void OnShootBullet(InputAction.CallbackContext ctx)
         {
-            EndedMoving?.Invoke();
+            ShootBulletPressed?.Invoke();
         }
 
-        private void OnStartMove(InputAction.CallbackContext obj)
+        private void OnEndMove(InputAction.CallbackContext ctx)
         {
-            StartedMoving?.Invoke();
+            MovingReleased?.Invoke();
+        }
+
+        private void OnStartMove(InputAction.CallbackContext ctx)
+        {
+            MovingForwardPressed?.Invoke();
         }
     }
 }

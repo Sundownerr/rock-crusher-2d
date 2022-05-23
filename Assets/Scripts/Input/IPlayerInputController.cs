@@ -7,10 +7,10 @@ namespace Game
     {
         Vector2 TurnDirection { get; }
         bool IsMovingForwardPressed { get; }
-        bool IsShootBulletPressed { get; }
-        bool IsShootLaserPressed { get; }
-        event Action StartedMoving;
-        event Action ShootedBullet;
-        event Action EndedMoving;
+
+        event Action MovingForwardPressed;
+        event Action ShootBulletPressed;
+        event Action ShootLaserPressed;
+        event Action MovingReleased;
     }
 }

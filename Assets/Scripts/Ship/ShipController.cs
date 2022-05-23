@@ -2,7 +2,6 @@ namespace Game
 {
     public class ShipController : IUpdate, IDestroyable
     {
-        private readonly IWeaponController bulletWeaponController;
         private readonly IWeaponController laserWeaponController;
         private readonly IShipMovementController movementController;
         private readonly IPlayerInputController playerInputController;
@@ -11,29 +10,33 @@ namespace Game
         public ShipController(Ship ship,
                               IShipMovementController movementController,
                               ISpeedController speedController,
-                              IWeaponController bulletWeaponController,
+                              IBulletWeaponController bulletWeaponController,
                               IWeaponController laserWeaponController,
                               IPlayerInputController playerInputController)
         {
             Ship = ship;
             this.movementController = movementController;
             this.speedController = speedController;
-            this.bulletWeaponController = bulletWeaponController;
+            BulletWeaponController = bulletWeaponController;
             this.laserWeaponController = laserWeaponController;
             this.playerInputController = playerInputController;
 
-            playerInputController.StartedMoving += OnStartMoving;
-            playerInputController.EndedMoving += OnEndedMoving;
-            playerInputController.ShootedBullet += OnShootedBullet;
+            playerInputController.MovingForwardPressed += OnStartMovingPressed;
+            playerInputController.MovingReleased += OnMovingReleased;
+            playerInputController.ShootBulletPressed += OnShootBulletPressed;
+            playerInputController.ShootLaserPressed += OnShootLaserPressed;
         }
 
         public Ship Ship { get; }
 
+        public IBulletWeaponController BulletWeaponController { get; }
+
         public void Destroy()
         {
-            playerInputController.ShootedBullet -= OnShootedBullet;
-            playerInputController.StartedMoving -= OnStartMoving;
-            playerInputController.EndedMoving -= OnEndedMoving;
+            playerInputController.ShootLaserPressed -= OnShootLaserPressed;
+            playerInputController.ShootBulletPressed -= OnShootBulletPressed;
+            playerInputController.MovingForwardPressed -= OnStartMovingPressed;
+            playerInputController.MovingReleased -= OnMovingReleased;
         }
 
         public void Update()
@@ -41,7 +44,7 @@ namespace Game
             playerInputController.Update();
             movementController.Update();
             speedController.Update();
-            bulletWeaponController.Update();
+            BulletWeaponController.Update();
             laserWeaponController.Update();
 
             if (playerInputController.IsMovingForwardPressed)
@@ -56,26 +59,26 @@ namespace Game
 
             movementController.Turn(playerInputController.TurnDirection);
 
-            if (playerInputController.IsShootBulletPressed)
-                bulletWeaponController.Shoot();
-
-            if (playerInputController.IsShootLaserPressed)
-                laserWeaponController.Shoot();
-
             Ship.Speed = speedController.Speed;
         }
 
-        private void OnShootedBullet()
+        private void OnShootLaserPressed()
         {
+            laserWeaponController.Shoot();
+        }
+
+        private void OnShootBulletPressed()
+        {
+            BulletWeaponController.Shoot();
             Ship.BulletShootVFX.Play();
         }
 
-        private void OnEndedMoving()
+        private void OnMovingReleased()
         {
             Ship.EngineVFX.Stop();
         }
 
-        private void OnStartMoving()
+        private void OnStartMovingPressed()
         {
             Ship.EngineVFX.Play();
         }

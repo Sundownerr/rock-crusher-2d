@@ -32,6 +32,8 @@
         {
             shipController = shipSpawner.Spawn(parentData.BulletParent);
             screenBoundsController.Add(shipController.Ship.transform);
+            screenBoundsController.Add(shipController.BulletWeaponController);
+
             return shipController;
         }
 
