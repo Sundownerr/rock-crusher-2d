@@ -1,9 +1,11 @@
 ﻿using Game.PlayerShip;
+using Game.Weapons.Laser;
 
 namespace Game.UI.Interface
 {
     public interface IGameplayUIController : IUiController, IUpdate
     {
-        void SetShip(ShipData shipData);
+        void SetShipData(ShipData data);
+        void SetLaserData(LaserWeaponData data);
     }
 }

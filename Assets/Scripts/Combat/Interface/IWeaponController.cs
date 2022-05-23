@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Combat.Interface
 {
-    public interface IWeaponController : IUpdate
+    public interface IWeaponController
     {
         public event Action<Transform> Hit;
         void Shoot();

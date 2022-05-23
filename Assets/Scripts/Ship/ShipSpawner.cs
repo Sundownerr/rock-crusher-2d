@@ -27,8 +27,10 @@ namespace Game.PlayerShip
 
         public event Action<ShipController> Created;
 
-        public (ShipData model, ShipController controller) Spawn(Transform bulletParent,
-                                                                 ScreenBoundsController screenBoundsController)
+        public (ShipData model, ShipController controller, LaserWeaponData laserWeaponData)
+            Spawn(Transform bulletParent,
+                  ScreenBoundsController screenBoundsController,
+                  CoroutineRunner runner)
         {
             var ship = Object.Instantiate(model.Prefab, bulletParent).GetComponent<ShipData>();
 
@@ -39,7 +41,7 @@ namespace Game.PlayerShip
                 new BulletFactory(model.BulletWeaponData.BulletPrefab, ship.BulletShootPoint, bulletParent);
             var bulletWeaponController = new BulletWeaponController(model.BulletWeaponData, bulletFactory);
 
-            var laserWeaponController = new LaserWeaponController(ship.LaserShootPoint);
+            var laserWeaponController = new LaserWeaponController(model.LaserWeaponData, ship.LaserShootPoint, runner);
             var playerInputController = new PlayerInputController(model.PlayerInputData);
 
             shipController = new ShipController(
@@ -59,7 +61,7 @@ namespace Game.PlayerShip
 
             Created?.Invoke(shipController);
 
-            return (ship, shipController);
+            return (ship, shipController, model.LaserWeaponData);
         }
     }
 }

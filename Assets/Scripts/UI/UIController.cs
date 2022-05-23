@@ -14,7 +14,7 @@ namespace Game.UI
             this.sceneLoader = sceneLoader;
 
             MenuUIController = new MenuUIController();
-            GameplayUIController = new GameplayUIController(runner);
+            GameplayUIController = new GameplayUIController();
 
             sceneLoader.GameplayUISceneLoaded += OnGameplayUISceneLoaded;
             sceneLoader.MenuUISceneLoaded += OnMenuUISceneLoaded;

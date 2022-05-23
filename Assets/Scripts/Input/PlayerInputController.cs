@@ -34,17 +34,13 @@ namespace Game.Input
 
         public void Update()
         {
+            var moveDirection = model.move.action.ReadValue<Vector2>();
+
             TurnDirection = Vector2.zero;
+            IsMovingForwardPressed = moveDirection.y > 0;
 
-            var value = model.move.action.ReadValue<Vector2>();
-
-            if (value == Vector2.zero)
-                return;
-
-            IsMovingForwardPressed = value.y > 0;
-
-            if (value.x != 0)
-                TurnDirection = value;
+            if (moveDirection.x != 0)
+                TurnDirection = moveDirection;
         }
 
         private void OnShootLaser(InputAction.CallbackContext ctx)

@@ -46,6 +46,8 @@ namespace Game.Enemies.Asteroid
             var asteroid = Object.Instantiate(prefab, spawnPos, Quaternion.identity, parent);
 
             Created?.Invoke(asteroid);
+
+            coroutineRunner.StartCoroutine(Spawn());
         }
     }
 }

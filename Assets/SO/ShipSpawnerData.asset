@@ -17,3 +17,4 @@ MonoBehaviour:
   speedData: {fileID: 11400000, guid: 0f694a27fa8584e47ba9e2a06c5d99fb, type: 2}
   playerInputData: {fileID: 11400000, guid: a6adeafb70cbaae43ba7d68961301759, type: 2}
   bulletWeaponData: {fileID: 11400000, guid: 9ba780dfb9e51014d8cd2d87f75fe964, type: 2}
+  laserWeaponData: {fileID: 11400000, guid: 82902aef3ea610242b4f512897b04ea6, type: 2}

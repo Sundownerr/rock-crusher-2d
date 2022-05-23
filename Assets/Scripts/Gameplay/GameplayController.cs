@@ -3,6 +3,7 @@ using Game.Enemies.Asteroid;
 using Game.Enemies.UFO;
 using Game.Gameplay.Utility;
 using Game.PlayerShip;
+using Game.Weapons.Laser;
 using UnityEngine;
 
 namespace Game
@@ -11,6 +12,7 @@ namespace Game
     {
         private readonly AsteroidSpawner asteroidSpawner;
         private readonly ParentData parentData;
+        private readonly CoroutineRunner runner;
         private readonly ScreenBoundsController screenBoundsController;
         private readonly ShipSpawner shipSpawner;
         private readonly UfoSpawner ufoSpawner;
@@ -18,6 +20,7 @@ namespace Game
 
         public GameplayController(GameplayData model, CoroutineRunner runner, ParentData parentData) : base(model)
         {
+            this.runner = runner;
             this.parentData = parentData;
 
             screenBoundsController = new ScreenBoundsController(Camera.main);
@@ -35,12 +38,12 @@ namespace Game
             shipController.Update();
         }
 
-        public ShipData CreateShip()
+        public (ShipData shipData, LaserWeaponData laserWeaponData) CreateShip()
         {
-            var spawnResult = shipSpawner.Spawn(parentData.BulletParent, screenBoundsController);
+            var spawnResult = shipSpawner.Spawn(parentData.BulletParent, screenBoundsController, runner);
             shipController = spawnResult.controller;
 
-            return spawnResult.model;
+            return (spawnResult.model, spawnResult.laserWeaponData);
         }
 
         public void CreateGameplayObjects()

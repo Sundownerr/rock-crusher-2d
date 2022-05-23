@@ -1,15 +1,16 @@
 using Game.Base;
-using Game.Combat.Interface;
 using Game.Input.Interface;
 using Game.Movement.Interface;
+using Game.Weapons.Bullet.Interface;
+using Game.Weapons.Laser;
 using UnityEngine;
 
 namespace Game.PlayerShip
 {
     public class ShipController : Controller<ShipData>, IUpdate, IDestroyable
     {
-        private readonly IWeaponController bulletWeaponController;
-        private readonly IWeaponController laserWeaponController;
+        private readonly IBulletWeaponController bulletWeaponController;
+        private readonly ILaserWeaponController laserWeaponController;
         private readonly IShipMovementController movementController;
         private readonly IPlayerInputController playerInputController;
         private readonly Transform shipTransform;
@@ -18,8 +19,8 @@ namespace Game.PlayerShip
         public ShipController(ShipData model,
                               IShipMovementController movementController,
                               ISpeedController speedController,
-                              IWeaponController bulletWeaponController,
-                              IWeaponController laserWeaponController,
+                              IBulletWeaponController bulletWeaponController,
+                              ILaserWeaponController laserWeaponController,
                               IPlayerInputController playerInputController) : base(model)
         {
             this.movementController = movementController;
@@ -50,7 +51,6 @@ namespace Game.PlayerShip
             movementController.Update();
             speedController.Update();
             bulletWeaponController.Update();
-            laserWeaponController.Update();
 
             if (playerInputController.IsMovingForwardPressed)
             {
@@ -73,6 +73,9 @@ namespace Game.PlayerShip
         private void OnShootLaserPressed()
         {
             laserWeaponController.Shoot();
+
+            if (laserWeaponController.CanShoot)
+                model.Animator.Play(model.LaserAnimationKey);
         }
 
         private void OnShootBulletPressed()

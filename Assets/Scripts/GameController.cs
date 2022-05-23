@@ -45,8 +45,6 @@ namespace Game
             updatees.Remove(gameplayController);
             updatees.Remove(uiController.GameplayUIController);
             gameplayController.Destroy();
-
-            Debug.Log("OnGameplaySceneUnloaded");
         }
 
         private void OnGameplaySceneLoaded(Scene obj)
@@ -56,13 +54,13 @@ namespace Game
 
             gameplayController = new GameplayController(gameplayData, runner, parentData);
             gameplayController.CreateGameplayObjects();
-            var ship = gameplayController.CreateShip();
+            var spawnResult = gameplayController.CreateShip();
             updatees.Add(gameplayController);
 
-            uiController.GameplayUIController.SetShip(ship);
-            updatees.Add(uiController.GameplayUIController);
+            uiController.GameplayUIController.SetShipData(spawnResult.shipData);
+            uiController.GameplayUIController.SetLaserData(spawnResult.laserWeaponData);
 
-            Debug.Log("OnGameplaySceneLoaded");
+            updatees.Add(uiController.GameplayUIController);
         }
 
         private static void OnQuitButtonClicked()
@@ -85,8 +83,6 @@ namespace Game
             uiController.Destroy();
             sceneLoader.Destroy();
             gameplayController.Destroy();
-
-            Debug.Log("GameController Destroy");
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Globalization;
 using Game.PlayerShip;
 using Game.UI.Interface;
-using UnityEngine;
+using Game.Weapons.Laser;
 using UnityEngine.SceneManagement;
 
 namespace Game.UI
@@ -10,13 +10,9 @@ namespace Game.UI
     public class GameplayUIController : IGameplayUIController
     {
         private GameplayUI gameplayUI;
-        private MonoBehaviour runner;
-        private ShipData shipData;
+        private LaserWeaponData laserData;
 
-        public GameplayUIController(MonoBehaviour runner)
-        {
-            this.runner = runner;
-        }
+        private ShipData shipData;
 
         public void HandleSceneLoad(Scene scene)
         {
@@ -35,12 +31,26 @@ namespace Game.UI
         public void Update()
         {
             UpdateShipValues();
+            UpdateLaserValues();
         }
 
-        public void SetShip(ShipData shipData)
+        public void SetShipData(ShipData data)
         {
-            this.shipData = shipData;
+            shipData = data;
             UpdateShipValues();
+        }
+
+        public void SetLaserData(LaserWeaponData data)
+        {
+            laserData = data;
+            UpdateLaserValues();
+        }
+
+        private void UpdateLaserValues()
+        {
+            gameplayUI.LaserCharges.text = laserData.CurrentCharges.ToString(CultureInfo.InvariantCulture);
+            gameplayUI.LaserCooldown.text =
+                Math.Round(laserData.CurrentCooldown, 1).ToString(CultureInfo.InvariantCulture);
         }
 
         private void UpdateShipValues()

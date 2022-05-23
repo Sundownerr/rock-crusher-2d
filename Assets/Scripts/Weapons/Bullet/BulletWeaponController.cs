@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Game.Base;
-using Game.Combat.Interface;
+using Game.Weapons.Bullet.Interface;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Game.Weapons.Bullet
 {
-    public class BulletWeaponController : Controller<BulletWeaponData>, IWeaponController
+    public class BulletWeaponController : Controller<BulletWeaponData>, IBulletWeaponController
     {
         private readonly BulletFactory bulletFactory;
         private readonly List<Transform> bullets = new List<Transform>();
@@ -16,8 +16,6 @@ namespace Game.Weapons.Bullet
         {
             this.bulletFactory = bulletFactory;
         }
-
-        public event Action<Transform> Hit;
 
         public void Update()
         {
@@ -43,6 +41,8 @@ namespace Game.Weapons.Bullet
                 }
             }
         }
+
+        public event Action<Transform> Hit;
 
         public void Shoot()
         {
