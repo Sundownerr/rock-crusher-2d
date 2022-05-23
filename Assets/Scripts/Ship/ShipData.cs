@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game.PlayerShip
 {
-    public class Ship : MonoBehaviour
+    public class ShipData : MonoBehaviour
     {
         [SerializeField] private Transform bulletShootPoint;
         [SerializeField] private Transform laserShootPoint;
@@ -11,15 +11,13 @@ namespace Game.PlayerShip
 
         public Transform BulletShootPoint => bulletShootPoint;
         public Transform LaserShootPoint => laserShootPoint;
-        public float X => transform.position.x;
-        public float Y => transform.position.y;
-        public float Angle => transform.rotation.eulerAngles.z;
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Angle { get; set; }
         public float Speed { get; set; }
         public int LaserCharges { get; set; }
         public float LaserCooldown { get; set; }
-
         public ParticleSystem EngineVFX => engineVFX;
-
         public ParticleSystem BulletShootVFX => bulletShootVFX;
     }
 }

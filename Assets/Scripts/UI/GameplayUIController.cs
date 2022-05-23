@@ -11,7 +11,7 @@ namespace Game.UI
     {
         private GameplayUI gameplayUI;
         private MonoBehaviour runner;
-        private Ship ship;
+        private ShipData shipData;
 
         public GameplayUIController(MonoBehaviour runner)
         {
@@ -37,18 +37,18 @@ namespace Game.UI
             UpdateShipValues();
         }
 
-        public void SetShip(Ship ship)
+        public void SetShip(ShipData shipData)
         {
-            this.ship = ship;
+            this.shipData = shipData;
             UpdateShipValues();
         }
 
         private void UpdateShipValues()
         {
-            gameplayUI.ShipCoordinatesX.text = Math.Round(ship.X, 1).ToString(CultureInfo.InvariantCulture);
-            gameplayUI.ShipCoordinatesY.text = Math.Round(ship.Y, 1).ToString(CultureInfo.InvariantCulture);
-            gameplayUI.ShipTurnAngle.text = Math.Round(ship.Angle, 0).ToString(CultureInfo.InvariantCulture);
-            gameplayUI.ShipSpeed.text = Math.Round(ship.Speed, 1).ToString(CultureInfo.InvariantCulture);
+            gameplayUI.ShipCoordinatesX.text = Math.Round(shipData.X, 1).ToString(CultureInfo.InvariantCulture);
+            gameplayUI.ShipCoordinatesY.text = Math.Round(shipData.Y, 1).ToString(CultureInfo.InvariantCulture);
+            gameplayUI.ShipTurnAngle.text = Math.Round(shipData.Angle, 0).ToString(CultureInfo.InvariantCulture);
+            gameplayUI.ShipSpeed.text = Math.Round(shipData.Speed, 1).ToString(CultureInfo.InvariantCulture);
         }
     }
 }

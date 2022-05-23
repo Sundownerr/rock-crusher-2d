@@ -1,25 +1,27 @@
+using Game.Base;
 using Game.Combat.Interface;
 using Game.Input.Interface;
 using Game.Movement.Interface;
+using UnityEngine;
 
 namespace Game.PlayerShip
 {
-    public class ShipController : IUpdate, IDestroyable
+    public class ShipController : Controller<ShipData>, IUpdate, IDestroyable
     {
         private readonly IWeaponController bulletWeaponController;
         private readonly IWeaponController laserWeaponController;
         private readonly IShipMovementController movementController;
         private readonly IPlayerInputController playerInputController;
+        private readonly Transform shipTransform;
         private readonly ISpeedController speedController;
 
-        public ShipController(Ship ship,
+        public ShipController(ShipData model,
                               IShipMovementController movementController,
                               ISpeedController speedController,
                               IWeaponController bulletWeaponController,
                               IWeaponController laserWeaponController,
-                              IPlayerInputController playerInputController)
+                              IPlayerInputController playerInputController) : base(model)
         {
-            Ship = ship;
             this.movementController = movementController;
             this.speedController = speedController;
             this.bulletWeaponController = bulletWeaponController;
@@ -30,9 +32,9 @@ namespace Game.PlayerShip
             playerInputController.MovingReleased += OnMovingReleased;
             playerInputController.ShootBulletPressed += OnShootBulletPressed;
             playerInputController.ShootLaserPressed += OnShootLaserPressed;
-        }
 
-        public Ship Ship { get; }
+            shipTransform = model.transform;
+        }
 
         public void Destroy()
         {
@@ -62,7 +64,10 @@ namespace Game.PlayerShip
 
             movementController.Turn(playerInputController.TurnDirection);
 
-            Ship.Speed = speedController.Speed;
+            model.X = shipTransform.position.x;
+            model.Y = shipTransform.position.y;
+            model.Angle = shipTransform.rotation.eulerAngles.z;
+            model.Speed = speedController.Speed;
         }
 
         private void OnShootLaserPressed()
@@ -73,17 +78,17 @@ namespace Game.PlayerShip
         private void OnShootBulletPressed()
         {
             bulletWeaponController.Shoot();
-            Ship.BulletShootVFX.Play();
+            model.BulletShootVFX.Play();
         }
 
         private void OnMovingReleased()
         {
-            Ship.EngineVFX.Stop();
+            model.EngineVFX.Stop();
         }
 
         private void OnStartMovingPressed()
         {
-            Ship.EngineVFX.Play();
+            model.EngineVFX.Play();
         }
     }
 }

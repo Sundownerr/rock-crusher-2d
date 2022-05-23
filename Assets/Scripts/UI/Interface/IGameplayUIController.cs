@@ -4,6 +4,6 @@ namespace Game.UI.Interface
 {
     public interface IGameplayUIController : IUiController, IUpdate
     {
-        void SetShip(Ship ship);
+        void SetShip(ShipData shipData);
     }
 }

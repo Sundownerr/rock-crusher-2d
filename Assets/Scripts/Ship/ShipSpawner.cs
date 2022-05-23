@@ -19,8 +19,6 @@ namespace Game.PlayerShip
         public ShipSpawner(ShipSpawnerData model) : base(model)
         { }
 
-        public Ship Ship { get; private set; }
-
         public void Destroy()
         {
             weaponHitController.Destroy();
@@ -29,22 +27,23 @@ namespace Game.PlayerShip
 
         public event Action<ShipController> Created;
 
-        public ShipController Spawn(Transform bulletParent, ScreenBoundsController screenBoundsController)
+        public (ShipData model, ShipController controller) Spawn(Transform bulletParent,
+                                                                 ScreenBoundsController screenBoundsController)
         {
-            Ship = Object.Instantiate(model.Prefab).GetComponent<Ship>();
+            var ship = Object.Instantiate(model.Prefab, bulletParent).GetComponent<ShipData>();
 
             var speedController = new SpeedController(model.SpeedData);
-            var movementController = new ShipMovementController(model.ShipMovementData, Ship.transform);
+            var movementController = new ShipMovementController(model.ShipMovementData, ship.transform);
 
             var bulletFactory =
-                new BulletFactory(model.BulletWeaponData.BulletPrefab, Ship.BulletShootPoint, bulletParent);
+                new BulletFactory(model.BulletWeaponData.BulletPrefab, ship.BulletShootPoint, bulletParent);
             var bulletWeaponController = new BulletWeaponController(model.BulletWeaponData, bulletFactory);
 
-            var laserWeaponController = new LaserWeaponController(Ship.LaserShootPoint);
+            var laserWeaponController = new LaserWeaponController(ship.LaserShootPoint);
             var playerInputController = new PlayerInputController(model.PlayerInputData);
 
             shipController = new ShipController(
-                Ship,
+                ship,
                 movementController,
                 speedController,
                 bulletWeaponController,
@@ -55,12 +54,12 @@ namespace Game.PlayerShip
             weaponHitController.Add(bulletWeaponController);
             weaponHitController.Add(laserWeaponController);
 
-            screenBoundsController.Add(Ship.transform);
+            screenBoundsController.Add(ship.transform);
             screenBoundsController.Add(bulletFactory);
 
             Created?.Invoke(shipController);
 
-            return shipController;
+            return (ship, shipController);
         }
     }
 }

@@ -35,11 +35,12 @@ namespace Game
             shipController.Update();
         }
 
-        public Ship CreateShip()
+        public ShipData CreateShip()
         {
-            shipController = shipSpawner.Spawn(parentData.BulletParent, screenBoundsController);
+            var spawnResult = shipSpawner.Spawn(parentData.BulletParent, screenBoundsController);
+            shipController = spawnResult.controller;
 
-            return shipController.Ship;
+            return spawnResult.model;
         }
 
         public void CreateGameplayObjects()
