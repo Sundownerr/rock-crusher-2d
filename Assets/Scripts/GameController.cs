@@ -57,7 +57,6 @@ namespace Game
             gameplayController = new GameplayController(gameplayData, runner, parentData);
             gameplayController.CreateGameplayObjects();
             var ship = gameplayController.CreateShip();
-
             updatees.Add(gameplayController);
 
             uiController.GameplayUIController.SetShip(ship);
