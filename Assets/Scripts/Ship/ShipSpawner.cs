@@ -25,7 +25,7 @@ namespace Game
 
         public override event Action<ShipController> Created;
 
-        public ShipController Spawn(Transform bulletParent)
+        public ShipController Spawn(Transform bulletParent, ScreenBoundsController screenBoundsController)
         {
             Ship = Object.Instantiate(shipSpawnerData.Prefab).GetComponent<Ship>();
 
@@ -48,6 +48,9 @@ namespace Game
             weaponHitController = new WeaponHitController();
             weaponHitController.Add(bulletWeaponController);
             weaponHitController.Add(laserWeaponController);
+
+            screenBoundsController.Add(Ship.transform);
+            screenBoundsController.Add(bulletWeaponController);
 
             Created?.Invoke(shipController);
 

@@ -2,6 +2,7 @@ namespace Game
 {
     public class ShipController : IUpdate, IDestroyable
     {
+        private readonly IBulletWeaponController bulletWeaponController;
         private readonly IWeaponController laserWeaponController;
         private readonly IShipMovementController movementController;
         private readonly IPlayerInputController playerInputController;
@@ -17,7 +18,7 @@ namespace Game
             Ship = ship;
             this.movementController = movementController;
             this.speedController = speedController;
-            BulletWeaponController = bulletWeaponController;
+            this.bulletWeaponController = bulletWeaponController;
             this.laserWeaponController = laserWeaponController;
             this.playerInputController = playerInputController;
 
@@ -28,8 +29,6 @@ namespace Game
         }
 
         public Ship Ship { get; }
-
-        public IBulletWeaponController BulletWeaponController { get; }
 
         public void Destroy()
         {
@@ -44,7 +43,7 @@ namespace Game
             playerInputController.Update();
             movementController.Update();
             speedController.Update();
-            BulletWeaponController.Update();
+            bulletWeaponController.Update();
             laserWeaponController.Update();
 
             if (playerInputController.IsMovingForwardPressed)
@@ -69,7 +68,7 @@ namespace Game
 
         private void OnShootBulletPressed()
         {
-            BulletWeaponController.Shoot();
+            bulletWeaponController.Shoot();
             Ship.BulletShootVFX.Play();
         }
 

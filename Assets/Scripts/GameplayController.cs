@@ -28,13 +28,11 @@
             shipController.Update();
         }
 
-        public ShipController CreateShip()
+        public Ship CreateShip()
         {
-            shipController = shipSpawner.Spawn(parentData.BulletParent);
-            screenBoundsController.Add(shipController.Ship.transform);
-            screenBoundsController.Add(shipController.BulletWeaponController);
+            shipController = shipSpawner.Spawn(parentData.BulletParent, screenBoundsController);
 
-            return shipController;
+            return shipController.Ship;
         }
 
         public void CreateGameplayObjects()

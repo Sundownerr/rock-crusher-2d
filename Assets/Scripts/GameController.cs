@@ -52,11 +52,11 @@ namespace Game
 
             gameplayController = new GameplayController(gameplayData, runner, parentData);
             gameplayController.CreateGameplayObjects();
-            var shipController = gameplayController.CreateShip();
+            var ship = gameplayController.CreateShip();
 
             updatees.Add(gameplayController);
 
-            uiController.GameplayUIController.SetShip(shipController.Ship);
+            uiController.GameplayUIController.SetShip(ship);
             updatees.Add(uiController.GameplayUIController);
 
             Debug.Log("OnGameplaySceneLoaded");
