@@ -1,17 +1,17 @@
+using Game.Base;
+using Game.Movement.Interface;
 using UnityEngine;
 
-namespace Game
+namespace Game.Movement
 {
-    public class SpeedController : ISpeedController
+    public class SpeedController : Controller<SpeedData>, ISpeedController
     {
-        private readonly SpeedData model;
-
         private float speedDelta;
 
-        public SpeedController(SpeedData model)
-        {
-            this.model = model;
-        }
+        public SpeedController(SpeedData model) : base(model)
+        { }
+
+        public float Speed { get; private set; }
 
         public void Update()
         {
@@ -23,7 +23,5 @@ namespace Game
         {
             speedDelta = model.acceleration;
         }
-
-        public float Speed { get; private set; }
     }
 }

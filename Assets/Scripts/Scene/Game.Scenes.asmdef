@@ -1,3 +1,6 @@
 {
-	"name": "Game.Scenes"
+  "name": "Game.Scenes",
+  "references": [
+    "GUID:a45edf102477da4488035e9af2d87f07"
+  ]
 }

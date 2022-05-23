@@ -2,13 +2,17 @@
   "name": "Game.Ship",
   "rootNamespace": "",
   "references": [
-    "GUID:b13dc4bde7cb6a84dbc3938e3be80240",
     "GUID:1740e91fd8211fb4e9c9a8f6f7b0c87e",
     "GUID:7ee2f8d407177204b9071ac0a92ae9ce",
-    "GUID:bcce06d70df1a4b43bb75cf864bb307d",
-    "GUID:dedec764b59bddc45bbf3bb91a78ede4",
     "GUID:14b0cd64f0ccc8b4b8f5d71abb24e093",
-    "GUID:69eb40671430923409efcf3ebaabafc2"
+    "GUID:1f46120b987e187479c8315949646ad0",
+    "GUID:cdbc8cda60812074e97ce878faccea6d",
+    "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
+    "GUID:ac9cd879919b19044abba0377b037b56",
+    "GUID:c48ce2d2d8e1d47478b28190fd484d53",
+    "GUID:73e329407a2187849b5e6b1f7da63076",
+    "GUID:b55e72b8f19e0234ab42278d25c3024f",
+    "GUID:908a1e8cd3e30c74f9117025e95f4453"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

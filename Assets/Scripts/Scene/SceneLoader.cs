@@ -1,7 +1,8 @@
 ﻿using System;
+using Game.Scenes.Interface;
 using UnityEngine.SceneManagement;
 
-namespace Game
+namespace Game.Scenes
 {
     public class SceneLoader : ISceneLoader
     {

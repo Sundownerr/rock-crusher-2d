@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Globalization;
+using Game.PlayerShip;
+using Game.UI.Interface;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Game
+namespace Game.UI
 {
     public class GameplayUIController : IGameplayUIController
     {
@@ -30,14 +32,14 @@ namespace Game
             }
         }
 
-        public void SetShip(Ship ship)
+        public void Update()
         {
-            this.ship = ship;
             UpdateShipValues();
         }
 
-        public void Update()
+        public void SetShip(Ship ship)
         {
+            this.ship = ship;
             UpdateShipValues();
         }
 

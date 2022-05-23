@@ -1,11 +1,13 @@
 ﻿using System;
+using Game.Base;
 using UnityEngine;
 
-namespace Game
+namespace Game.Enemies.UFO
 {
-    public class UfoSpawner : Spawner<UfoSpawnerData, GameObject>, IDestroyable
+    public class UfoSpawner : Controller<UfoSpawnerData>, IFactory<GameObject>, IDestroyable
     {
         private readonly MonoBehaviour coroutineRunner;
+
         private readonly Transform parent;
 
         public UfoSpawner(UfoSpawnerData model, MonoBehaviour coroutineRunner, Transform parent) : base(model)
@@ -19,11 +21,11 @@ namespace Game
             // coroutineRunner.StopCoroutine(Spawn());
         }
 
+        public event Action<GameObject> Created;
+
         public void StartSpawn()
         {
             // throw new NotImplementedException();
         }
-
-        public override event Action<GameObject> Created;
     }
 }

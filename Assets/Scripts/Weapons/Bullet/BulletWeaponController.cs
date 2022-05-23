@@ -1,36 +1,29 @@
 using System;
 using System.Collections.Generic;
+using Game.Base;
+using Game.Combat.Interface;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Game
+namespace Game.Weapons.Bullet
 {
-    public class BulletWeaponController : ShipWeapon, IBulletWeaponController
+    public class BulletWeaponController : Controller<BulletWeaponData>, IWeaponController
     {
         private readonly BulletFactory bulletFactory;
-        private readonly Transform bulletParent;
         private readonly List<Transform> bullets = new List<Transform>();
-        private readonly BulletWeaponData model;
 
-        public BulletWeaponController(BulletWeaponData model, Transform shootPoint, Transform bulletParent) :
-            base(shootPoint)
+        public BulletWeaponController(BulletWeaponData model, BulletFactory bulletFactory) : base(model)
         {
-            this.model = model;
-
-            this.bulletParent = bulletParent;
-
-            bulletFactory = new BulletFactory(model.bulletPrefab);
+            this.bulletFactory = bulletFactory;
         }
-
-        public event Action<Transform> Created;
 
         public event Action<Transform> Hit;
 
         public void Update()
         {
-            for (var index = 0; index < bullets.Count; index++)
+            for (var i = 0; i < bullets.Count; i++)
             {
-                var bullet = bullets[index];
+                var bullet = bullets[i];
 
                 if (bullet == null)
                 {
@@ -38,8 +31,8 @@ namespace Game
                     continue;
                 }
 
-                bullet.position += bullet.up * (Time.deltaTime * model.bulletSpeed);
-                var hit = Physics2D.Raycast(bullet.position, bullet.forward, 1, model.bulletTargetLayer);
+                bullet.position += bullet.up * (Time.deltaTime * model.BulletSpeed);
+                var hit = Physics2D.Raycast(bullet.position, bullet.forward, 1, model.BulletTargetLayer);
 
                 if (hit.collider != null)
                 {
@@ -53,14 +46,10 @@ namespace Game
 
         public void Shoot()
         {
-            var bullet = bulletFactory.CreateBullet(shootPoint.position, shootPoint.rotation, bulletParent)
-                .transform;
-
+            var bullet = bulletFactory.Create();
             bullets.Add(bullet);
 
-            Created?.Invoke(bullet);
-
-            Object.Destroy(bullet.gameObject, 3);
+            Object.Destroy(bullet.gameObject, model.DestroyDelay);
         }
     }
 }

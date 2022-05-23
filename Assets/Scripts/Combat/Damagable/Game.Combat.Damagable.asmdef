@@ -1,0 +1,16 @@
+{
+  "name": "Game.Combat.Damagable",
+  "rootNamespace": "",
+  "references": [
+    "GUID:2ef86ce15cad10444a1efecc763cf940"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Game.Scenes.Interface;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Game
+namespace Game.Scenes
 {
     public class SceneController : ISceneController
     {

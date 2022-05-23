@@ -1,17 +1,17 @@
+using Game.Base;
+using Game.Movement.Interface;
 using UnityEngine;
 
-namespace Game
+namespace Game.Movement
 {
-    public class ShipMovementController : IShipMovementController
+    public class ShipMovementController : Controller<ShipMovementData>, IShipMovementController
     {
-        private readonly ShipMovementData model;
         private readonly Transform targetTransform;
         private Vector3 inertia;
         private bool isMoving;
 
-        public ShipMovementController(ShipMovementData model, Transform targetTransform)
+        public ShipMovementController(ShipMovementData model, Transform targetTransform) : base(model)
         {
-            this.model = model;
             this.targetTransform = targetTransform;
         }
 

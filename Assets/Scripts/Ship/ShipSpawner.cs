@@ -1,19 +1,23 @@
 using System;
+using Game.Base;
+using Game.Combat;
+using Game.Gameplay.Utility;
+using Game.Input;
+using Game.Movement;
+using Game.Weapons.Bullet;
+using Game.Weapons.Laser;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Game
+namespace Game.PlayerShip
 {
-    public class ShipSpawner : Spawner<ShipSpawnerData, ShipController>, IDestroyable
+    public class ShipSpawner : Controller<ShipSpawnerData>, IDestroyable, IFactory<ShipController>
     {
-        private readonly ShipSpawnerData shipSpawnerData;
         private ShipController shipController;
         private WeaponHitController weaponHitController;
 
         public ShipSpawner(ShipSpawnerData model) : base(model)
-        {
-            shipSpawnerData = model;
-        }
+        { }
 
         public Ship Ship { get; private set; }
 
@@ -23,16 +27,18 @@ namespace Game
             shipController.Destroy();
         }
 
-        public override event Action<ShipController> Created;
+        public event Action<ShipController> Created;
 
         public ShipController Spawn(Transform bulletParent, ScreenBoundsController screenBoundsController)
         {
-            Ship = Object.Instantiate(shipSpawnerData.Prefab).GetComponent<Ship>();
+            Ship = Object.Instantiate(model.Prefab).GetComponent<Ship>();
 
             var speedController = new SpeedController(model.SpeedData);
             var movementController = new ShipMovementController(model.ShipMovementData, Ship.transform);
-            var bulletWeaponController = new BulletWeaponController(model.BulletWeaponData, Ship.BulletShootPoint,
-                bulletParent);
+
+            var bulletFactory =
+                new BulletFactory(model.BulletWeaponData.BulletPrefab, Ship.BulletShootPoint, bulletParent);
+            var bulletWeaponController = new BulletWeaponController(model.BulletWeaponData, bulletFactory);
 
             var laserWeaponController = new LaserWeaponController(Ship.LaserShootPoint);
             var playerInputController = new PlayerInputController(model.PlayerInputData);
@@ -50,7 +56,7 @@ namespace Game
             weaponHitController.Add(laserWeaponController);
 
             screenBoundsController.Add(Ship.transform);
-            screenBoundsController.Add(bulletWeaponController);
+            screenBoundsController.Add(bulletFactory);
 
             Created?.Invoke(shipController);
 

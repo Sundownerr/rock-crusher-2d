@@ -1,29 +1,27 @@
 using System;
+using Game.Base;
+using Game.Input.Interface;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Game
+namespace Game.Input
 {
-    public class PlayerInputController : IPlayerInputController, IDestroyable
+    public class PlayerInputController : Controller<PlayerInputData>, IPlayerInputController, IDestroyable
     {
-        private readonly PlayerInputData playerInputData;
-
-        public PlayerInputController(PlayerInputData playerInputData)
+        public PlayerInputController(PlayerInputData model) : base(model)
         {
-            this.playerInputData = playerInputData;
-
-            playerInputData.move.action.started += OnStartMove;
-            playerInputData.move.action.canceled += OnEndMove;
-            playerInputData.shootBullet.action.performed += OnShootBullet;
-            playerInputData.shootLaser.action.performed += OnShootLaser;
+            model.move.action.started += OnStartMove;
+            model.move.action.canceled += OnEndMove;
+            model.shootBullet.action.performed += OnShootBullet;
+            model.shootLaser.action.performed += OnShootLaser;
         }
 
         public void Destroy()
         {
-            playerInputData.move.action.started -= OnStartMove;
-            playerInputData.move.action.canceled -= OnEndMove;
-            playerInputData.shootBullet.action.performed -= OnShootBullet;
-            playerInputData.shootLaser.action.performed -= OnShootLaser;
+            model.move.action.started -= OnStartMove;
+            model.move.action.canceled -= OnEndMove;
+            model.shootBullet.action.performed -= OnShootBullet;
+            model.shootLaser.action.performed -= OnShootLaser;
         }
 
         public Vector2 TurnDirection { get; private set; }
@@ -38,7 +36,7 @@ namespace Game
         {
             TurnDirection = Vector2.zero;
 
-            var value = playerInputData.move.action.ReadValue<Vector2>();
+            var value = model.move.action.ReadValue<Vector2>();
 
             if (value == Vector2.zero)
                 return;

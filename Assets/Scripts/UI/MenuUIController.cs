@@ -1,8 +1,9 @@
 using System;
+using Game.UI.Interface;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
-namespace Game
+namespace Game.UI
 {
     public class MenuUIController : IMenuUIController
     {

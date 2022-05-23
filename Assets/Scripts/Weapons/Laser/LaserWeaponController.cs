@@ -1,14 +1,13 @@
 using System;
+using Game.Combat.Interface;
 using UnityEngine;
 
-namespace Game
+namespace Game.Weapons.Laser
 {
     public class LaserWeaponController : ShipWeapon, IWeaponController
     {
         public LaserWeaponController(Transform shootPoint) : base(shootPoint)
-        {
-        }
-
+        { }
 
         public void Update()
         {

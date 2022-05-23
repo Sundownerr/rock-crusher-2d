@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game
+namespace Game.Movement
 {
     [CreateAssetMenu(fileName = "ShipMovementData", menuName = "Data/Ship Movement")]
     public class ShipMovementData : ScriptableObject

@@ -1,8 +1,19 @@
 {
-  "name": "Game.Asteroid",
-  "references": [
-    "GUID:feb206faf4d33b743b08243f664082f2",
-    "GUID:69eb40671430923409efcf3ebaabafc2",
-    "GUID:b13dc4bde7cb6a84dbc3938e3be80240"
-  ]
+    "name": "Game.Asteroid",
+    "rootNamespace": "",
+    "references": [
+        "GUID:feb206faf4d33b743b08243f664082f2",
+        "GUID:1f46120b987e187479c8315949646ad0",
+        "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
+        "GUID:67fb50947bb560440aca076805bb435f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

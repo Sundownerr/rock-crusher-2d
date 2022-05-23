@@ -1,0 +1,7 @@
+{
+  "name": "Game.Weapons.Bullet.Interface",
+  "references": [
+    "GUID:c48ce2d2d8e1d47478b28190fd484d53",
+    "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c"
+  ]
+}

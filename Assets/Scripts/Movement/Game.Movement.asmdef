@@ -1,16 +1,19 @@
 {
-    "name": "Game.Movement",
-    "rootNamespace": "",
-    "references": [
-        "GUID:b13dc4bde7cb6a84dbc3938e3be80240"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "Game.Movement",
+  "rootNamespace": "",
+  "references": [
+    "GUID:b13dc4bde7cb6a84dbc3938e3be80240",
+    "GUID:1f46120b987e187479c8315949646ad0",
+    "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
+    "GUID:ac9cd879919b19044abba0377b037b56"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

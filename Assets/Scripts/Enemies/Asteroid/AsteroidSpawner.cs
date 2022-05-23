@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
+using Game.Base;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace Game
+namespace Game.Enemies.Asteroid
 {
-    public class AsteroidSpawner : Spawner<AsteroidSpawnerData, GameObject>, IDestroyable
+    public class AsteroidSpawner : Controller<AsteroidSpawnerData>, IFactory<GameObject>, IDestroyable
     {
         private readonly MonoBehaviour coroutineRunner;
         private readonly Transform parent;
@@ -24,6 +25,8 @@ namespace Game
         {
             coroutineRunner.StopCoroutine(Spawn());
         }
+
+        public event Action<GameObject> Created;
 
         public void StartSpawn()
         {
@@ -44,7 +47,5 @@ namespace Game
 
             Created?.Invoke(asteroid);
         }
-
-        public override event Action<GameObject> Created;
     }
 }

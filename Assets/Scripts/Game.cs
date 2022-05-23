@@ -1,3 +1,4 @@
+using Game.Scenes;
 using UnityEngine;
 
 namespace Game

@@ -1,8 +1,12 @@
-namespace Game
+using Game.Combat.Interface;
+using Game.Input.Interface;
+using Game.Movement.Interface;
+
+namespace Game.PlayerShip
 {
     public class ShipController : IUpdate, IDestroyable
     {
-        private readonly IBulletWeaponController bulletWeaponController;
+        private readonly IWeaponController bulletWeaponController;
         private readonly IWeaponController laserWeaponController;
         private readonly IShipMovementController movementController;
         private readonly IPlayerInputController playerInputController;
@@ -11,7 +15,7 @@ namespace Game
         public ShipController(Ship ship,
                               IShipMovementController movementController,
                               ISpeedController speedController,
-                              IBulletWeaponController bulletWeaponController,
+                              IWeaponController bulletWeaponController,
                               IWeaponController laserWeaponController,
                               IPlayerInputController playerInputController)
         {

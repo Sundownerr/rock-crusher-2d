@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using Game.Scenes.Interface;
+using Game.UI.Interface;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Game
+namespace Game.UI
 {
     public class UIController
     {
