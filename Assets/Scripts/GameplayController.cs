@@ -13,10 +13,10 @@
         {
             this.parentData = parentData;
 
-            shipSpawner = new ShipSpawner(model.shipSpawnerData);
             screenBoundsController = new ScreenBoundsController();
+            shipSpawner = new ShipSpawner(model.shipSpawnerData);
             asteroidSpawner = new AsteroidSpawner(model.asteroidSpawnerData, runner, parentData.AsteroidParent);
-            ufoSpawner = new UfoSpawner(model.ufoSpawnerData, runner, parentData.AsteroidParent);
+            ufoSpawner = new UfoSpawner(model.ufoSpawnerData, runner, parentData.UfoParent);
 
             screenBoundsController.Add(ufoSpawner);
             screenBoundsController.Add(asteroidSpawner);
