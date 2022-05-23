@@ -1,8 +1,9 @@
 using System;
+using UnityEngine;
 
 namespace Game
 {
-    public class Damagable : IDamagable
+    public class Damagable : MonoBehaviour, IDamagable
     {
         public event Action Damaged;
 
