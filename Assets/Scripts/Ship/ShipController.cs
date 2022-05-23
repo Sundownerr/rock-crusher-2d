@@ -1,9 +1,9 @@
 using Game.Base;
 using Game.Input.Interface;
 using Game.Movement.Interface;
-using Game.PlayerShip.Interface;
+using Game.Ship.Weapons.Interface;
 
-namespace Game.PlayerShip
+namespace Game.Ship
 {
     public class ShipController : Controller<ShipData>, IUpdate, IDestroyable
     {

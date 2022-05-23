@@ -5,7 +5,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace Game.Enemies.Asteroid
+namespace Game.Enemies.Asteroid.Spawner
 {
     public class AsteroidSpawner : Controller<AsteroidSpawnerData>, IFactory<GameObject>, IDestroyable
     {

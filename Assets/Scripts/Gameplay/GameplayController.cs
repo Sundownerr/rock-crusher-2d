@@ -1,8 +1,9 @@
 ﻿using Game.Base;
-using Game.Enemies.Asteroid;
-using Game.Enemies.UFO;
+using Game.Enemies.Asteroid.Spawner;
+using Game.Enemies.UFO.Spawner;
 using Game.Gameplay.Utility;
-using Game.PlayerShip;
+using Game.Ship;
+using Game.Ship.Spawner;
 using UnityEngine;
 
 namespace Game

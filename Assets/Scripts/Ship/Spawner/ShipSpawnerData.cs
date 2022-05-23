@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.PlayerShip
+namespace Game.Ship.Spawner
 {
     [CreateAssetMenu(fileName = "ShipSpawnerData", menuName = "Data/Ship/Spawner")]
     public class ShipSpawnerData : ScriptableObject

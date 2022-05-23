@@ -1,11 +1,11 @@
 {
-    "name": "Game.Movement",
+    "name": "Game.Ship.Weapons.Laser",
     "rootNamespace": "",
     "references": [
         "GUID:1f46120b987e187479c8315949646ad0",
-        "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
-        "GUID:ac9cd879919b19044abba0377b037b56",
-        "GUID:cdbc8cda60812074e97ce878faccea6d"
+        "GUID:ad822de9d788a88478d6cdebdf9bf030",
+        "GUID:b55e72b8f19e0234ab42278d25c3024f",
+        "GUID:1acd76c89f87f0946ba927d0e4776845"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

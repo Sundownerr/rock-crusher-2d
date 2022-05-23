@@ -7,7 +7,7 @@ using Game.Weapons.Bullet;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Game.PlayerShip
+namespace Game.Ship.Spawner
 {
     public class ShipSpawner : Controller<ShipSpawnerData>, IFactory<ShipController>
     {

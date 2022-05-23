@@ -2,7 +2,7 @@
 using Game.Base;
 using UnityEngine;
 
-namespace Game.Enemies.UFO
+namespace Game.Enemies.UFO.Spawner
 {
     public class UfoSpawner : Controller<UfoSpawnerData>, IFactory<GameObject>, IDestroyable
     {

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Game.Combat.Interface
+namespace Game.Ship.Weapons.Interface
 {
     public interface IWeaponController
     {

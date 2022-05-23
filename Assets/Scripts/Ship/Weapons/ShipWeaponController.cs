@@ -1,13 +1,13 @@
 ﻿using Game.Base;
-using Game.Combat;
 using Game.Gameplay.Utility;
-using Game.PlayerShip.Interface;
+using Game.Ship.Weapons;
+using Game.Ship.Weapons.Interface;
 using Game.Weapons.Bullet;
 using Game.Weapons.Bullet.Interface;
 using Game.Weapons.Laser;
 using Game.Weapons.Laser.Interface;
 
-namespace Game.PlayerShip
+namespace Game.Ship
 {
     public class ShipWeaponController : Controller<ShipWeaponsData>, IShipWeaponController
     {

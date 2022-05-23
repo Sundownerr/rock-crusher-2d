@@ -1,4 +1,4 @@
-﻿using Game.Combat.Interface;
+﻿using Game.Ship.Weapons.Interface;
 
 namespace Game.Weapons.Laser.Interface
 {

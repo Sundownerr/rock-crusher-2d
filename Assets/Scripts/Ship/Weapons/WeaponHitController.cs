@@ -1,8 +1,9 @@
 using System.Collections.Generic;
-using Game.Combat.Interface;
+using Game.Combat;
+using Game.Ship.Weapons.Interface;
 using UnityEngine;
 
-namespace Game.Combat
+namespace Game.Ship.Weapons
 {
     public class WeaponHitController
     {
