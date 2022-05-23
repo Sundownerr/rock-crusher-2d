@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c050c59d6eb015a41a06daa912126d31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: {fileID: 11400000, guid: 205e53a29af377245b2182b918678a77, type: 2}
+  gameplayData: {fileID: 11400000, guid: 205e53a29af377245b2182b918678a77, type: 2}
   sceneData:
     Gameplay: Gameplay
     MenuUI: Menu

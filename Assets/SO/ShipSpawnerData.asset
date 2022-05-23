@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShipSpawnerData
   m_EditorClassIdentifier: 
   prefab: {fileID: 751969028201604230, guid: ccf357fb9ccf3734a96c12e27980e47a, type: 3}
-  shipMovement: {fileID: 11400000, guid: eec0cddfaa96a954d9921421eb3b6531, type: 2}
+  shipMovementData: {fileID: 11400000, guid: eec0cddfaa96a954d9921421eb3b6531, type: 2}
   speedData: {fileID: 11400000, guid: 0f694a27fa8584e47ba9e2a06c5d99fb, type: 2}
   playerInputData: {fileID: 11400000, guid: a6adeafb70cbaae43ba7d68961301759, type: 2}
-  bulletWeapon: {fileID: 11400000, guid: 9ba780dfb9e51014d8cd2d87f75fe964, type: 2}
+  bulletWeaponData: {fileID: 11400000, guid: 9ba780dfb9e51014d8cd2d87f75fe964, type: 2}
