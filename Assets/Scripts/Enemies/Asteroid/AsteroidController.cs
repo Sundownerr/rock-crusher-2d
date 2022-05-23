@@ -1,18 +1,17 @@
-﻿using Game.Base;
-using UnityEngine;
-
-namespace Game.Enemies.Asteroid
+﻿namespace Game.Enemies.Asteroid
 {
-    public class AsteroidController : Controller<AsteroidData>, IUpdate
+    public class AsteroidController : IUpdate
     {
-        private readonly Transform target;
+        private readonly AsteroidMovementController movementController;
 
-        public AsteroidController(AsteroidData model, Transform target) : base(model)
+        public AsteroidController(AsteroidMovementController movementController)
         {
-            this.target = target;
+            this.movementController = movementController;
         }
 
         public void Update()
-        { }
+        {
+            movementController.Update();
+        }
     }
 }

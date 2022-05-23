@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.Weapons.Laser
+namespace Game.Ship.Weapons.Laser
 {
     [CreateAssetMenu(fileName = "LaserWeaponData", menuName = "Data/Weapon/Laser")]
     public class LaserWeaponData : ScriptableObject

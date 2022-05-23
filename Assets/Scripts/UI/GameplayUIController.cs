@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Globalization;
-using Game.Movement;
+using Game.Ship.Movement;
+using Game.Ship.Weapons.Laser;
 using Game.UI.Interface;
-using Game.Weapons.Laser;
 using UnityEngine.SceneManagement;
 
 namespace Game.UI

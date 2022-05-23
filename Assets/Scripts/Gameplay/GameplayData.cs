@@ -1,9 +1,9 @@
 ﻿using Game.Enemies.Asteroid.Spawner;
 using Game.Enemies.UFO.Spawner;
 using Game.Input;
-using Game.Movement;
-using Game.Ship;
+using Game.Ship.Movement;
 using Game.Ship.Spawner;
+using Game.Ship.Weapons;
 using UnityEngine;
 
 namespace Game
@@ -17,14 +17,14 @@ namespace Game
         [SerializeField] private ShipWeaponsData shipWeaponsData;
         [SerializeField] private ShipMovementData shipMovementData;
         [SerializeField] private PlayerInputData playerInputData;
-        [SerializeField] private SpeedData shipSpeedData;
+        [SerializeField] private ShipSpeedData shipShipSpeedData;
 
         public AsteroidSpawnerData AsteroidSpawnerData => asteroidSpawnerData;
         public UfoSpawnerData UfoSpawnerData => ufoSpawnerData;
         public ShipSpawnerData ShipSpawnerData => shipSpawnerData;
         public ShipWeaponsData ShipWeaponsData => shipWeaponsData;
         public ShipMovementData ShipMovementData => shipMovementData;
-        public SpeedData ShipSpeedData => shipSpeedData;
+        public ShipSpeedData ShipShipSpeedData => shipShipSpeedData;
         public PlayerInputData PlayerInputData => playerInputData;
     }
 }

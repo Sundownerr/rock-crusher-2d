@@ -2,13 +2,13 @@ using Game.Base;
 using Game.Movement.Interface;
 using UnityEngine;
 
-namespace Game.Movement
+namespace Game.Ship.Movement
 {
-    public class SpeedController : Controller<SpeedData>, ISpeedController
+    public class ShipSpeedController : Controller<ShipSpeedData>, IShipSpeedController
     {
         private float speedDelta;
 
-        public SpeedController(SpeedData model) : base(model)
+        public ShipSpeedController(ShipSpeedData model) : base(model)
         { }
 
         public void Update()

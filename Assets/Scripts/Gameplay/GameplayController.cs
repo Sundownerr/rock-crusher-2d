@@ -1,8 +1,9 @@
-﻿using Game.Base;
+﻿using System.Collections.Generic;
+using Game.Base;
 using Game.Enemies.Asteroid.Spawner;
 using Game.Enemies.UFO.Spawner;
 using Game.Gameplay.Utility;
-using Game.Ship;
+using Game.Ship.Interface;
 using Game.Ship.Spawner;
 using UnityEngine;
 
@@ -11,25 +12,25 @@ namespace Game
     public class GameplayController : Controller<GameplayData>, IUpdate, IDestroyable
     {
         private readonly AsteroidSpawner asteroidSpawner;
-        private readonly ParentData parentData;
         private readonly CoroutineRunner runner;
         private readonly ScreenBoundsController screenBoundsController;
         private readonly ShipSpawner shipSpawner;
         private readonly UfoSpawner ufoSpawner;
-        private ShipController shipController;
+        private readonly List<IUpdate> updatees = new List<IUpdate>();
+        private IShipController shipController;
 
         public GameplayController(GameplayData model, CoroutineRunner runner, ParentData parentData) : base(model)
         {
             this.runner = runner;
-            this.parentData = parentData;
 
             screenBoundsController = new ScreenBoundsController(Camera.main);
 
             shipSpawner = new ShipSpawner(
                 model.ShipSpawnerData,
                 model.ShipWeaponsData,
+                parentData.BulletParent,
                 model.ShipMovementData,
-                model.ShipSpeedData,
+                model.ShipShipSpeedData,
                 model.PlayerInputData);
 
             asteroidSpawner = new AsteroidSpawner(
@@ -42,26 +43,55 @@ namespace Game
                 runner,
                 parentData.UfoParent);
 
-            screenBoundsController.Add(ufoSpawner);
-            screenBoundsController.Add(asteroidSpawner);
+            shipSpawner.Created += ShipSpawnerOnCreated;
+            asteroidSpawner.Created += AsteroidSpawnerOnCreated;
+            ufoSpawner.Created += UfoSpawnerOnCreated;
         }
 
         public void Destroy()
         {
             screenBoundsController.Destroy();
             shipController.Destroy();
+            asteroidSpawner.Destroy();
+
+            shipSpawner.Created -= ShipSpawnerOnCreated;
+            asteroidSpawner.Created -= AsteroidSpawnerOnCreated;
+            ufoSpawner.Created -= UfoSpawnerOnCreated;
         }
 
         public void Update()
         {
             screenBoundsController.Update();
             shipController.Update();
+
+            for (var i = 0; i < updatees.Count; i++)
+                updatees[i].Update();
+        }
+
+        private void ShipSpawnerOnCreated((IShipController, IFactory<Transform>, Transform) spawnResult)
+        {
+            shipController = spawnResult.Item1;
+
+            updatees.Add(shipController);
+            screenBoundsController.Add(spawnResult.Item2);
+            screenBoundsController.Add(spawnResult.Item3);
+        }
+
+        private void UfoSpawnerOnCreated((IUpdate, Transform) spawnResult)
+        {
+            updatees.Add(spawnResult.Item1);
+            screenBoundsController.Add(spawnResult.Item2);
+        }
+
+        private void AsteroidSpawnerOnCreated((IUpdate, Transform) spawnResult)
+        {
+            updatees.Add(spawnResult.Item1);
+            screenBoundsController.Add(spawnResult.Item2);
         }
 
         public void CreateGameplayObjects()
         {
-            shipController = shipSpawner.Spawn(parentData.BulletParent, screenBoundsController, runner);
-
+            shipSpawner.Spawn(runner);
             asteroidSpawner.StartSpawn();
             ufoSpawner.StartSpawn();
         }

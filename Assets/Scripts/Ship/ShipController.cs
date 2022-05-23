@@ -1,11 +1,12 @@
 using Game.Base;
 using Game.Input.Interface;
 using Game.Movement.Interface;
+using Game.Ship.Interface;
 using Game.Ship.Weapons.Interface;
 
 namespace Game.Ship
 {
-    public class ShipController : Controller<ShipData>, IUpdate, IDestroyable
+    public class ShipController : Controller<ShipData>, IShipController
     {
         private readonly IShipMovementController movementController;
         private readonly IPlayerInputController playerInputController;
@@ -17,7 +18,6 @@ namespace Game.Ship
                               IShipWeaponController shipWeaponController) : base(model)
         {
             this.movementController = movementController;
-
             this.playerInputController = playerInputController;
             this.shipWeaponController = shipWeaponController;
 

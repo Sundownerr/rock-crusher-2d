@@ -1,8 +1,8 @@
-﻿using Game.Weapons.Bullet;
-using Game.Weapons.Laser;
+﻿using Game.Ship.Weapons.Bullet;
+using Game.Ship.Weapons.Laser;
 using UnityEngine;
 
-namespace Game.Ship
+namespace Game.Ship.Weapons
 {
     [CreateAssetMenu(fileName = "ShipWeaponsData", menuName = "Data/Ship/Weapons")]
     public class ShipWeaponsData : ScriptableObject

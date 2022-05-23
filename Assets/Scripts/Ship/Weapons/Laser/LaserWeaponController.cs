@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using Game.Base;
 using Game.Gameplay.Utility;
-using Game.Weapons.Laser.Interface;
+using Game.Ship.Weapons.Laser.Interface;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Game.Weapons.Laser
+namespace Game.Ship.Weapons.Laser
 {
     public class LaserWeaponController : Controller<LaserWeaponData>, ILaserWeaponController
     {

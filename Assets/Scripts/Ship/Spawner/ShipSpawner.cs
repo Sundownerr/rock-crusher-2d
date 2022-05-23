@@ -2,37 +2,40 @@ using System;
 using Game.Base;
 using Game.Gameplay.Utility;
 using Game.Input;
-using Game.Movement;
-using Game.Weapons.Bullet;
+using Game.Ship.Interface;
+using Game.Ship.Movement;
+using Game.Ship.Weapons;
+using Game.Ship.Weapons.Bullet;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Game.Ship.Spawner
 {
-    public class ShipSpawner : Controller<ShipSpawnerData>, IFactory<ShipController>
+    public class ShipSpawner : Controller<ShipSpawnerData>, IFactory<(IShipController, IFactory<Transform>, Transform)>
     {
+        private readonly Transform bulletParent;
         private readonly PlayerInputData playerInputData;
         private readonly ShipMovementData shipMovementData;
+        private readonly ShipSpeedData shipSpeedData;
         private readonly ShipWeaponsData shipWeaponsData;
-        private readonly SpeedData speedData;
 
         public ShipSpawner(ShipSpawnerData model,
                            ShipWeaponsData shipWeaponsData,
+                           Transform bulletParent,
                            ShipMovementData shipMovementData,
-                           SpeedData speedData,
+                           ShipSpeedData shipSpeedData,
                            PlayerInputData playerInputData) : base(model)
         {
             this.shipWeaponsData = shipWeaponsData;
+            this.bulletParent = bulletParent;
             this.shipMovementData = shipMovementData;
-            this.speedData = speedData;
+            this.shipSpeedData = shipSpeedData;
             this.playerInputData = playerInputData;
         }
 
-        public event Action<ShipController> Created;
+        public event Action<(IShipController, IFactory<Transform>, Transform)> Created;
 
-        public ShipController Spawn(Transform bulletParent,
-                                    ScreenBoundsController screenBoundsController,
-                                    CoroutineRunner runner)
+        public void Spawn(CoroutineRunner runner)
         {
             var ship = Object.Instantiate(model.Prefab, bulletParent).GetComponent<ShipData>();
 
@@ -40,7 +43,7 @@ namespace Game.Ship.Spawner
 
             var movementController = new ShipMovementController(
                 shipMovementData,
-                speedData,
+                shipSpeedData,
                 ship.transform);
 
             var bulletFactory =
@@ -58,12 +61,7 @@ namespace Game.Ship.Spawner
                 playerInputController,
                 shipWeaponController);
 
-            screenBoundsController.Add(ship.transform);
-            screenBoundsController.Add(bulletFactory);
-
-            Created?.Invoke(shipController);
-
-            return shipController;
+            Created?.Invoke((shipController, bulletFactory, ship.transform));
         }
     }
 }

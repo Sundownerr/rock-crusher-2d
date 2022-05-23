@@ -1,6 +1,6 @@
 namespace Game.Movement.Interface
 {
-    public interface ISpeedController : IUpdate
+    public interface IShipSpeedController : IUpdate
     {
         void Accelerate();
     }

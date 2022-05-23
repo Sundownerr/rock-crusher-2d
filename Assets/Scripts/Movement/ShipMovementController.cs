@@ -2,25 +2,25 @@ using Game.Base;
 using Game.Movement.Interface;
 using UnityEngine;
 
-namespace Game.Movement
+namespace Game.Ship.Movement
 {
     public class ShipMovementController : Controller<ShipMovementData>, IShipMovementController
     {
-        private readonly SpeedController speedController;
-        private readonly SpeedData speedData;
+        private readonly ShipSpeedController shipSpeedController;
+        private readonly ShipSpeedData shipSpeedData;
         private readonly Transform targetTransform;
         private Vector3 inertia;
         private bool isMoving;
 
         public ShipMovementController(ShipMovementData model,
-                                      SpeedData speedData,
+                                      ShipSpeedData shipSpeedData,
                                       Transform targetTransform) :
             base(model)
         {
-            this.speedData = speedData;
+            this.shipSpeedData = shipSpeedData;
             this.targetTransform = targetTransform;
 
-            speedController = new SpeedController(speedData);
+            shipSpeedController = new ShipSpeedController(shipSpeedData);
         }
 
         public void Update()
@@ -28,9 +28,9 @@ namespace Game.Movement
             model.X = targetTransform.position.x;
             model.Y = targetTransform.position.y;
             model.Angle = targetTransform.rotation.eulerAngles.z;
-            model.Speed = speedData.CurrentSpeed;
+            model.Speed = shipSpeedData.CurrentSpeed;
 
-            speedController.Update();
+            shipSpeedController.Update();
 
             if (isMoving)
                 return;
@@ -40,10 +40,10 @@ namespace Game.Movement
 
         public void Move()
         {
-            speedController.Accelerate();
+            shipSpeedController.Accelerate();
             isMoving = true;
 
-            var direction = targetTransform.up * (speedData.CurrentSpeed * Time.deltaTime);
+            var direction = targetTransform.up * (shipSpeedData.CurrentSpeed * Time.deltaTime);
 
             inertia = Vector3.Lerp(inertia, direction, Time.deltaTime);
             targetTransform.position += inertia;

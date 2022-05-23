@@ -1,11 +1,11 @@
 ﻿using Game.Base;
 using Game.Gameplay.Utility;
 using Game.Ship.Weapons;
+using Game.Ship.Weapons.Bullet;
+using Game.Ship.Weapons.Bullet.Interface;
 using Game.Ship.Weapons.Interface;
-using Game.Weapons.Bullet;
-using Game.Weapons.Bullet.Interface;
-using Game.Weapons.Laser;
-using Game.Weapons.Laser.Interface;
+using Game.Ship.Weapons.Laser;
+using Game.Ship.Weapons.Laser.Interface;
 
 namespace Game.Ship
 {

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Game.Base;
-using Game.Weapons.Bullet.Interface;
+using Game.Ship.Weapons.Bullet.Interface;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Game.Weapons.Bullet
+namespace Game.Ship.Weapons.Bullet
 {
     public class BulletWeaponController : Controller<BulletWeaponData>, IBulletWeaponController
     {

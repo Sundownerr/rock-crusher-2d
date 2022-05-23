@@ -7,11 +7,15 @@ using Random = UnityEngine.Random;
 
 namespace Game.Enemies.Asteroid.Spawner
 {
-    public class AsteroidSpawner : Controller<AsteroidSpawnerData>, IFactory<GameObject>, IDestroyable
+    public class AsteroidSpawner : Controller<AsteroidSpawnerData>,
+                                   IFactory<(IUpdate, Transform)>,
+                                   IDestroyable
     {
         private readonly MonoBehaviour coroutineRunner;
         private readonly Transform parent;
         private readonly WaitForSeconds spawnDelay;
+
+        private bool canSpawn;
 
         public AsteroidSpawner(AsteroidSpawnerData model, MonoBehaviour coroutineRunner, Transform parent) : base(model)
         {
@@ -23,13 +27,15 @@ namespace Game.Enemies.Asteroid.Spawner
 
         public void Destroy()
         {
+            canSpawn = false;
             coroutineRunner.StopCoroutine(Spawn());
         }
 
-        public event Action<GameObject> Created;
+        public event Action<(IUpdate, Transform)> Created;
 
         public void StartSpawn()
         {
+            canSpawn = true;
             coroutineRunner.StartCoroutine(Spawn());
         }
 
@@ -40,12 +46,15 @@ namespace Game.Enemies.Asteroid.Spawner
             var randomOffset = Random.insideUnitCircle * 3f;
             var spawnPos = Vector2.zero + randomOffset;
 
-            var randomIndex = Random.Range(0, model.prefabs.Length);
-            var prefab = model.prefabs[randomIndex];
+            var asteroid = Object.Instantiate(model.Prefab, spawnPos, Quaternion.identity, parent);
 
-            var asteroid = Object.Instantiate(prefab, spawnPos, Quaternion.identity, parent);
+            var movementController = new AsteroidMovementController(model.SpeedData, asteroid.transform);
+            var controller = new AsteroidController(movementController);
 
-            Created?.Invoke(asteroid);
+            Created?.Invoke((controller, asteroid.transform));
+
+            if (!canSpawn)
+                yield break;
 
             coroutineRunner.StartCoroutine(Spawn());
         }

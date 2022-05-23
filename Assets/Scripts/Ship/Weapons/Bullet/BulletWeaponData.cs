@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.Weapons.Bullet
+namespace Game.Ship.Weapons.Bullet
 {
     [CreateAssetMenu(fileName = "BulletWeaponData", menuName = "Data/Weapon/Bullet")]
     public class BulletWeaponData : ScriptableObject

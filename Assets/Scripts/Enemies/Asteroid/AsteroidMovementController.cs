@@ -4,11 +4,12 @@ using UnityEngine;
 
 namespace Game.Enemies.Asteroid
 {
-    public class AsteroidMovementController: Controller<SpeedData> , IUpdate
+    public class AsteroidMovementController : Controller<AsteroidSpeedData>, IUpdate
     {
         private readonly Transform targetTransform;
+        private readonly float speed;
 
-        public AsteroidMovementController(SpeedData model, Transform targetTransform) : base(model)
+        public AsteroidMovementController(AsteroidSpeedData model, Transform targetTransform) : base(model)
         {
             this.targetTransform = targetTransform;
 
@@ -17,11 +18,12 @@ namespace Game.Enemies.Asteroid
             randomRotation.y = 0;
 
             targetTransform.rotation = Quaternion.Euler(randomRotation);
+            speed = Random.Range(model.minMaxSpeed.x, model.minMaxSpeed.y);
         }
 
         public void Update()
         {
-            targetTransform.position += targetTransform.up * model.CurrentSpeed;
+            targetTransform.position += targetTransform.up * (speed * Time.deltaTime);
         }
     }
 }

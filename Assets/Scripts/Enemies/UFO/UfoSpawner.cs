@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace Game.Enemies.UFO.Spawner
 {
-    public class UfoSpawner : Controller<UfoSpawnerData>, IFactory<GameObject>, IDestroyable
+    public class UfoSpawner : Controller<UfoSpawnerData>, IFactory<(IUpdate, Transform)>, IDestroyable
     {
         private readonly MonoBehaviour coroutineRunner;
-
         private readonly Transform parent;
 
         public UfoSpawner(UfoSpawnerData model, MonoBehaviour coroutineRunner, Transform parent) : base(model)
@@ -21,7 +20,7 @@ namespace Game.Enemies.UFO.Spawner
             // coroutineRunner.StopCoroutine(Spawn());
         }
 
-        public event Action<GameObject> Created;
+        public event Action<(IUpdate, Transform)> Created;
 
         public void StartSpawn()
         {

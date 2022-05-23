@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54bbd9eff4564091aaf774a4906a689b, type: 3}
   m_Name: AsteroidSpawnerData
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 751969028201604230, guid: 68a84e0db3bf56542bd5f1d86e7160cb, type: 3}
+  speedData: {fileID: 11400000, guid: 8f1ea2091f50a0b43b8bc3625d68074b, type: 2}
+  prefab: {fileID: 8359599488794498828, guid: 8d416c9d27f8dc44184d44e1bbaad491, type: 3}
   spawnDelay: 1
