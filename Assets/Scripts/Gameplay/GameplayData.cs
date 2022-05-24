@@ -18,7 +18,9 @@ namespace Game
         [SerializeField] private ShipMovementData shipMovementData;
         [SerializeField] private PlayerInputData playerInputData;
         [SerializeField] private ShipSpeedData shipShipSpeedData;
+        [SerializeField] private ScoreData scoreData;
 
+        public ScoreData ScoreData => scoreData;
         public AsteroidFactoryData AsteroidFactoryData => asteroidFactoryData;
         public UfoFactoryData UfoFactoryData => ufoFactoryData;
         public ShipFactoryData ShipFactoryData => shipFactoryData;

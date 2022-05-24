@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Enemy.Asteroid
 {
-    public class AsteroidData : Damagable
+    public class AsteroidData : EnemyDamagable
     {
         public enum AsteroidStage
         {

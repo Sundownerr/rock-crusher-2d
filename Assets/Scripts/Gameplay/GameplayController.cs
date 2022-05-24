@@ -14,8 +14,8 @@ namespace Game
     {
         private readonly EnemyController enemyController;
         private readonly PlayerInputController playerInputController;
-
         private readonly CoroutineRunner runner;
+        private readonly ScoreController scoreController;
         private readonly ScreenBoundsController screenBoundsController;
         private readonly IShipFactory shipFactory;
         private readonly List<IUpdate> updatees = new List<IUpdate>();
@@ -48,6 +48,8 @@ namespace Game
                 parentData);
 
             updatees.Add(enemyController);
+
+            scoreController = new ScoreController(model.ScoreData, enemyController);
         }
 
         public void Destroy()
@@ -58,6 +60,7 @@ namespace Game
             shipController.Destroy();
             enemyController.Destroy();
             playerInputController.Destroy();
+            scoreController.Destroy();
 
             runner.StopAllCoroutines();
         }

@@ -20,9 +20,9 @@ namespace Game.Ship.Weapons
             weaponControllers.Add(weaponController);
         }
 
-        private void LaserWeaponControllerOnHit(Transform obj)
+        private void LaserWeaponControllerOnHit(Transform target)
         {
-            obj.GetComponent<Damagable>().IsCompletlyDestroyed = true;
+            target.GetComponent<EnemyDamagable>().IsCompletlyDestroyed = true;
         }
 
         public void Destroy()
@@ -36,9 +36,9 @@ namespace Game.Ship.Weapons
             }
         }
 
-        private void OnHit(Transform obj)
+        private void OnHit(Transform target)
         {
-            obj.GetComponent<Damagable>().IsDamaged = true;
+            target.GetComponent<EnemyDamagable>().IsDamaged = true;
         }
     }
 }

@@ -34,27 +34,27 @@ namespace Game.Enemy
                     continue;
                 }
 
-                if (asteroids[i].IsDamaged)
-                {
-                    switch (asteroids[i].Stage)
-                    {
-                        case AsteroidData.AsteroidStage.Big:
-                            for (var j = 0; j < 2; j++)
-                                asteroidFactory.CreateMedium(asteroids[i].transform.position);
-                            break;
-                        case AsteroidData.AsteroidStage.Medium:
-                            for (var j = 0; j < 2; j++)
-                                asteroidFactory.CreateSmall(asteroids[i].transform.position);
-                            break;
-                        case AsteroidData.AsteroidStage.Small:
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
+                if (!asteroids[i].IsDamaged)
+                    continue;
 
-                    Object.Destroy(asteroids[i].gameObject);
-                    asteroids.RemoveAt(i);
+                switch (asteroids[i].Stage)
+                {
+                    case AsteroidData.AsteroidStage.Big:
+                        for (var j = 0; j < 2; j++)
+                            asteroidFactory.CreateMedium(asteroids[i].transform.position);
+                        break;
+                    case AsteroidData.AsteroidStage.Medium:
+                        for (var j = 0; j < 2; j++)
+                            asteroidFactory.CreateSmall(asteroids[i].transform.position);
+                        break;
+                    case AsteroidData.AsteroidStage.Small:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
+
+                Object.Destroy(asteroids[i].gameObject);
+                asteroids.RemoveAt(i);
             }
         }
 

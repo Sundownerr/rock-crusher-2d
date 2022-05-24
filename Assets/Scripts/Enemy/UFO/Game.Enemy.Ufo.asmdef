@@ -1,18 +1,19 @@
 {
-    "name": "Game.Enemy.Ufo",
-    "rootNamespace": "",
-    "references": [
-        "GUID:1f46120b987e187479c8315949646ad0",
-        "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
-        "GUID:d633cbf06b7fcd640bbb8098fdddaba9"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "Game.Enemy.Ufo",
+  "rootNamespace": "",
+  "references": [
+    "GUID:1f46120b987e187479c8315949646ad0",
+    "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
+    "GUID:d633cbf06b7fcd640bbb8098fdddaba9",
+    "GUID:67fb50947bb560440aca076805bb435f"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

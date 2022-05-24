@@ -58,7 +58,7 @@ namespace Game.Ship
 
         private void ColliderDataOnEnter(Collision2D obj)
         {
-            model.IsCompletlyDestroyed = true;
+            model.IsDamaged = true;
         }
 
         private void OnShootLaserPressed()
