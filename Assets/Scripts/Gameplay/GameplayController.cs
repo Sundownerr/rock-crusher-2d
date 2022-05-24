@@ -1,24 +1,23 @@
 ﻿using System.Collections.Generic;
 using Game.Base;
-using Game.Enemies.Asteroid.Spawner;
-using Game.Enemies.Asteroid.Spawner.Interface;
-using Game.Enemies.UFO.Spawner;
+using Game.Enemy;
 using Game.Gameplay.Utility;
+using Game.Ship.Factory;
+using Game.Ship.Factory.Interface;
 using Game.Ship.Interface;
-using Game.Ship.Spawner;
-using Game.Ship.Spawner.Interface;
 using UnityEngine;
 
 namespace Game
 {
     public class GameplayController : Controller<GameplayData>, IUpdate, IDestroyable
     {
-        private readonly IEnemySpawner asteroidSpawner;
+        private readonly EnemyController enemyController;
+
         private readonly CoroutineRunner runner;
         private readonly ScreenBoundsController screenBoundsController;
-        private readonly IShipSpawner shipSpawner;
-        private readonly IEnemySpawner ufoSpawner;
+        private readonly IShipFactory shipFactory;
         private readonly List<IUpdate> updatees = new List<IUpdate>();
+
         private IShipController shipController;
 
         public GameplayController(GameplayData model, CoroutineRunner runner, ParentData parentData) : base(model)
@@ -28,27 +27,22 @@ namespace Game
             screenBoundsController = new ScreenBoundsController(Camera.main);
             updatees.Add(screenBoundsController);
 
-            shipSpawner = new ShipSpawner(
-                model.ShipSpawnerData,
+            shipFactory = new ShipFactory(
+                model.ShipFactoryData,
                 model.ShipWeaponsData,
                 parentData.BulletParent,
                 model.ShipMovementData,
                 model.ShipShipSpeedData,
-                model.PlayerInputData);
+                model.PlayerInputData,
+                runner);
 
-            asteroidSpawner = new AsteroidSpawner(
-                model.AsteroidSpawnerData,
-                runner,
-                parentData.AsteroidParent);
+            enemyController = new EnemyController(
+                runner, screenBoundsController,
+                model.AsteroidFactoryData,
+                model.UfoFactoryData,
+                parentData);
 
-            ufoSpawner = new UfoSpawner(
-                model.UfoSpawnerData,
-                runner,
-                parentData.UfoParent);
-
-            shipSpawner.Created += ShipSpawnerOnCreated;
-            asteroidSpawner.Created += AsteroidSpawnerOnCreated;
-            ufoSpawner.Created += UfoSpawnerOnCreated;
+            updatees.Add(enemyController);
         }
 
         public void Destroy()
@@ -57,11 +51,9 @@ namespace Game
 
             screenBoundsController.Destroy();
             shipController.Destroy();
-            asteroidSpawner.Destroy();
+            enemyController.Destroy();
 
-            shipSpawner.Created -= ShipSpawnerOnCreated;
-            asteroidSpawner.Created -= AsteroidSpawnerOnCreated;
-            ufoSpawner.Created -= UfoSpawnerOnCreated;
+            runner.StopAllCoroutines();
         }
 
         public void Update()
@@ -70,32 +62,17 @@ namespace Game
                 updatees[i].Update();
         }
 
-        private void ShipSpawnerOnCreated((IShipController, IFactory<Transform>, Transform) spawnResult)
-        {
-            shipController = spawnResult.Item1;
-
-            updatees.Add(shipController);
-            screenBoundsController.Add(spawnResult.Item2);
-            screenBoundsController.Add(spawnResult.Item3);
-        }
-
-        private void UfoSpawnerOnCreated((IUpdate, Transform) spawnResult)
-        {
-            updatees.Add(spawnResult.Item1);
-            screenBoundsController.Add(spawnResult.Item2);
-        }
-
-        private void AsteroidSpawnerOnCreated((IUpdate, Transform) spawnResult)
-        {
-            updatees.Add(spawnResult.Item1);
-            screenBoundsController.Add(spawnResult.Item2);
-        }
-
         public void CreateGameplayObjects()
         {
-            shipSpawner.Spawn(runner);
-            asteroidSpawner.StartSpawn();
-            ufoSpawner.StartSpawn();
+            var shipSpawnResult = shipFactory.Create();
+
+            shipController = shipSpawnResult.Item1;
+
+            updatees.Add(shipController);
+            screenBoundsController.Add(shipSpawnResult.Item2);
+            screenBoundsController.Add(shipSpawnResult.Item3);
+
+            enemyController.StartSpawn();
         }
     }
 }

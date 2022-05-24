@@ -11,7 +11,6 @@ namespace Game.UI
     {
         private GameplayUI gameplayUI;
         private LaserWeaponData laserData;
-
         private ShipMovementData shipMovementData;
 
         public void HandleSceneLoad(Scene scene)

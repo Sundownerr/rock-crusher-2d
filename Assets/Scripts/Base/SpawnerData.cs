@@ -2,7 +2,7 @@
 
 namespace Game.Gameplay
 {
-    public class SpawnerData : ScriptableObject
+    public class FactoryData : ScriptableObject
     {
         [SerializeField] public GameObject[] prefabs;
     }

@@ -1,0 +1,18 @@
+{
+  "name": "Game.Ship.Factory",
+  "references": [
+    "GUID:7ee2f8d407177204b9071ac0a92ae9ce",
+    "GUID:1740e91fd8211fb4e9c9a8f6f7b0c87e",
+    "GUID:1f46120b987e187479c8315949646ad0",
+    "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
+    "GUID:404b01cbcfcad7645aea90f3550b1896",
+    "GUID:b55e72b8f19e0234ab42278d25c3024f",
+    "GUID:73e329407a2187849b5e6b1f7da63076",
+    "GUID:14b0cd64f0ccc8b4b8f5d71abb24e093",
+    "GUID:ac9cd879919b19044abba0377b037b56",
+    "GUID:cdbc8cda60812074e97ce878faccea6d",
+    "GUID:1acd76c89f87f0946ba927d0e4776845",
+    "GUID:07ba45d796582c44c958328323a4afa4",
+    "GUID:85b86d11885bc8b4a922805285c22e8d"
+  ]
+}

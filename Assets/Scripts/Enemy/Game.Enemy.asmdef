@@ -1,0 +1,22 @@
+{
+    "name": "Game.Enemy",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
+        "GUID:d633cbf06b7fcd640bbb8098fdddaba9",
+        "GUID:b55e72b8f19e0234ab42278d25c3024f",
+        "GUID:371098313ef9f6b4986f85d72d4bf5eb",
+        "GUID:a1819c97c7106d341858984d19a62b53",
+        "GUID:1f46120b987e187479c8315949646ad0",
+        "GUID:ef7c8dff95be65f40a3282273490b070"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

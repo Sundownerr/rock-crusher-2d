@@ -1,0 +1,20 @@
+{
+    "name": "Game.Enemy.Asteroid.Factory",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1f46120b987e187479c8315949646ad0",
+        "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
+        "GUID:82d212a632a26f34f9b861234f8ecbce",
+        "GUID:d633cbf06b7fcd640bbb8098fdddaba9",
+        "GUID:435727e622a9a2445b489a9a5f9385f4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

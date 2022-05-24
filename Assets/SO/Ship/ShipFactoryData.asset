@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a359d3f7370d40f5b1b17313123fcff7, type: 3}
+  m_Name: ShipFactoryData
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 751969028201604230, guid: ccf357fb9ccf3734a96c12e27980e47a, type: 3}
+  shipMovementData: {fileID: 11400000, guid: eec0cddfaa96a954d9921421eb3b6531, type: 2}
+  speedData: {fileID: 11400000, guid: 0f694a27fa8584e47ba9e2a06c5d99fb, type: 2}
+  playerInputData: {fileID: 11400000, guid: a6adeafb70cbaae43ba7d68961301759, type: 2}
+  bulletWeaponData: {fileID: 11400000, guid: 9ba780dfb9e51014d8cd2d87f75fe964, type: 2}
+  laserWeaponData: {fileID: 11400000, guid: 82902aef3ea610242b4f512897b04ea6, type: 2}
