@@ -26,6 +26,14 @@ namespace Game.Enemy
         public void Update()
         {
             for (var i = 0; i < asteroids.Count; i++)
+            {
+                if (asteroids[i].IsCompletlyDestroyed)
+                {
+                    Object.Destroy(asteroids[i].gameObject);
+                    asteroids.RemoveAt(i);
+                    continue;
+                }
+
                 if (asteroids[i].IsDamaged)
                 {
                     switch (asteroids[i].Stage)
@@ -47,6 +55,7 @@ namespace Game.Enemy
                     Object.Destroy(asteroids[i].gameObject);
                     asteroids.RemoveAt(i);
                 }
+            }
         }
 
         private void AsteroidFactoryOnCreated((IAsteroid asteroid, AsteroidData data) result)

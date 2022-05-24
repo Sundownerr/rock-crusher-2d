@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Game.Combat;
 using Game.Ship.Weapons.Interface;
+using Game.Ship.Weapons.Laser.Interface;
 using UnityEngine;
 
 namespace Game.Ship.Weapons
@@ -13,13 +14,26 @@ namespace Game.Ship.Weapons
         {
             weaponController.Hit += OnHit;
 
+            if (weaponController is ILaserWeaponController laserWeaponController)
+                laserWeaponController.Hit += LaserWeaponControllerOnHit;
+
             weaponControllers.Add(weaponController);
+        }
+
+        private void LaserWeaponControllerOnHit(Transform obj)
+        {
+            obj.GetComponent<Damagable>().IsCompletlyDestroyed = true;
         }
 
         public void Destroy()
         {
             foreach (var weaponController in weaponControllers)
+            {
                 weaponController.Hit -= OnHit;
+
+                if (weaponController is ILaserWeaponController laserWeaponController)
+                    laserWeaponController.Hit -= LaserWeaponControllerOnHit;
+            }
         }
 
         private void OnHit(Transform obj)
