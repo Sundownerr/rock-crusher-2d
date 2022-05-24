@@ -1,7 +1,7 @@
 using System;
 using Game.Base;
 using Game.Gameplay.Utility;
-using Game.Input;
+using Game.Input.Interface;
 using Game.Ship.Factory.Interface;
 using Game.Ship.Interface;
 using Game.Ship.Movement;
@@ -15,7 +15,7 @@ namespace Game.Ship.Factory
     public class ShipFactory : Controller<ShipFactoryData>, IShipFactory
     {
         private readonly Transform bulletParent;
-        private readonly PlayerInputData playerInputData;
+        private readonly IPlayerInputController playerInputController;
         private readonly CoroutineRunner runner;
         private readonly ShipMovementData shipMovementData;
         private readonly ShipSpeedData shipSpeedData;
@@ -26,15 +26,15 @@ namespace Game.Ship.Factory
                            Transform bulletParent,
                            ShipMovementData shipMovementData,
                            ShipSpeedData shipSpeedData,
-                           PlayerInputData playerInputData,
-                           CoroutineRunner runner) : base(model)
+                           CoroutineRunner runner,
+                           IPlayerInputController playerInputController) : base(model)
         {
             this.shipWeaponsData = shipWeaponsData;
             this.bulletParent = bulletParent;
             this.shipMovementData = shipMovementData;
             this.shipSpeedData = shipSpeedData;
-            this.playerInputData = playerInputData;
             this.runner = runner;
+            this.playerInputController = playerInputController;
         }
 
         public event Action<(IShipController, IFactory<Transform>, Transform)> Created;
@@ -42,8 +42,6 @@ namespace Game.Ship.Factory
         public (IShipController, IFactory<Transform>, Transform) Create()
         {
             var ship = Object.Instantiate(model.Prefab, bulletParent).GetComponent<ShipData>();
-
-            var playerInputController = new PlayerInputController(playerInputData);
 
             var movementController = new ShipMovementController(
                 shipMovementData,

@@ -6,5 +6,6 @@ namespace Game.Enemy.Asteroid.Movement
     public class AsteroidSpeedData : ScriptableObject
     {
         [SerializeField] public Vector2 minMaxSpeed;
+        [SerializeField] public Vector2 minMaxRotationSpeed;
     }
 }

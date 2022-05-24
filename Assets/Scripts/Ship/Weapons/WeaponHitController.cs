@@ -24,7 +24,7 @@ namespace Game.Ship.Weapons
 
         private void OnHit(Transform obj)
         {
-            obj.GetComponent<Damagable>().HandleDamaged();
+            obj.GetComponent<Damagable>().IsDamaged = true;
         }
     }
 }

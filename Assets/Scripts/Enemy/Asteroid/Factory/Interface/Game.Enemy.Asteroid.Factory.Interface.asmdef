@@ -1,0 +1,8 @@
+{
+  "name": "Game.Enemy.Asteroid.Factory.Interface",
+  "references": [
+    "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
+    "GUID:82d212a632a26f34f9b861234f8ecbce",
+    "GUID:d633cbf06b7fcd640bbb8098fdddaba9"
+  ]
+}

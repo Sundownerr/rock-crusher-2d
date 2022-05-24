@@ -7,12 +7,16 @@ namespace Game.Enemy.Asteroid.Factory
     public class AsteroidFactoryData : ScriptableObject
     {
         [SerializeField] private AsteroidSpeedData speedData;
-        [SerializeField] private GameObject prefab;
+        [SerializeField] private GameObject prefabBig;
+        [SerializeField] private GameObject prefabMedium;
+        [SerializeField] private GameObject prefabSmall;
         [SerializeField] private float spawnInterval;
         [SerializeField] private float spawnRadius;
 
         public AsteroidSpeedData SpeedData => speedData;
-        public GameObject Prefab => prefab;
+        public GameObject PrefabBig => prefabBig;
+        public GameObject PrefabMedium => prefabMedium;
+        public GameObject PrefabSmall => prefabSmall;
 
         public float SpawnRadius => spawnRadius;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using Game.Base;
 using Game.Enemy.Factory.Interface;
+using Game.Enemy.Interface;
 using UnityEngine;
 
 namespace Game.Enemy.UFO.Factory
@@ -14,9 +15,9 @@ namespace Game.Enemy.UFO.Factory
             this.parent = parent;
         }
 
-        public event Action<(IUpdate, Transform)> Created;
+        public event Action<(IEnemy, Transform)> Created;
 
-        public (IUpdate, Transform) Create()
+        public (IEnemy, Transform) Create()
         {
             Debug.Log("ufo spawn");
             return default;

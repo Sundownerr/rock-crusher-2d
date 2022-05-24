@@ -9,7 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 751969028201604230, guid: 68a84e0db3bf56542bd5f1d86e7160cb, type: 3}
       propertyPath: m_Name
-      value: asteroid
+      value: asteroid small
+      objectReference: {fileID: 0}
+    - target: {fileID: 2504237000542733178, guid: 68a84e0db3bf56542bd5f1d86e7160cb, type: 3}
+      propertyPath: stage
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4588868358264750988, guid: 68a84e0db3bf56542bd5f1d86e7160cb, type: 3}
       propertyPath: m_RootOrder

@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Game.Enemy.Interface;
+using UnityEngine;
 
 namespace Game.Enemy.Factory.Interface
 {
-    public interface IEnemyFactory : IFactory<(IUpdate, Transform)>
+    public interface IEnemyFactory : IFactory<(IEnemy, Transform)>
     { }
 }

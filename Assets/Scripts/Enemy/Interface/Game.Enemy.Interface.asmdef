@@ -1,16 +1,17 @@
 {
-    "name": "Game.Enemy.Interface",
-    "rootNamespace": "",
-    "references": [
-        "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "Game.Enemy.Interface",
+  "rootNamespace": "",
+  "references": [
+    "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
+    "GUID:2ef86ce15cad10444a1efecc763cf940"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

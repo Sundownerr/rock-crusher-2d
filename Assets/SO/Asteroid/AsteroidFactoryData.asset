@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: AsteroidFactoryData
   m_EditorClassIdentifier: 
   speedData: {fileID: 11400000, guid: 8f1ea2091f50a0b43b8bc3625d68074b, type: 2}
-  prefab: {fileID: 8359599488794498828, guid: 8d416c9d27f8dc44184d44e1bbaad491, type: 3}
+  prefabBig: {fileID: 8359599488794498828, guid: 8d416c9d27f8dc44184d44e1bbaad491, type: 3}
+  prefabMedium: {fileID: 8359599488794498828, guid: b413c9305d3246346aed86fe5155d282, type: 3}
+  prefabSmall: {fileID: 8359599488794498828, guid: 9f6eb31536420414891caa15c796a732, type: 3}
   spawnInterval: 1
   spawnRadius: 8

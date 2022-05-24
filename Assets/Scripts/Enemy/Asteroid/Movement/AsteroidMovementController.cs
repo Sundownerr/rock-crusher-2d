@@ -5,6 +5,7 @@ namespace Game.Enemy.Asteroid.Movement
 {
     public class AsteroidMovementController : Controller<AsteroidSpeedData>, IUpdate
     {
+        private readonly float rotationSpeed;
         private readonly float speed;
         private readonly Transform targetTransform;
 
@@ -18,11 +19,13 @@ namespace Game.Enemy.Asteroid.Movement
 
             targetTransform.rotation = Quaternion.Euler(randomRotation);
             speed = Random.Range(model.minMaxSpeed.x, model.minMaxSpeed.y);
+            rotationSpeed = Random.Range(model.minMaxRotationSpeed.x, model.minMaxRotationSpeed.y);
         }
 
         public void Update()
         {
             targetTransform.position += targetTransform.up * (speed * Time.deltaTime);
+            targetTransform.GetChild(0).Rotate(0, 0, rotationSpeed * Time.deltaTime);
         }
     }
 }

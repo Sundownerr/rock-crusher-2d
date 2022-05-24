@@ -123,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4588868358264750988}
   - component: {fileID: 9098176996545904165}
-  - component: {fileID: 5179854423996876609}
+  - component: {fileID: 2504237000542733178}
   m_Layer: 6
   m_Name: asteroid
   m_TagString: Untagged
@@ -177,7 +177,7 @@ PolygonCollider2D:
       - {x: 0.0029673576, y: -0.4727425}
       - {x: 0.42419234, y: -0.2546183}
       - {x: 0.433012, y: 0.2544861}
---- !u!114 &5179854423996876609
+--- !u!114 &2504237000542733178
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,6 +186,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 751969028201604230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 977afc40d76b438fa100f7f3068ec448, type: 3}
+  m_Script: {fileID: 11500000, guid: 20a177e2124e4a968ce60fc1f0161370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

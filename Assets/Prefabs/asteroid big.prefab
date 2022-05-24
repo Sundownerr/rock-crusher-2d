@@ -9,11 +9,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 751969028201604230, guid: 68a84e0db3bf56542bd5f1d86e7160cb, type: 3}
       propertyPath: m_Name
-      value: asteroid
+      value: asteroid big
       objectReference: {fileID: 0}
     - target: {fileID: 4588868358264750988, guid: 68a84e0db3bf56542bd5f1d86e7160cb, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4588868358264750988, guid: 68a84e0db3bf56542bd5f1d86e7160cb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4588868358264750988, guid: 68a84e0db3bf56542bd5f1d86e7160cb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4588868358264750988, guid: 68a84e0db3bf56542bd5f1d86e7160cb, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4588868358264750988, guid: 68a84e0db3bf56542bd5f1d86e7160cb, type: 3}
       propertyPath: m_LocalPosition.x

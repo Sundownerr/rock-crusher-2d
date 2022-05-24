@@ -2,6 +2,7 @@
 using Game.Base;
 using Game.Enemy;
 using Game.Gameplay.Utility;
+using Game.Input;
 using Game.Ship.Factory;
 using Game.Ship.Factory.Interface;
 using Game.Ship.Interface;
@@ -12,6 +13,7 @@ namespace Game
     public class GameplayController : Controller<GameplayData>, IUpdate, IDestroyable
     {
         private readonly EnemyController enemyController;
+        private readonly PlayerInputController playerInputController;
 
         private readonly CoroutineRunner runner;
         private readonly ScreenBoundsController screenBoundsController;
@@ -27,14 +29,17 @@ namespace Game
             screenBoundsController = new ScreenBoundsController(Camera.main);
             updatees.Add(screenBoundsController);
 
+            playerInputController = new PlayerInputController(model.PlayerInputData);
+            updatees.Add(playerInputController);
+
             shipFactory = new ShipFactory(
                 model.ShipFactoryData,
                 model.ShipWeaponsData,
                 parentData.BulletParent,
                 model.ShipMovementData,
                 model.ShipShipSpeedData,
-                model.PlayerInputData,
-                runner);
+                runner,
+                playerInputController);
 
             enemyController = new EnemyController(
                 runner, screenBoundsController,
@@ -52,6 +57,7 @@ namespace Game
             screenBoundsController.Destroy();
             shipController.Destroy();
             enemyController.Destroy();
+            playerInputController.Destroy();
 
             runner.StopAllCoroutines();
         }

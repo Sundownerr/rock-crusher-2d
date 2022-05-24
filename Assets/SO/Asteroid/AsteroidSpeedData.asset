@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: AsteroidSpeedData
   m_EditorClassIdentifier: 
   minMaxSpeed: {x: 1, y: 2}
+  minMaxRotationSpeed: {x: -55, y: 55}

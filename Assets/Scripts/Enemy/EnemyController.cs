@@ -1,7 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Game.Combat;
+using Game.Enemy.Asteroid;
 using Game.Enemy.Asteroid.Factory;
+using Game.Enemy.Asteroid.Interface;
 using Game.Enemy.Factory.Interface;
+using Game.Enemy.Interface;
 using Game.Enemy.UFO.Factory;
 using Game.Gameplay.Utility;
 using UnityEngine;
@@ -10,13 +14,14 @@ namespace Game.Enemy
 {
     public class EnemyController : IUpdate, IDestroyable
     {
-        private readonly IEnemyFactory asteroidFactory;
+        private readonly IAsteroidFactory asteroidFactory;
         private readonly WaitForSeconds asteroidSpawnInterval;
+        private readonly AsteroidStageController asteroidStageController;
+        private readonly Dictionary<IEnemy, Damagable> enemies = new Dictionary<IEnemy, Damagable>();
         private readonly CoroutineRunner runner;
         private readonly ScreenBoundsController screenBoundsController;
         private readonly IEnemyFactory ufoFactory;
         private readonly WaitForSeconds ufoSpawnInterval;
-        private readonly List<IUpdate> updatees = new List<IUpdate>();
 
         public EnemyController(CoroutineRunner runner,
                                ScreenBoundsController screenBoundsController,
@@ -28,6 +33,10 @@ namespace Game.Enemy
             this.screenBoundsController = screenBoundsController;
 
             asteroidFactory = new AsteroidFactory(asteroidFactoryData, parentData.AsteroidParent);
+            asteroidStageController = new AsteroidStageController(asteroidFactory);
+
+            asteroidFactory.Created += AsteroidFactoryOnCreated;
+
             ufoFactory = new UfoFactory(ufoFactoryData, parentData.AsteroidParent);
 
             asteroidSpawnInterval = new WaitForSeconds(asteroidFactoryData.SpawnInterval);
@@ -36,15 +45,34 @@ namespace Game.Enemy
 
         public void Destroy()
         {
-            updatees.Clear();
+            enemies.Clear();
             runner.StopCoroutine(SpawnUfos());
             runner.StopCoroutine(SpawnAsteroids());
+            asteroidStageController.Destroy();
+
+            asteroidFactory.Created -= AsteroidFactoryOnCreated;
         }
 
         public void Update()
         {
-            for (var i = 0; i < updatees.Count; i++)
-                updatees[i].Update();
+            asteroidStageController.Update();
+
+            foreach (var enemy in enemies)
+            {
+                if (enemy.Value.IsDamaged)
+                {
+                    enemies.Remove(enemy.Key);
+                    break;
+                }
+
+                enemy.Key.Update();
+            }
+        }
+
+        private void AsteroidFactoryOnCreated((IAsteroid asteroid, AsteroidData data) result)
+        {
+            enemies.Add(result.asteroid, result.data);
+            screenBoundsController.Add(result.data.transform);
         }
 
         public void StartSpawn()
@@ -67,16 +95,8 @@ namespace Game.Enemy
         {
             yield return asteroidSpawnInterval;
 
-            var result = asteroidFactory.Create();
-            HandleEnemySpawn(result);
-
+            asteroidFactory.Create();
             runner.StartCoroutine(SpawnAsteroids());
-        }
-
-        private void HandleEnemySpawn((IUpdate, Transform) spawnResult)
-        {
-            updatees.Add(spawnResult.Item1);
-            screenBoundsController.Add(spawnResult.Item2);
         }
     }
 }

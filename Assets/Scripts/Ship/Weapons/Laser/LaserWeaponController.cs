@@ -4,7 +4,6 @@ using Game.Base;
 using Game.Gameplay.Utility;
 using Game.Ship.Weapons.Laser.Interface;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Game.Ship.Weapons.Laser
 {
@@ -79,10 +78,7 @@ namespace Game.Ship.Weapons.Laser
                 results);
 
             for (var i = 0; i < boxCast; i++)
-            {
                 Hit?.Invoke(results[i].transform);
-                Object.Destroy(results[i].transform.gameObject);
-            }
         }
     }
 }
