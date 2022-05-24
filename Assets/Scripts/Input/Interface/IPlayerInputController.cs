@@ -7,9 +7,9 @@ namespace Game.Input.Interface
     {
         Vector2 TurnDirection { get; }
         bool IsMovingForwardPressed { get; }
+        bool IsShootingBulletsPressed { get; }
 
         event Action MovingForwardPressed;
-        event Action ShootBulletPressed;
         event Action ShootLaserPressed;
         event Action MovingReleased;
     }

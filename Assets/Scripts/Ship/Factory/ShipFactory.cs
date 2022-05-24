@@ -42,6 +42,7 @@ namespace Game.Ship.Factory
         public (IShipController, IFactory<Transform>, Transform) Create()
         {
             var ship = Object.Instantiate(model.Prefab, bulletParent).GetComponent<ShipData>();
+            var colliderData = ship.GetComponent<ColliderData>();
 
             var movementController = new ShipMovementController(
                 shipMovementData,
@@ -61,6 +62,7 @@ namespace Game.Ship.Factory
 
             var controller = new ShipController(
                 ship,
+                colliderData,
                 movementController,
                 playerInputController,
                 weaponController);

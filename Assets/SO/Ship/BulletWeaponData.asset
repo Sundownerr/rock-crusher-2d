@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1860584898373808969, guid: ec1438f56320b0648a79d4b7be10467e, type: 3}
   bulletSpeed: 13
-  destroyDelay: 3
+  shootInterval: 0.1
+  destroyDelay: 1
   bulletTargetLayer:
     serializedVersion: 2
     m_Bits: 64

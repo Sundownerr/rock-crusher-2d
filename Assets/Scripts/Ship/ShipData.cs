@@ -1,8 +1,9 @@
+using Game.Combat;
 using UnityEngine;
 
 namespace Game.Ship
 {
-    public class ShipData : MonoBehaviour
+    public class ShipData : Damagable
     {
         [SerializeField] private Animator animator;
         [SerializeField] private string laserAnimationKey;

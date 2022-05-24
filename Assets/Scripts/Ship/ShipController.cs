@@ -3,6 +3,7 @@ using Game.Input.Interface;
 using Game.Movement.Interface;
 using Game.Ship.Interface;
 using Game.Ship.Weapons.Interface;
+using UnityEngine;
 
 namespace Game.Ship
 {
@@ -13,6 +14,7 @@ namespace Game.Ship
         private readonly IShipWeaponController shipWeaponController;
 
         public ShipController(ShipData model,
+                              ColliderData colliderData,
                               IShipMovementController movementController,
                               IPlayerInputController playerInputController,
                               IShipWeaponController shipWeaponController) : base(model)
@@ -23,8 +25,9 @@ namespace Game.Ship
 
             playerInputController.MovingForwardPressed += OnStartMovingPressed;
             playerInputController.MovingReleased += OnMovingReleased;
-            playerInputController.ShootBulletPressed += OnShootBulletPressed;
             playerInputController.ShootLaserPressed += OnShootLaserPressed;
+
+            colliderData.Enter += ColliderDataOnEnter;
         }
 
         public void Destroy()
@@ -32,7 +35,7 @@ namespace Game.Ship
             playerInputController.MovingForwardPressed -= OnStartMovingPressed;
             playerInputController.MovingReleased -= OnMovingReleased;
             playerInputController.ShootLaserPressed -= OnShootLaserPressed;
-            playerInputController.ShootBulletPressed -= OnShootBulletPressed;
+
             shipWeaponController.Destroy();
         }
 
@@ -47,17 +50,20 @@ namespace Game.Ship
             else
                 movementController.Stop();
 
+            if (playerInputController.IsShootingBulletsPressed)
+                shipWeaponController.ShootBullets();
+
             movementController.Turn(playerInputController.TurnDirection);
+        }
+
+        private void ColliderDataOnEnter(Collision2D obj)
+        {
+            model.IsCompletlyDestroyed = true;
         }
 
         private void OnShootLaserPressed()
         {
             shipWeaponController.ShootLaser();
-        }
-
-        private void OnShootBulletPressed()
-        {
-            shipWeaponController.ShootBullet();
         }
 
         private void OnMovingReleased()

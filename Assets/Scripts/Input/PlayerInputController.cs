@@ -12,7 +12,8 @@ namespace Game.Input
         {
             model.move.action.started += OnStartMove;
             model.move.action.canceled += OnEndMove;
-            model.shootBullet.action.performed += OnShootBullet;
+            model.shootBullet.action.started += OnShootBullet;
+            model.shootBullet.action.canceled += OnShootBulletRelease;
             model.shootLaser.action.performed += OnShootLaser;
         }
 
@@ -20,15 +21,16 @@ namespace Game.Input
         {
             model.move.action.started -= OnStartMove;
             model.move.action.canceled -= OnEndMove;
-            model.shootBullet.action.performed -= OnShootBullet;
+            model.shootBullet.action.started -= OnShootBullet;
+            model.shootBullet.action.canceled -= OnShootBulletRelease;
             model.shootLaser.action.performed -= OnShootLaser;
         }
 
         public Vector2 TurnDirection { get; private set; }
         public bool IsMovingForwardPressed { get; private set; }
+        public bool IsShootingBulletsPressed { get; private set; }
 
         public event Action MovingForwardPressed;
-        public event Action ShootBulletPressed;
         public event Action ShootLaserPressed;
         public event Action MovingReleased;
 
@@ -36,11 +38,21 @@ namespace Game.Input
         {
             var moveDirection = model.move.action.ReadValue<Vector2>();
 
+            IsShootingBulletsPressed = model.shootBullet.action.ReadValue<float>() == 1;
+
             TurnDirection = Vector2.zero;
             IsMovingForwardPressed = moveDirection.y > 0;
 
             if (moveDirection.x != 0)
                 TurnDirection = moveDirection;
+        }
+
+        public event Action ShootBulletPressed;
+        public event Action ShootBulletReleased;
+
+        private void OnShootBulletRelease(InputAction.CallbackContext obj)
+        {
+            ShootBulletReleased?.Invoke();
         }
 
         private void OnShootLaser(InputAction.CallbackContext ctx)

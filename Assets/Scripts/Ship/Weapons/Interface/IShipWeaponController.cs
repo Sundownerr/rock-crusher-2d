@@ -3,6 +3,6 @@
     public interface IShipWeaponController : IUpdate, IDestroyable
     {
         void ShootLaser();
-        void ShootBullet();
+        void ShootBullets();
     }
 }

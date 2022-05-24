@@ -1,23 +1,24 @@
 {
-    "name": "Game.Ship",
-    "rootNamespace": "",
-    "references": [
-        "GUID:ac9cd879919b19044abba0377b037b56",
-        "GUID:cdbc8cda60812074e97ce878faccea6d",
-        "GUID:1f46120b987e187479c8315949646ad0",
-        "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
-        "GUID:1acd76c89f87f0946ba927d0e4776845",
-        "GUID:b55e72b8f19e0234ab42278d25c3024f",
-        "GUID:73e329407a2187849b5e6b1f7da63076",
-        "GUID:07ba45d796582c44c958328323a4afa4"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "Game.Ship",
+  "rootNamespace": "",
+  "references": [
+    "GUID:ac9cd879919b19044abba0377b037b56",
+    "GUID:cdbc8cda60812074e97ce878faccea6d",
+    "GUID:1f46120b987e187479c8315949646ad0",
+    "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
+    "GUID:1acd76c89f87f0946ba927d0e4776845",
+    "GUID:b55e72b8f19e0234ab42278d25c3024f",
+    "GUID:73e329407a2187849b5e6b1f7da63076",
+    "GUID:07ba45d796582c44c958328323a4afa4",
+    "GUID:67fb50947bb560440aca076805bb435f"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

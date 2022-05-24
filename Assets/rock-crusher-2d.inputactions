@@ -25,12 +25,12 @@
                 },
                 {
                     "name": "FireBullet",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "c54d2cc3-c3ec-47dd-868e-72e15a27828e",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "FireLaser",
