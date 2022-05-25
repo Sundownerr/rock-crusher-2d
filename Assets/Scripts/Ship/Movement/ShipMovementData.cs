@@ -13,6 +13,6 @@ namespace Game.Ship.Movement
         public float X { get; set; }
         public float Y { get; set; }
         public float Angle { get; set; }
-        public float Speed { get; set; }
+        public float Inertia { get; set; }
     }
 }

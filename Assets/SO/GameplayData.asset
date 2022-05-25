@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bffb048b1c4b8fb8ae9fc8f66ed2a7, type: 3}
   m_Name: GameplayData
   m_EditorClassIdentifier: 
+  vfxData: {fileID: 11400000, guid: 087d534aecfd82640b74216762e0f1f8, type: 2}
   asteroidFactoryData: {fileID: 11400000, guid: 5bd3975c5555dcc48b8b9c4faed4fa37, type: 2}
   ufoFactoryData: {fileID: 11400000, guid: 391c9afba7d775a49bed9f125717e483, type: 2}
   shipFactoryData: {fileID: 11400000, guid: 1b1bc5056313841499be940b8963f092, type: 2}

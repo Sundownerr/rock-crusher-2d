@@ -3,7 +3,6 @@ using Game.Base;
 using Game.Enemy.Interface;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 namespace Game.Enemy.UFO.Factory
 {
@@ -22,8 +21,12 @@ namespace Game.Enemy.UFO.Factory
 
         public (IEnemy, UfoData) Create()
         {
-            var randomOffset = Random.insideUnitCircle * model.SpawnRadius;
-            var spawnPos = Vector2.zero + randomOffset;
+            var x = Mathf.Sin(Time.time * model.SpawnRadius) * model.SpawnRadius;
+            var y = Mathf.Cos(Time.time * model.SpawnRadius) * model.SpawnRadius;
+
+            var randomOffset = new Vector3(x, y);
+
+            var spawnPos = target.position + randomOffset;
 
             return CreateUfo(spawnPos);
         }

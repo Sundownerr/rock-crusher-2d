@@ -28,7 +28,7 @@ namespace Game.Ship.Movement
             model.X = targetTransform.position.x;
             model.Y = targetTransform.position.y;
             model.Angle = targetTransform.rotation.eulerAngles.z;
-            model.Speed = shipSpeedData.CurrentSpeed;
+            model.Inertia = inertia.sqrMagnitude;
 
             shipSpeedController.Update();
 

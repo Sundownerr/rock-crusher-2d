@@ -1,4 +1,5 @@
-﻿using Game.Ship.Interface;
+﻿using Game.Base.Interface;
+using Game.Ship.Interface;
 using UnityEngine;
 
 namespace Game.Ship.Factory.Interface

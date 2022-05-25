@@ -11,6 +11,7 @@ namespace Game
     [CreateAssetMenu(fileName = "GameplayData", menuName = "Data/Gameplay")]
     public class GameplayData : ScriptableObject
     {
+        [SerializeField] private VfxData vfxData;
         [SerializeField] private AsteroidFactoryData asteroidFactoryData;
         [SerializeField] private UfoFactoryData ufoFactoryData;
         [SerializeField] private ShipFactoryData shipFactoryData;
@@ -21,6 +22,7 @@ namespace Game
         [SerializeField] private ScoreData scoreData;
         [SerializeField] private bool spawnEnemies;
 
+        public VfxData VFXData => vfxData;
         public ScoreData ScoreData => scoreData;
         public AsteroidFactoryData AsteroidFactoryData => asteroidFactoryData;
         public UfoFactoryData UfoFactoryData => ufoFactoryData;

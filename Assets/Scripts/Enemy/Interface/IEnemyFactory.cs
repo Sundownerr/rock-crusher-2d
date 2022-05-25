@@ -1,4 +1,5 @@
-﻿using Game.Enemy.Interface;
+﻿using Game.Base.Interface;
+using Game.Enemy.Interface;
 using UnityEngine;
 
 namespace Game.Enemy.Factory.Interface

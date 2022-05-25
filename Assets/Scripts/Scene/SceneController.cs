@@ -6,7 +6,7 @@ namespace Game.Scenes
 {
     public class SceneController
     {
-        private readonly List<string> loadedSceneNames = new List<string>();
+        private readonly List<string> loadedSceneNames = new();
         private readonly SceneData sceneData;
 
         public SceneController(SceneData sceneData)

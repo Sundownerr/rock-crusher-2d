@@ -15,7 +15,7 @@ namespace Game
         private readonly SceneController sceneController;
         private readonly ISceneLoader sceneLoader;
         private readonly UIController uiController;
-        private readonly List<IUpdate> updatees = new List<IUpdate>();
+        private readonly List<IUpdate> updatees = new();
         private GameplayController gameplayController;
         private CoroutineRunner runner;
 
@@ -83,7 +83,7 @@ namespace Game
             updatees.Add(uiController);
         }
 
-        private void OnShipDestroyed()
+        private void OnShipDestroyed(Transform ship)
         {
             updatees.Remove(uiController);
             sceneController.LoadGameOverScene();

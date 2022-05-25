@@ -8,21 +8,16 @@ namespace Game.Ship.Weapons
 {
     public class WeaponHitController
     {
-        private readonly List<IWeaponController> weaponControllers = new List<IWeaponController>();
+        private readonly List<IWeaponController> weaponControllers = new();
 
         public void Add(IWeaponController weaponController)
         {
             weaponController.Hit += OnHit;
 
             if (weaponController is ILaserWeaponController laserWeaponController)
-                laserWeaponController.Hit += LaserWeaponControllerOnHit;
+                laserWeaponController.Hit += OnMegaHit;
 
             weaponControllers.Add(weaponController);
-        }
-
-        private void LaserWeaponControllerOnHit(Transform target)
-        {
-            target.GetComponent<EnemyDamagable>().IsCompletlyDestroyed = true;
         }
 
         public void Destroy()
@@ -32,8 +27,14 @@ namespace Game.Ship.Weapons
                 weaponController.Hit -= OnHit;
 
                 if (weaponController is ILaserWeaponController laserWeaponController)
-                    laserWeaponController.Hit -= LaserWeaponControllerOnHit;
+                    laserWeaponController.Hit -= OnMegaHit;
             }
+        }
+
+        private void OnMegaHit(Transform target)
+        {
+            var enemy = target.GetComponent<EnemyDamagable>();
+            enemy.IsCompletlyDestroyed = true;
         }
 
         private void OnHit(Transform target)

@@ -16,7 +16,7 @@ namespace Game.UI
             this.movementData = movementData;
             this.laserWeaponData = laserWeaponData;
 
-            UpdateShipValues();
+            Update();
         }
 
         public void Update()
@@ -40,7 +40,7 @@ namespace Game.UI
             model.ShipCoordinatesX.text = Math.Round(movementData.X, 1).ToString();
             model.ShipCoordinatesY.text = Math.Round(movementData.Y, 1).ToString();
             model.ShipTurnAngle.text = Math.Round(movementData.Angle, 0).ToString();
-            model.ShipSpeed.text = Math.Round(movementData.Speed, 1).ToString();
+            model.ShipSpeed.text = Math.Round(movementData.Inertia, 1).ToString();
         }
     }
 }

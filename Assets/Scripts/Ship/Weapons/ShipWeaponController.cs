@@ -24,14 +24,15 @@ namespace Game.Ship
 
         public ShipWeaponController(ShipWeaponsData model,
                                     ShipData shipData,
-                                    BulletFactory bulletFactory,
+                                    BulletPool bulletPool,
                                     CoroutineRunner runner) : base(model)
         {
             this.shipData = shipData;
             this.runner = runner;
 
             laserWeaponController = new LaserWeaponController(model.LaserWeaponData, shipData.LaserShootPoint, runner);
-            bulletWeaponController = new BulletWeaponController(model.BulletWeaponData, bulletFactory);
+            bulletWeaponController =
+                new BulletWeaponController(model.BulletWeaponData, bulletPool, shipData.BulletShootPoint, runner);
 
             weaponHitController = new WeaponHitController();
             weaponHitController.Add(bulletWeaponController);

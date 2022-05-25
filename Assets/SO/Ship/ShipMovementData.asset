@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ShipMovementData
   m_EditorClassIdentifier: 
   turnSpeed: 300
-  inertiaFadeMultiplier: 0.999
+  inertiaFadeMultiplier: 0.996

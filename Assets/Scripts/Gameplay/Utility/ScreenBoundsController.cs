@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Game.Base.Interface;
 using UnityEngine;
 
 namespace Game.Gameplay.Utility
@@ -6,8 +7,8 @@ namespace Game.Gameplay.Utility
     public class ScreenBoundsController : IUpdate, IDestroyable
     {
         private readonly Camera camera;
-        private readonly List<IFactory<Transform>> factoriesTransform = new List<IFactory<Transform>>();
-        private readonly List<Transform> targetTransforms = new List<Transform>();
+        private readonly List<IFactory<Transform>> factoriesTransform = new();
+        private readonly List<Transform> targetTransforms = new();
 
         public ScreenBoundsController(Camera camera)
         {

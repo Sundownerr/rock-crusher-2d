@@ -13,6 +13,7 @@ namespace Game
         private void Awake()
         {
             Application.targetFrameRate = Screen.currentResolution.refreshRate;
+            Screen.SetResolution(1280, 720, FullScreenMode.Windowed);
         }
 
         private void Start()

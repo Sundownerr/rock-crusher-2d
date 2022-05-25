@@ -1,19 +1,20 @@
 {
-    "name": "Game.Ship.Weapons.Bullet",
-    "rootNamespace": "",
-    "references": [
-        "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
-        "GUID:1f46120b987e187479c8315949646ad0",
-        "GUID:00e1ed8fcb4a00f4087a137ec08342d4",
-        "GUID:1acd76c89f87f0946ba927d0e4776845"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "Game.Ship.Weapons.Bullet",
+  "rootNamespace": "",
+  "references": [
+    "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
+    "GUID:1f46120b987e187479c8315949646ad0",
+    "GUID:00e1ed8fcb4a00f4087a137ec08342d4",
+    "GUID:1acd76c89f87f0946ba927d0e4776845",
+    "GUID:b55e72b8f19e0234ab42278d25c3024f"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

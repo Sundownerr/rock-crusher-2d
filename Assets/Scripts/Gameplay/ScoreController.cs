@@ -1,5 +1,6 @@
 using Game.Base;
 using Game.Enemy;
+using UnityEngine;
 
 namespace Game
 {
@@ -27,22 +28,22 @@ namespace Game
             model.CurrentScore = 0;
         }
 
-        private void OnUfoDestroyed()
+        private void OnUfoDestroyed(Transform target)
         {
             model.CurrentScore += model.Ufo;
         }
 
-        private void OnBigAsteroidDestroyed()
+        private void OnBigAsteroidDestroyed(Transform target)
         {
             model.CurrentScore += model.BigAsteroid;
         }
 
-        private void OnMediumAsteroidDestroyed()
+        private void OnMediumAsteroidDestroyed(Transform target)
         {
             model.CurrentScore += model.MediumAsteroid;
         }
 
-        private void OnSmallAsteroidDestroyed()
+        private void OnSmallAsteroidDestroyed(Transform target)
         {
             model.CurrentScore += model.SmallAsteroid;
         }

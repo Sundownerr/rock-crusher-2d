@@ -1,5 +1,6 @@
 using System;
 using Game.Base;
+using Game.Base.Interface;
 using Game.Gameplay.Utility;
 using Game.Input.Interface;
 using Game.Ship.Factory.Interface;
@@ -54,10 +55,12 @@ namespace Game.Ship.Factory
                 ship.BulletShootPoint,
                 bulletParent);
 
+            var bulletPool = new BulletPool(bulletFactory);
+
             var weaponController = new ShipWeaponController(
                 shipWeaponsData,
                 ship,
-                bulletFactory,
+                bulletPool,
                 runner);
 
             var controller = new ShipController(

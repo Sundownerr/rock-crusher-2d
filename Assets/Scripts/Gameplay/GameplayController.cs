@@ -18,7 +18,7 @@ namespace Game
     {
         private readonly ParentData parentData;
         private readonly CoroutineRunner runner;
-        private readonly List<IUpdate> updatees = new List<IUpdate>();
+        private readonly List<IUpdate> updatees = new();
         private EnemyController enemyController;
         private bool isShipDestroyed;
         private IPlayerInputController playerInputController;
@@ -27,6 +27,7 @@ namespace Game
         private IShipController shipController;
         private ShipData shipData;
         private IShipFactory shipFactory;
+        private VfxController vfxController;
 
         public GameplayController(GameplayData model, CoroutineRunner runner, ParentData parentData) : base(model)
         {
@@ -43,6 +44,7 @@ namespace Game
             enemyController.Destroy();
             playerInputController.Destroy();
             scoreController.Destroy();
+            vfxController.Destroy();
         }
 
         public void Update()
@@ -60,15 +62,15 @@ namespace Game
                 playerInputController.Destroy();
                 shipController.Destroy();
 
+                ShipDestroyed?.Invoke(shipData.transform);
                 Object.Destroy(shipData.gameObject);
-                ShipDestroyed?.Invoke();
             }
 
             for (var i = 0; i < updatees.Count; i++)
                 updatees[i].Update();
         }
 
-        public event Action ShipDestroyed;
+        public event Action<Transform> ShipDestroyed;
 
         public void CreateGameplayObjects()
         {
@@ -104,12 +106,13 @@ namespace Game
                 parentData,
                 shipSpawnResult.Item3.transform);
 
+            if (model.SpawnEnemies)
+                enemyController.StartSpawn();
+
             updatees.Add(enemyController);
 
             scoreController = new ScoreController(model.ScoreData, enemyController);
-
-            if (model.SpawnEnemies)
-                enemyController.StartSpawn();
+            vfxController = new VfxController(model.VFXData, enemyController, this, parentData.VFXParent);
         }
     }
 }

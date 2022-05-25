@@ -21,7 +21,7 @@ namespace Game.Enemy
         private readonly IAsteroidFactory asteroidFactory;
         private readonly WaitForSeconds asteroidSpawnInterval;
         private readonly AsteroidStageController asteroidStageController;
-        private readonly Dictionary<IEnemy, EnemyDamagable> enemies = new Dictionary<IEnemy, EnemyDamagable>();
+        private readonly Dictionary<IEnemy, EnemyDamagable> enemies = new();
         private readonly CoroutineRunner runner;
         private readonly ScreenBoundsController screenBoundsController;
 
@@ -39,11 +39,11 @@ namespace Game.Enemy
             this.runner = runner;
             this.screenBoundsController = screenBoundsController;
 
-            asteroidFactory = new AsteroidFactory(asteroidFactoryData, parentData.AsteroidParent);
+            asteroidFactory = new AsteroidFactory(asteroidFactoryData, ship, parentData.AsteroidParent);
             asteroidStageController = new AsteroidStageController(asteroidFactory);
             asteroidFactory.Created += AsteroidFactoryOnCreated;
 
-            ufoFactory = new UfoFactory(ufoFactoryData, parentData.AsteroidParent, ship);
+            ufoFactory = new UfoFactory(ufoFactoryData, parentData.UfoParent, ship);
             ufoFactory.Created += UfoFactoryOnCreated;
 
             asteroidSpawnInterval = new WaitForSeconds(asteroidFactoryData.SpawnInterval);
@@ -67,8 +67,9 @@ namespace Game.Enemy
             {
                 if (enemy.Value.IsDamaged)
                 {
-                    HandleDamagedEnemy(enemy.Value);
                     enemies.Remove(enemy.Key);
+                    HandleDamagedEnemy(enemy.Value);
+                    Object.Destroy(enemy.Value.gameObject);
                     break;
                 }
 
@@ -83,13 +84,13 @@ namespace Game.Enemy
                         switch (asteroid.Stage)
                         {
                             case AsteroidData.AsteroidStage.Big:
-                                BigAsteroidDestroyed?.Invoke();
+                                BigAsteroidDestroyed?.Invoke(asteroid.transform);
                                 break;
                             case AsteroidData.AsteroidStage.Medium:
-                                MediumAsteroidDestroyed?.Invoke();
+                                MediumAsteroidDestroyed?.Invoke(asteroid.transform);
                                 break;
                             case AsteroidData.AsteroidStage.Small:
-                                SmallAsteroidDestroyed?.Invoke();
+                                SmallAsteroidDestroyed?.Invoke(asteroid.transform);
                                 break;
                             default:
                                 throw new ArgumentOutOfRangeException();
@@ -97,8 +98,7 @@ namespace Game.Enemy
 
                         break;
                     case UfoData ufo:
-                        Object.Destroy(ufo.gameObject);
-                        UfoDestroyed?.Invoke();
+                        UfoDestroyed?.Invoke(ufo.transform);
                         break;
                 }
             }
@@ -112,10 +112,10 @@ namespace Game.Enemy
                 enemies.Remove(ufo);
         }
 
-        public event Action SmallAsteroidDestroyed;
-        public event Action MediumAsteroidDestroyed;
-        public event Action BigAsteroidDestroyed;
-        public event Action UfoDestroyed;
+        public event Action<Transform> SmallAsteroidDestroyed;
+        public event Action<Transform> MediumAsteroidDestroyed;
+        public event Action<Transform> BigAsteroidDestroyed;
+        public event Action<Transform> UfoDestroyed;
 
         private void UfoFactoryOnCreated((IEnemy ufo, UfoData data) result)
         {

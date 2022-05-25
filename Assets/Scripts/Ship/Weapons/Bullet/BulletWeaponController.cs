@@ -1,20 +1,32 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Game.Base;
+using Game.Gameplay.Utility;
 using Game.Ship.Weapons.Bullet.Interface;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Game.Ship.Weapons.Bullet
 {
     public class BulletWeaponController : Controller<BulletWeaponData>, IBulletWeaponController
     {
-        private readonly BulletFactory bulletFactory;
-        private readonly List<Transform> bullets = new List<Transform>();
+        private readonly List<Transform> bullets = new();
+        private readonly Dictionary<Transform, Coroutine> destroyCoroutines = new();
+        private readonly WaitForSeconds destroyDelay;
+        private readonly BulletPool pool;
+        private readonly CoroutineRunner runner;
+        private readonly Transform shootPoint;
 
-        public BulletWeaponController(BulletWeaponData model, BulletFactory bulletFactory) : base(model)
+        public BulletWeaponController(BulletWeaponData model,
+                                      BulletPool pool,
+                                      Transform shootPoint,
+                                      CoroutineRunner runner) : base(model)
         {
-            this.bulletFactory = bulletFactory;
+            this.pool = pool;
+            this.shootPoint = shootPoint;
+            this.runner = runner;
+
+            destroyDelay = new WaitForSeconds(model.DestroyDelay);
         }
 
         public void Update()
@@ -22,8 +34,9 @@ namespace Game.Ship.Weapons.Bullet
             for (var i = 0; i < bullets.Count; i++)
             {
                 var bullet = bullets[i];
+                var bulletActive = bullet.gameObject.activeSelf;
 
-                if (bullet == null)
+                if (!bulletActive)
                 {
                     bullets.Remove(bullet);
                     continue;
@@ -35,7 +48,13 @@ namespace Game.Ship.Weapons.Bullet
                 if (hit.collider != null)
                 {
                     bullets.Remove(bullet);
-                    Object.Destroy(bullet.gameObject);
+                    pool.Take(bullet);
+
+                    if (destroyCoroutines.TryGetValue(bullet, out var coroutine))
+                    {
+                        destroyCoroutines.Remove(bullet);
+                        runner.StopCoroutine(coroutine);
+                    }
 
                     Hit?.Invoke(hit.transform);
                 }
@@ -46,10 +65,28 @@ namespace Game.Ship.Weapons.Bullet
 
         public void Shoot()
         {
-            var bullet = bulletFactory.Create();
+            var bullet = pool.Give();
+            bullet.position = shootPoint.position;
+            bullet.rotation = shootPoint.rotation;
+
             bullets.Add(bullet);
 
-            Object.Destroy(bullet.gameObject, model.DestroyDelay);
+            var coroutine = runner.StartCoroutine(DestroyBullet(bullet));
+            destroyCoroutines.Add(bullet, coroutine);
+        }
+
+        private IEnumerator DestroyBullet(Transform bullet)
+        {
+            yield return destroyDelay;
+
+            if (bullet == null)
+                yield break;
+
+            if (!bullet.gameObject.activeSelf)
+                yield break;
+
+            destroyCoroutines.Remove(bullet);
+            pool.Take(bullet);
         }
     }
 }

@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using Game.Enemy.Asteroid;
 using Game.Enemy.Asteroid.Interface;
 using Game.Enemy.Factory.Interface;
-using Object = UnityEngine.Object;
 
 namespace Game.Enemy
 {
     public class AsteroidStageController : IDestroyable, IUpdate
     {
         private readonly IAsteroidFactory asteroidFactory;
-        private readonly List<AsteroidData> asteroids = new List<AsteroidData>();
+        private readonly List<AsteroidData> asteroids = new();
 
         public AsteroidStageController(IAsteroidFactory asteroidFactory)
         {
@@ -27,14 +26,7 @@ namespace Game.Enemy
         {
             for (var i = 0; i < asteroids.Count; i++)
             {
-                if (asteroids[i].IsCompletlyDestroyed)
-                {
-                    Object.Destroy(asteroids[i].gameObject);
-                    asteroids.RemoveAt(i);
-                    continue;
-                }
-
-                if (!asteroids[i].IsDamaged)
+                if (!asteroids[i].IsDamaged || asteroids[i].IsCompletlyDestroyed)
                     continue;
 
                 switch (asteroids[i].Stage)
@@ -53,7 +45,6 @@ namespace Game.Enemy
                         throw new ArgumentOutOfRangeException();
                 }
 
-                Object.Destroy(asteroids[i].gameObject);
                 asteroids.RemoveAt(i);
             }
         }

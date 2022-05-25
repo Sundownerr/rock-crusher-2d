@@ -5,16 +5,17 @@ using Game.Enemy.Asteroid.Movement;
 using Game.Enemy.Factory.Interface;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 namespace Game.Enemy.Asteroid.Factory
 {
     public class AsteroidFactory : Controller<AsteroidFactoryData>, IAsteroidFactory
     {
         private readonly Transform parent;
+        private readonly Transform ship;
 
-        public AsteroidFactory(AsteroidFactoryData model, Transform parent) : base(model)
+        public AsteroidFactory(AsteroidFactoryData model, Transform ship, Transform parent) : base(model)
         {
+            this.ship = ship;
             this.parent = parent;
         }
 
@@ -22,8 +23,12 @@ namespace Game.Enemy.Asteroid.Factory
 
         public (IAsteroid, AsteroidData) Create()
         {
-            var randomOffset = Random.insideUnitCircle * model.SpawnRadius;
-            var spawnPos = Vector2.zero + randomOffset;
+            var x = Mathf.Sin(Time.time * model.SpawnRadius) * model.SpawnRadius;
+            var y = Mathf.Cos(Time.time * model.SpawnRadius) * model.SpawnRadius;
+
+            var randomOffset = new Vector3(x, y);
+
+            var spawnPos = ship.position + randomOffset;
 
             return CreateAsteroid(model.PrefabBig, model.SpeedDataBig, spawnPos);
         }
