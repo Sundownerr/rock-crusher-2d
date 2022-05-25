@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Game.Gameplay.Utility;
 using Game.Scenes;
 using Game.Scenes.Interface;
 using Game.UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 namespace Game
 {
@@ -27,9 +28,8 @@ namespace Game
             sceneLoader.GameplaySceneLoaded += OnGameplaySceneLoaded;
             sceneLoader.GameplaySceneUnloaded += OnGameplaySceneUnloaded;
 
-            uiController = new UIController(sceneLoader, coroutineRunner);
-            uiController.MenuUIController.PlayButtonClicked += OnPlayButtonClicked;
-            uiController.MenuUIController.QuitButtonClicked += OnQuitButtonClicked;
+            uiController = new UIController(sceneLoader, gameplayData);
+            uiController.ButtonPressed += OnButtonPressed;
 
             sceneController.LoadMenuScene();
         }
@@ -40,42 +40,45 @@ namespace Game
                 updatees[i].Update();
         }
 
+        private void OnButtonPressed(UIController.Button button)
+        {
+            switch (button)
+            {
+                case UIController.Button.Play:
+                    sceneController.LoadGameplayScene();
+                    break;
+                case UIController.Button.Retry:
+                    break;
+                case UIController.Button.Quit:
+                    Application.Quit();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(button), button, null);
+            }
+        }
+
         private void OnGameplaySceneUnloaded()
         {
             updatees.Remove(gameplayController);
-            updatees.Remove(uiController.GameplayUIController);
+            updatees.Remove(uiController);
             gameplayController.Destroy();
         }
 
-        private void OnGameplaySceneLoaded(Scene obj)
+        private void OnGameplaySceneLoaded()
         {
             var parentData = Object.FindObjectOfType<ParentData>();
             var runner = Object.FindObjectOfType<CoroutineRunner>();
 
             gameplayController = new GameplayController(gameplayData, runner, parentData);
             gameplayController.CreateGameplayObjects();
+
             updatees.Add(gameplayController);
-
-            uiController.GameplayUIController.SetShipMovemenData(gameplayData.ShipMovementData);
-            uiController.GameplayUIController.SetLaserData(gameplayData.ShipWeaponsData.LaserWeaponData);
-
-            updatees.Add(uiController.GameplayUIController);
-        }
-
-        private static void OnQuitButtonClicked()
-        {
-            Application.Quit();
-        }
-
-        private void OnPlayButtonClicked()
-        {
-            sceneController.LoadGameplayScene();
+            updatees.Add(uiController);
         }
 
         public void Destroy()
         {
-            uiController.MenuUIController.PlayButtonClicked -= OnPlayButtonClicked;
-            uiController.MenuUIController.QuitButtonClicked -= OnQuitButtonClicked;
+            uiController.ButtonPressed -= OnButtonPressed;
             sceneLoader.GameplaySceneLoaded -= OnGameplaySceneLoaded;
             sceneLoader.GameplaySceneUnloaded -= OnGameplaySceneUnloaded;
 

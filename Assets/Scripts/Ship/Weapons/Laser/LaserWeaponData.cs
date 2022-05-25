@@ -10,7 +10,7 @@ namespace Game.Ship.Weapons.Laser
         [SerializeField] private float sizeX;
         [SerializeField] private float sizeY;
         [SerializeField] private float delay;
-
+        [SerializeField] private LayerMask targetLayer;
         public int MaxCharges => maxCharges;
         public float CooldownTime => cooldownTime;
         public float SizeX => sizeX;
@@ -19,5 +19,7 @@ namespace Game.Ship.Weapons.Laser
 
         public int CurrentCharges { get; set; }
         public float CurrentCooldown { get; set; }
+
+        public LayerMask TargetLayer => targetLayer;
     }
 }

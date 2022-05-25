@@ -9,5 +9,6 @@ namespace Game.Scenes
         [SerializeField] public string Gameplay;
         [SerializeField] public string MenuUI;
         [SerializeField] public string GameplayUI;
+        [SerializeField] public string GameoverUI;
     }
 }

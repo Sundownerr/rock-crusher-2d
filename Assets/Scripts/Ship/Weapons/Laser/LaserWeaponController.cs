@@ -75,7 +75,10 @@ namespace Game.Ship.Weapons.Laser
                 size,
                 0,
                 shootPoint.transform.up,
-                results);
+                results,
+                100,
+                model.TargetLayer
+            );
 
             for (var i = 0; i < boxCast; i++)
                 Hit?.Invoke(results[i].transform);

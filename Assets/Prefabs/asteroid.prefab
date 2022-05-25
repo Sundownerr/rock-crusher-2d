@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 4588868358264750988}
   - component: {fileID: 9098176996545904165}
   - component: {fileID: 2504237000542733178}
+  - component: {fileID: 2101536576285306281}
   m_Layer: 6
   m_Name: asteroid
   m_TagString: Untagged
@@ -189,3 +190,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a177e2124e4a968ce60fc1f0161370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stage: 0
+--- !u!50 &2101536576285306281
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751969028201604230}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

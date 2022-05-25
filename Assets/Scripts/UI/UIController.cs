@@ -1,42 +1,110 @@
-﻿using Game.Scenes.Interface;
-using Game.UI.Interface;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using System;
+using Game.Scenes.Interface;
+using Object = UnityEngine.Object;
 
 namespace Game.UI
 {
-    public class UIController
+    public class UIController : IDestroyable, IUpdate
     {
-        private readonly ISceneLoader sceneLoader;
+        public enum Button
+        {
+            Play,
+            Retry,
+            Quit,
+        }
 
-        public UIController(ISceneLoader sceneLoader, MonoBehaviour runner)
+        private readonly GameplayData gameplayData;
+        private readonly ISceneLoader sceneLoader;
+        private GameOverUIController gameOverUIController;
+        private GameplayUIController gameplayUIController;
+        private MenuUIController menuUIController;
+
+        public UIController(ISceneLoader sceneLoader, GameplayData gameplayData)
         {
             this.sceneLoader = sceneLoader;
-
-            MenuUIController = new MenuUIController();
-            GameplayUIController = new GameplayUIController();
+            this.gameplayData = gameplayData;
 
             sceneLoader.GameplayUISceneLoaded += OnGameplayUISceneLoaded;
+            sceneLoader.GameoverUISceneLoaded += OnGameoverUISceneLoaded;
+            sceneLoader.GameoverUISceneUnoaded += OnGameoverUISceneUnoaded;
             sceneLoader.MenuUISceneLoaded += OnMenuUISceneLoaded;
-        }
-
-        public IMenuUIController MenuUIController { get; }
-        public IGameplayUIController GameplayUIController { get; }
-
-        private void OnMenuUISceneLoaded(Scene scene)
-        {
-            MenuUIController.HandleSceneLoad(scene);
-        }
-
-        private void OnGameplayUISceneLoaded(Scene scene)
-        {
-            GameplayUIController.HandleSceneLoad(scene);
+            sceneLoader.MenuUISceneUnoaded += OnMenuUISceneUnoaded;
         }
 
         public void Destroy()
         {
             sceneLoader.GameplayUISceneLoaded -= OnGameplayUISceneLoaded;
+            sceneLoader.GameoverUISceneLoaded -= OnGameoverUISceneLoaded;
+            sceneLoader.GameoverUISceneUnoaded -= OnGameoverUISceneUnoaded;
             sceneLoader.MenuUISceneLoaded -= OnMenuUISceneLoaded;
+            sceneLoader.MenuUISceneUnoaded -= OnMenuUISceneUnoaded;
+
+            menuUIController.Destroy();
+            gameOverUIController.Destroy();
+        }
+
+        public void Update()
+        {
+            gameplayUIController.Update();
+        }
+
+        private void OnGameoverUISceneUnoaded()
+        {
+            gameOverUIController.RetryPressed -= OnRetryPressed;
+            gameOverUIController.QuitPressed -= OnQuitPressed;
+            gameOverUIController.Destroy();
+        }
+
+        private void OnGameoverUISceneLoaded()
+        {
+            var model = Object.FindObjectOfType<GameOverUI>();
+            gameOverUIController = new GameOverUIController(model, gameplayData.ScoreData);
+
+            gameOverUIController.RetryPressed += OnRetryPressed;
+            gameOverUIController.QuitPressed += OnQuitPressed;
+        }
+
+        private void OnRetryPressed()
+        {
+            ButtonPressed?.Invoke(Button.Retry);
+        }
+
+        public event Action<Button> ButtonPressed;
+
+        private void OnMenuUISceneUnoaded()
+        {
+            menuUIController.PlayPressed -= OnPlayPressed;
+            menuUIController.QuitPressed -= OnQuitPressed;
+            menuUIController.Destroy();
+        }
+
+        private void OnMenuUISceneLoaded()
+        {
+            var model = Object.FindObjectOfType<MenuUI>();
+            menuUIController = new MenuUIController(model);
+
+            menuUIController.PlayPressed += OnPlayPressed;
+            menuUIController.QuitPressed += OnQuitPressed;
+        }
+
+        private void OnQuitPressed()
+        {
+            ButtonPressed?.Invoke(Button.Quit);
+        }
+
+        private void OnPlayPressed()
+        {
+            ButtonPressed?.Invoke(Button.Play);
+        }
+
+        private void OnGameplayUISceneLoaded()
+        {
+            var model = Object.FindObjectOfType<GameplayUI>();
+
+            gameplayUIController = new GameplayUIController(
+                model,
+                gameplayData.ShipMovementData,
+                gameplayData.ShipWeaponsData.LaserWeaponData);
         }
     }
 }

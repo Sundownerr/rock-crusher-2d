@@ -202,3 +202,4 @@ MonoBehaviour:
     Gameplay: Gameplay
     MenuUI: Menu
     GameplayUI: GameplayUI
+    GameoverUI: GameOverUI

@@ -16,14 +16,14 @@ namespace Game.Scenes
             SceneManager.sceneUnloaded += OnSceneUnloaded;
         }
 
-        public event Action<Scene> GameplaySceneLoaded;
-        public event Action<Scene> GameplayUISceneLoaded;
-        public event Action<Scene> MenuUISceneLoaded;
+        public event Action GameplaySceneLoaded;
+        public event Action GameplayUISceneLoaded;
+        public event Action MenuUISceneLoaded;
+        public event Action GameoverUISceneLoaded;
         public event Action GameplaySceneUnloaded;
         public event Action GameplayUISceneUnloaded;
         public event Action MenuUISceneUnoaded;
-
-        public Scene GetActiveScene() => SceneManager.GetActiveScene();
+        public event Action GameoverUISceneUnoaded;
 
         public void Destroy()
         {
@@ -45,6 +45,12 @@ namespace Game.Scenes
                 return;
             }
 
+            if (scene.name == sceneData.GameoverUI)
+            {
+                GameoverUISceneUnoaded?.Invoke();
+                return;
+            }
+
             if (scene.name == sceneData.MenuUI)
                 MenuUISceneUnoaded?.Invoke();
         }
@@ -53,18 +59,24 @@ namespace Game.Scenes
         {
             if (scene.name == sceneData.Gameplay)
             {
-                GameplaySceneLoaded?.Invoke(scene);
+                GameplaySceneLoaded?.Invoke();
                 return;
             }
 
             if (scene.name == sceneData.GameplayUI)
             {
-                GameplayUISceneLoaded?.Invoke(scene);
+                GameplayUISceneLoaded?.Invoke();
+                return;
+            }
+
+            if (scene.name == sceneData.GameoverUI)
+            {
+                GameoverUISceneLoaded?.Invoke();
                 return;
             }
 
             if (scene.name == sceneData.MenuUI)
-                MenuUISceneLoaded?.Invoke(scene);
+                MenuUISceneLoaded?.Invoke();
         }
     }
 }

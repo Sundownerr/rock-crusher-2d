@@ -1,18 +1,19 @@
 ﻿using System;
-using UnityEngine.SceneManagement;
 
 namespace Game.Scenes.Interface
 {
     public interface ISceneLoader
     {
-        event Action<Scene> GameplaySceneLoaded;
-        event Action<Scene> GameplayUISceneLoaded;
-        event Action<Scene> MenuUISceneLoaded;
+        event Action GameplaySceneLoaded;
+        event Action GameplayUISceneLoaded;
+        event Action MenuUISceneLoaded;
+        event Action GameoverUISceneLoaded;
 
         event Action GameplaySceneUnloaded;
         event Action GameplayUISceneUnloaded;
         event Action MenuUISceneUnoaded;
-        public Scene GetActiveScene();
+        event Action GameoverUISceneUnoaded;
+
         public void Destroy();
     }
 }

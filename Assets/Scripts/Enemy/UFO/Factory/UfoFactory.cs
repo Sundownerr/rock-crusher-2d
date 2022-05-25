@@ -1,36 +1,51 @@
 ﻿using System;
 using Game.Base;
-using Game.Enemy.Factory.Interface;
 using Game.Enemy.Interface;
 using UnityEngine;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace Game.Enemy.UFO.Factory
 {
-    public class UfoFactory : Controller<UfoFactoryData>, IEnemyFactory
+    public class UfoFactory : Controller<UfoFactoryData>, IUfoFactory
     {
         private readonly Transform parent;
+        private readonly Transform target;
 
-        public UfoFactory(UfoFactoryData model, Transform parent) : base(model)
+        public UfoFactory(UfoFactoryData model, Transform parent, Transform target) : base(model)
         {
             this.parent = parent;
+            this.target = target;
         }
 
-        public event Action<(IEnemy, Transform)> Created;
+        public event Action<(IEnemy, UfoData)> Created;
 
-        public (IEnemy, Transform) Create()
+        public (IEnemy, UfoData) Create()
         {
-            Debug.Log("ufo spawn");
-            return default;
+            var randomOffset = Random.insideUnitCircle * model.SpawnRadius;
+            var spawnPos = Vector2.zero + randomOffset;
+
+            return CreateUfo(spawnPos);
         }
 
-        public void Destroy()
+        private (IEnemy, UfoData) CreateUfo(Vector3 position)
         {
-            // coroutineRunner.StopCoroutine(Spawn());
-        }
+            var ufoGameObject = Object.Instantiate(model.Prefab, position, Quaternion.identity, parent);
 
-        public void StartSpawn()
-        {
-            // throw new NotImplementedException(); 
+            var movementController = new UfoMovementController(
+                model.MovementData,
+                ufoGameObject.transform,
+                target);
+
+            var ufo = ufoGameObject.GetComponent<UfoData>();
+
+            var controller = new UfoController(movementController);
+
+            var result = (controller, ufo);
+
+            Created?.Invoke(result);
+
+            return result;
         }
     }
 }

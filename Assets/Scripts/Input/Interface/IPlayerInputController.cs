@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Input.Interface
 {
-    public interface IPlayerInputController : IUpdate
+    public interface IPlayerInputController : IUpdate, IDestroyable
     {
         Vector2 TurnDirection { get; }
         bool IsMovingForwardPressed { get; }

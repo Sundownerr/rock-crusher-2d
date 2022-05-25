@@ -1,36 +1,36 @@
 using System;
-using Game.UI.Interface;
-using UnityEngine.SceneManagement;
-using Object = UnityEngine.Object;
+using Game.Base;
 
 namespace Game.UI
 {
-    public class MenuUIController : IMenuUIController
+    public class MenuUIController : Controller<MenuUI>, IDestroyable
     {
-        public void HandleSceneLoad(Scene scene)
+        public MenuUIController(MenuUI model) : base(model)
         {
-            var menuUI = Object.FindObjectOfType<MenuUI>();
-            var playButton = menuUI.PlayButton;
-            var quitButton = menuUI.QuitButton;
-
-            playButton.onClick.AddListener(() =>
+            model.PlayButton.onClick.AddListener(() =>
             {
-                PlayButtonClicked?.Invoke();
+                PlayPressed?.Invoke();
 
-                playButton.onClick.RemoveAllListeners();
-                quitButton.onClick.RemoveAllListeners();
+                model.PlayButton.onClick.RemoveAllListeners();
+                model.QuitButton.onClick.RemoveAllListeners();
             });
 
-            quitButton.onClick.AddListener(() =>
+            model.QuitButton.onClick.AddListener(() =>
             {
-                QuitButtonClicked?.Invoke();
+                QuitPressed?.Invoke();
 
-                playButton.onClick.RemoveAllListeners();
-                quitButton.onClick.RemoveAllListeners();
+                model.PlayButton.onClick.RemoveAllListeners();
+                model.QuitButton.onClick.RemoveAllListeners();
             });
         }
 
-        public event Action PlayButtonClicked;
-        public event Action QuitButtonClicked;
+        public void Destroy()
+        {
+            model.PlayButton.onClick.RemoveAllListeners();
+            model.QuitButton.onClick.RemoveAllListeners();
+        }
+
+        public event Action PlayPressed;
+        public event Action QuitPressed;
     }
 }

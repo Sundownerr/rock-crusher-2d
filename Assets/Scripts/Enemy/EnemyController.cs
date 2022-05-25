@@ -11,6 +11,7 @@ using Game.Enemy.UFO;
 using Game.Enemy.UFO.Factory;
 using Game.Gameplay.Utility;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Game.Enemy
 {
@@ -22,14 +23,15 @@ namespace Game.Enemy
         private readonly Dictionary<IEnemy, EnemyDamagable> enemies = new Dictionary<IEnemy, EnemyDamagable>();
         private readonly CoroutineRunner runner;
         private readonly ScreenBoundsController screenBoundsController;
-        private readonly IEnemyFactory ufoFactory;
+        private readonly IUfoFactory ufoFactory;
         private readonly WaitForSeconds ufoSpawnInterval;
 
         public EnemyController(CoroutineRunner runner,
                                ScreenBoundsController screenBoundsController,
                                AsteroidFactoryData asteroidFactoryData,
                                UfoFactoryData ufoFactoryData,
-                               ParentData parentData)
+                               ParentData parentData,
+                               Transform ship)
         {
             this.runner = runner;
             this.screenBoundsController = screenBoundsController;
@@ -38,7 +40,8 @@ namespace Game.Enemy
             asteroidStageController = new AsteroidStageController(asteroidFactory);
             asteroidFactory.Created += AsteroidFactoryOnCreated;
 
-            ufoFactory = new UfoFactory(ufoFactoryData, parentData.AsteroidParent);
+            ufoFactory = new UfoFactory(ufoFactoryData, parentData.AsteroidParent, ship);
+            ufoFactory.Created += UfoFactoryOnCreated;
 
             asteroidSpawnInterval = new WaitForSeconds(asteroidFactoryData.SpawnInterval);
             ufoSpawnInterval = new WaitForSeconds(ufoFactoryData.SpawnInterval);
@@ -52,6 +55,7 @@ namespace Game.Enemy
             asteroidStageController.Destroy();
 
             asteroidFactory.Created -= AsteroidFactoryOnCreated;
+            ufoFactory.Created -= UfoFactoryOnCreated;
         }
 
         public void Update()
@@ -92,6 +96,7 @@ namespace Game.Enemy
 
                         break;
                     case UfoData ufo:
+                        Object.Destroy(ufo.gameObject);
                         UfoDestroyed?.Invoke();
                         break;
                 }
@@ -102,6 +107,12 @@ namespace Game.Enemy
         public event Action MediumAsteroidDestroyed;
         public event Action BigAsteroidDestroyed;
         public event Action UfoDestroyed;
+
+        private void UfoFactoryOnCreated((IEnemy ufo, UfoData data) result)
+        {
+            enemies.Add(result.ufo, result.data);
+            screenBoundsController.Add(result.data.transform);
+        }
 
         private void AsteroidFactoryOnCreated((IAsteroid asteroid, AsteroidData data) result)
         {
@@ -118,11 +129,9 @@ namespace Game.Enemy
         private IEnumerator SpawnUfos()
         {
             yield return ufoSpawnInterval;
-            //
-            // var result = ufoFactory.Create();
-            // HandleEnemySpawn(result);
 
-            // runner.StartCoroutine(SpawnUfos());
+            ufoFactory.Create();
+            runner.StartCoroutine(SpawnUfos());
         }
 
         private IEnumerator SpawnAsteroids()

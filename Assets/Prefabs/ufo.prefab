@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8270407082192663643}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4588868358264750988}
-  m_Layer: 0
+  - component: {fileID: 7478743086302786092}
+  - component: {fileID: 4999670643768410560}
+  - component: {fileID: 5976170731127905445}
+  m_Layer: 6
   m_Name: ufo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,12 +59,76 @@ Transform:
   m_GameObject: {fileID: 751969028201604230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.5537, y: 2.5537, z: 2.5537}
   m_Children:
   - {fileID: 8270407082192663643}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &7478743086302786092
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751969028201604230}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!60 &4999670643768410560
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751969028201604230}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.0034683049, y: 0.21616532}
+      - {x: -0.35104162, y: -0.0031295605}
+      - {x: -0.36343324, y: -0.13024625}
+      - {x: -0.005111687, y: -0.22634354}
+      - {x: 0.36234617, y: -0.12576282}
+      - {x: 0.35797817, y: -0.020470858}
+--- !u!114 &5976170731127905445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751969028201604230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af232cc3d14b4ee4b417e0061cbe6c3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7703376216575201974
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,7 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3967373807875349557}
   - component: {fileID: 1744475732083131197}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ufo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
