@@ -12,13 +12,14 @@ namespace Game
     public class GameController : IUpdate
     {
         private readonly GameplayData gameplayData;
-        private readonly ISceneController sceneController;
+        private readonly SceneController sceneController;
         private readonly ISceneLoader sceneLoader;
         private readonly UIController uiController;
         private readonly List<IUpdate> updatees = new List<IUpdate>();
         private GameplayController gameplayController;
+        private CoroutineRunner runner;
 
-        public GameController(GameplayData gameplayData, SceneData sceneData, MonoBehaviour coroutineRunner)
+        public GameController(GameplayData gameplayData, SceneData sceneData)
         {
             this.gameplayData = gameplayData;
 
@@ -48,6 +49,7 @@ namespace Game
                     sceneController.LoadGameplayScene();
                     break;
                 case UIController.Button.Retry:
+                    sceneController.RestartGameplayScene();
                     break;
                 case UIController.Button.Quit:
                     Application.Quit();
@@ -59,21 +61,32 @@ namespace Game
 
         private void OnGameplaySceneUnloaded()
         {
+            // runner.StopAllCoroutines();
+
             updatees.Remove(gameplayController);
             updatees.Remove(uiController);
+
+            gameplayController.ShipDestroyed -= OnShipDestroyed;
             gameplayController.Destroy();
         }
 
         private void OnGameplaySceneLoaded()
         {
             var parentData = Object.FindObjectOfType<ParentData>();
-            var runner = Object.FindObjectOfType<CoroutineRunner>();
+            runner = Object.FindObjectOfType<CoroutineRunner>();
 
             gameplayController = new GameplayController(gameplayData, runner, parentData);
             gameplayController.CreateGameplayObjects();
+            gameplayController.ShipDestroyed += OnShipDestroyed;
 
             updatees.Add(gameplayController);
             updatees.Add(uiController);
+        }
+
+        private void OnShipDestroyed()
+        {
+            updatees.Remove(uiController);
+            sceneController.LoadGameOverScene();
         }
 
         public void Destroy()

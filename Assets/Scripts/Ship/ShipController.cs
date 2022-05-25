@@ -28,6 +28,12 @@ namespace Game.Ship
             playerInputController.ShootLaserPressed += OnShootLaserPressed;
 
             colliderData.Enter += ColliderDataOnEnter;
+
+            void ColliderDataOnEnter(Collision2D obj)
+            {
+                model.IsDamaged = true;
+                colliderData.Enter -= ColliderDataOnEnter;
+            }
         }
 
         public void Destroy()
@@ -54,11 +60,6 @@ namespace Game.Ship
                 shipWeaponController.ShootBullets();
 
             movementController.Turn(playerInputController.TurnDirection);
-        }
-
-        private void ColliderDataOnEnter(Collision2D obj)
-        {
-            model.IsDamaged = true;
         }
 
         private void OnShootLaserPressed()

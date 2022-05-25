@@ -37,9 +37,9 @@ namespace Game.Ship.Factory
             this.playerInputController = playerInputController;
         }
 
-        public event Action<(IShipController, IFactory<Transform>, Transform)> Created;
+        public event Action<(IShipController, IFactory<Transform>, ShipData)> Created;
 
-        public (IShipController, IFactory<Transform>, Transform) Create()
+        public (IShipController, IFactory<Transform>, ShipData) Create()
         {
             var ship = Object.Instantiate(model.Prefab, bulletParent).GetComponent<ShipData>();
             var colliderData = ship.GetComponent<ColliderData>();
@@ -67,7 +67,7 @@ namespace Game.Ship.Factory
                 playerInputController,
                 weaponController);
 
-            var result = (controller, bulletFactory, ship.transform);
+            var result = (controller, bulletFactory, ship);
 
             Created?.Invoke(result);
 

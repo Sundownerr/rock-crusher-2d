@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Game.Combat;
 using Game.Enemy.Asteroid;
 using Game.Enemy.Asteroid.Factory;
@@ -23,8 +24,10 @@ namespace Game.Enemy
         private readonly Dictionary<IEnemy, EnemyDamagable> enemies = new Dictionary<IEnemy, EnemyDamagable>();
         private readonly CoroutineRunner runner;
         private readonly ScreenBoundsController screenBoundsController;
+
         private readonly IUfoFactory ufoFactory;
         private readonly WaitForSeconds ufoSpawnInterval;
+        private bool canSpawn;
 
         public EnemyController(CoroutineRunner runner,
                                ScreenBoundsController screenBoundsController,
@@ -50,8 +53,6 @@ namespace Game.Enemy
         public void Destroy()
         {
             enemies.Clear();
-            runner.StopCoroutine(SpawnUfos());
-            runner.StopCoroutine(SpawnAsteroids());
             asteroidStageController.Destroy();
 
             asteroidFactory.Created -= AsteroidFactoryOnCreated;
@@ -103,6 +104,14 @@ namespace Game.Enemy
             }
         }
 
+        public void HandleShipDestroyed()
+        {
+            var ufos = enemies.Select(x => x.Key).Where(x => x is UfoController).ToArray();
+
+            foreach (var ufo in ufos)
+                enemies.Remove(ufo);
+        }
+
         public event Action SmallAsteroidDestroyed;
         public event Action MediumAsteroidDestroyed;
         public event Action BigAsteroidDestroyed;
@@ -122,13 +131,22 @@ namespace Game.Enemy
 
         public void StartSpawn()
         {
+            canSpawn = true;
             runner.StartCoroutine(SpawnAsteroids());
             runner.StartCoroutine(SpawnUfos());
+        }
+
+        public void StopSpawn()
+        {
+            canSpawn = false;
         }
 
         private IEnumerator SpawnUfos()
         {
             yield return ufoSpawnInterval;
+
+            if (!canSpawn)
+                yield break;
 
             ufoFactory.Create();
             runner.StartCoroutine(SpawnUfos());
@@ -137,6 +155,9 @@ namespace Game.Enemy
         private IEnumerator SpawnAsteroids()
         {
             yield return asteroidSpawnInterval;
+
+            if (!canSpawn)
+                yield break;
 
             asteroidFactory.Create();
             runner.StartCoroutine(SpawnAsteroids());

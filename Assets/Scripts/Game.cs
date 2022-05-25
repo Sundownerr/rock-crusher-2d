@@ -12,7 +12,7 @@ namespace Game
 
         private void Start()
         {
-            gameController = new GameController(gameplayData, sceneData, this);
+            gameController = new GameController(gameplayData, sceneData);
         }
 
         private void Update()

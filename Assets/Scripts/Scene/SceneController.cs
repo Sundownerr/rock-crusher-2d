@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using Game.Scenes.Interface;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Game.Scenes
 {
-    public class SceneController : ISceneController
+    public class SceneController
     {
         private readonly List<string> loadedSceneNames = new List<string>();
         private readonly SceneData sceneData;
@@ -17,6 +16,8 @@ namespace Game.Scenes
 
         public void RestartGameplayScene()
         {
+            UnloadScene(sceneData.GameoverUI);
+
             UnloadScene(sceneData.GameplayUI);
             LoadSceneAdditive(sceneData.GameplayUI);
 
@@ -38,6 +39,11 @@ namespace Game.Scenes
 
             LoadSceneAdditive(sceneData.GameplayUI);
             LoadSceneAdditive(sceneData.Gameplay, true);
+        }
+
+        public void LoadGameOverScene()
+        {
+            LoadSceneAdditive(sceneData.GameoverUI);
         }
 
         private void UnloadScene(string sceneName)

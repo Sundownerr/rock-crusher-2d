@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Game.Base;
 using Game.Enemy;
 using Game.Gameplay.Utility;
 using Game.Input;
 using Game.Input.Interface;
+using Game.Ship;
 using Game.Ship.Factory;
 using Game.Ship.Factory.Interface;
 using Game.Ship.Interface;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Game
 {
@@ -17,10 +20,12 @@ namespace Game
         private readonly CoroutineRunner runner;
         private readonly List<IUpdate> updatees = new List<IUpdate>();
         private EnemyController enemyController;
+        private bool isShipDestroyed;
         private IPlayerInputController playerInputController;
         private ScoreController scoreController;
         private ScreenBoundsController screenBoundsController;
         private IShipController shipController;
+        private ShipData shipData;
         private IShipFactory shipFactory;
 
         public GameplayController(GameplayData model, CoroutineRunner runner, ParentData parentData) : base(model)
@@ -38,15 +43,32 @@ namespace Game
             enemyController.Destroy();
             playerInputController.Destroy();
             scoreController.Destroy();
-
-            runner.StopAllCoroutines();
         }
 
         public void Update()
         {
+            if (shipData.IsDamaged && !isShipDestroyed)
+            {
+                isShipDestroyed = true;
+
+                enemyController.HandleShipDestroyed();
+                enemyController.StopSpawn();
+
+                updatees.Remove(playerInputController);
+                updatees.Remove(shipController);
+
+                playerInputController.Destroy();
+                shipController.Destroy();
+
+                Object.Destroy(shipData.gameObject);
+                ShipDestroyed?.Invoke();
+            }
+
             for (var i = 0; i < updatees.Count; i++)
                 updatees[i].Update();
         }
+
+        public event Action ShipDestroyed;
 
         public void CreateGameplayObjects()
         {
@@ -68,10 +90,11 @@ namespace Game
             var shipSpawnResult = shipFactory.Create();
 
             shipController = shipSpawnResult.Item1;
+            shipData = shipSpawnResult.Item3;
 
             updatees.Add(shipController);
             screenBoundsController.Add(shipSpawnResult.Item2);
-            screenBoundsController.Add(shipSpawnResult.Item3);
+            screenBoundsController.Add(shipSpawnResult.Item3.transform);
 
             enemyController = new EnemyController(
                 runner,
@@ -79,7 +102,7 @@ namespace Game
                 model.AsteroidFactoryData,
                 model.UfoFactoryData,
                 parentData,
-                shipSpawnResult.Item3);
+                shipSpawnResult.Item3.transform);
 
             updatees.Add(enemyController);
 

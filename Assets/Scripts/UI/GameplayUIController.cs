@@ -28,7 +28,11 @@ namespace Game.UI
         private void UpdateLaserValues()
         {
             model.LaserCharges.text = laserWeaponData.CurrentCharges.ToString();
-            model.LaserCooldown.text = Math.Round(laserWeaponData.CurrentCooldown, 1).ToString();
+
+            model.LaserCooldown.gameObject.SetActive(laserWeaponData.CurrentCooldown > 0);
+
+            if (model.LaserCooldown.gameObject.activeSelf)
+                model.LaserCooldown.text = Math.Round(laserWeaponData.CurrentCooldown, 1).ToString();
         }
 
         private void UpdateShipValues()

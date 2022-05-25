@@ -3,6 +3,6 @@ using UnityEngine;
 
 namespace Game.Ship.Factory.Interface
 {
-    public interface IShipFactory : IFactory<(IShipController, IFactory<Transform>, Transform)>
+    public interface IShipFactory : IFactory<(IShipController, IFactory<Transform>, ShipData)>
     { }
 }
