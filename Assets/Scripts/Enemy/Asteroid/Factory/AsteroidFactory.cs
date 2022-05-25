@@ -25,25 +25,27 @@ namespace Game.Enemy.Asteroid.Factory
             var randomOffset = Random.insideUnitCircle * model.SpawnRadius;
             var spawnPos = Vector2.zero + randomOffset;
 
-            return CreateAsteroid(model.PrefabBig, spawnPos);
+            return CreateAsteroid(model.PrefabBig, model.SpeedDataBig, spawnPos);
         }
 
         public void CreateSmall(Vector3 position)
         {
-            CreateAsteroid(model.PrefabSmall, position);
+            CreateAsteroid(model.PrefabSmall, model.SpeedDataSmall, position);
         }
 
         public void CreateMedium(Vector3 position)
         {
-            CreateAsteroid(model.PrefabMedium, position);
+            CreateAsteroid(model.PrefabMedium, model.SpeedDataMedium, position);
         }
 
-        private (IAsteroid, AsteroidData) CreateAsteroid(GameObject prefab, Vector3 position)
+        private (IAsteroid, AsteroidData) CreateAsteroid(GameObject prefab,
+                                                         AsteroidSpeedData speedData,
+                                                         Vector3 position)
         {
             var asteroid = Object.Instantiate(prefab, position, Quaternion.identity, parent);
             var data = asteroid.GetComponent<AsteroidData>();
 
-            var movementController = new AsteroidMovementController(model.SpeedData, asteroid.transform);
+            var movementController = new AsteroidMovementController(speedData, asteroid.transform);
             var controller = new AsteroidController(data, movementController);
 
             var result = (controller, data);

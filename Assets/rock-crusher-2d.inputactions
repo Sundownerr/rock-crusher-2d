@@ -222,7 +222,7 @@
                 {
                     "name": "",
                     "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -277,7 +277,7 @@
                 {
                     "name": "",
                     "id": "2e0c78d9-2bf0-4958-8c4b-f07df70cb238",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/rightShift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",

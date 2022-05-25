@@ -39,6 +39,8 @@ namespace Game.Gameplay.Utility
                 if (outOfBoundsX)
                 {
                     var mirroredX = Screen.width - positionOnScreen.x;
+                    mirroredX *= 0.95f;
+
                     var mirrorPosition = new Vector3(mirroredX, positionOnScreen.y, 10);
                     targetTransform.position = camera.ScreenToWorldPoint(mirrorPosition);
                 }
@@ -46,6 +48,7 @@ namespace Game.Gameplay.Utility
                 if (outOfBoundsY)
                 {
                     var mirroredY = Screen.height - positionOnScreen.y;
+                    mirroredY *= 0.95f;
 
                     var mirrorPosition = new Vector3(positionOnScreen.x, mirroredY, 10);
                     targetTransform.position = camera.ScreenToWorldPoint(mirrorPosition);

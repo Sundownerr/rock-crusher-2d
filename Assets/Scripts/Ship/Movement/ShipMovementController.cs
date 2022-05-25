@@ -35,7 +35,8 @@ namespace Game.Ship.Movement
             if (isMoving)
                 return;
 
-            targetTransform.position += inertia;
+            targetTransform.position += inertia * Time.deltaTime;
+            inertia *= model.InertiaFadeMultiplier;
         }
 
         public void Move()
@@ -46,7 +47,7 @@ namespace Game.Ship.Movement
             var direction = targetTransform.up * (shipSpeedData.CurrentSpeed * Time.deltaTime);
 
             inertia = Vector3.Lerp(inertia, direction, Time.deltaTime);
-            targetTransform.position += inertia;
+            targetTransform.position += inertia * Time.deltaTime;
         }
 
         public void Stop()
@@ -56,7 +57,7 @@ namespace Game.Ship.Movement
 
         public void Turn(Vector2 direction)
         {
-            targetTransform.Rotate(Vector3.back, direction.x * model.turnSpeed);
+            targetTransform.Rotate(Vector3.back, direction.x * model.TurnSpeed * Time.deltaTime);
         }
     }
 }

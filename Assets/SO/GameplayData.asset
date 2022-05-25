@@ -20,3 +20,4 @@ MonoBehaviour:
   playerInputData: {fileID: 11400000, guid: a6adeafb70cbaae43ba7d68961301759, type: 2}
   shipShipSpeedData: {fileID: 11400000, guid: 0f694a27fa8584e47ba9e2a06c5d99fb, type: 2}
   scoreData: {fileID: 11400000, guid: 0814e103b0e05ca499d7e6e88503af4a, type: 2}
+  spawnEnemies: 1

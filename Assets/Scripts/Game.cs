@@ -10,6 +10,11 @@ namespace Game
 
         private GameController gameController;
 
+        private void Awake()
+        {
+            Application.targetFrameRate = Screen.currentResolution.refreshRate;
+        }
+
         private void Start()
         {
             gameController = new GameController(gameplayData, sceneData);

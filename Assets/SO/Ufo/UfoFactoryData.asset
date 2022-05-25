@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementData: {fileID: 11400000, guid: 67aaddd930910ff44bd14acf94cc8072, type: 2}
   prefab: {fileID: 751969028201604230, guid: f5f705fcc6cdd6d479bd3eb642422132, type: 3}
-  spawnInterval: 2
+  spawnInterval: 5
   spawnRadius: 9

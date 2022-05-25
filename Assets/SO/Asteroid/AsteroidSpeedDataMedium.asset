@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3f42c4447dc4d01bcc98e411fbb018f, type: 3}
-  m_Name: AsteroidSpeedData
+  m_Name: AsteroidSpeedDataMedium
   m_EditorClassIdentifier: 
-  minMaxSpeed: {x: 1, y: 2}
-  minMaxRotationSpeed: {x: -55, y: 55}
+  minMaxSpeed: {x: 1.275, y: 2.55}
+  minMaxRotationSpeed: {x: -82.5, y: 82.5}

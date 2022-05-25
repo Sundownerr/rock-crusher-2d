@@ -108,7 +108,8 @@ namespace Game
 
             scoreController = new ScoreController(model.ScoreData, enemyController);
 
-            enemyController.StartSpawn();
+            if (model.SpawnEnemies)
+                enemyController.StartSpawn();
         }
     }
 }

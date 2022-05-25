@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11e1e929bc5d49de94b3f9d83a6e308f, type: 3}
   m_Name: SpeedData
   m_EditorClassIdentifier: 
-  acceleration: 0.1
-  deceleration: 0.1
-  maxSpeed: 8
+  acceleration: 400
+  deceleration: 400
+  maxSpeed: 900

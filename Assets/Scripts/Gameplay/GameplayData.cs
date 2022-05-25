@@ -19,6 +19,7 @@ namespace Game
         [SerializeField] private PlayerInputData playerInputData;
         [SerializeField] private ShipSpeedData shipShipSpeedData;
         [SerializeField] private ScoreData scoreData;
+        [SerializeField] private bool spawnEnemies;
 
         public ScoreData ScoreData => scoreData;
         public AsteroidFactoryData AsteroidFactoryData => asteroidFactoryData;
@@ -28,5 +29,7 @@ namespace Game
         public ShipMovementData ShipMovementData => shipMovementData;
         public ShipSpeedData ShipShipSpeedData => shipShipSpeedData;
         public PlayerInputData PlayerInputData => playerInputData;
+
+        public bool SpawnEnemies => spawnEnemies;
     }
 }
