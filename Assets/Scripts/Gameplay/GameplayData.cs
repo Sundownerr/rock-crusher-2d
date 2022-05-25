@@ -1,5 +1,4 @@
-﻿using Game.Enemy.Asteroid.Factory;
-using Game.Enemy.UFO.Factory;
+﻿using Game.Enemy;
 using Game.Input;
 using Game.Ship.Factory;
 using Game.Ship.Movement;
@@ -12,8 +11,7 @@ namespace Game
     public class GameplayData : ScriptableObject
     {
         [SerializeField] private VfxData vfxData;
-        [SerializeField] private AsteroidFactoryData asteroidFactoryData;
-        [SerializeField] private UfoFactoryData ufoFactoryData;
+        [SerializeField] private EnemyData enemyData;
         [SerializeField] private ShipFactoryData shipFactoryData;
         [SerializeField] private ShipWeaponsData shipWeaponsData;
         [SerializeField] private ShipMovementData shipMovementData;
@@ -22,10 +20,9 @@ namespace Game
         [SerializeField] private ScoreData scoreData;
         [SerializeField] private bool spawnEnemies;
 
+        public EnemyData EnemyData => enemyData;
         public VfxData VFXData => vfxData;
         public ScoreData ScoreData => scoreData;
-        public AsteroidFactoryData AsteroidFactoryData => asteroidFactoryData;
-        public UfoFactoryData UfoFactoryData => ufoFactoryData;
         public ShipFactoryData ShipFactoryData => shipFactoryData;
         public ShipWeaponsData ShipWeaponsData => shipWeaponsData;
         public ShipMovementData ShipMovementData => shipMovementData;

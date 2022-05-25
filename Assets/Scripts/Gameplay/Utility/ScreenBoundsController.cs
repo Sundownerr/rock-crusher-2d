@@ -26,8 +26,9 @@ namespace Game.Gameplay.Utility
             for (var i = 0; i < targetTransforms.Count; i++)
             {
                 var targetTransform = targetTransforms[i];
+                var isTargetActive = targetTransform != null && targetTransform.gameObject.activeSelf;
 
-                if (targetTransform == null)
+                if (!isTargetActive)
                 {
                     targetTransforms.Remove(targetTransform);
                     continue;

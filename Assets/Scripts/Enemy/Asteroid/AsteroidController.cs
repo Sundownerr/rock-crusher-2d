@@ -1,11 +1,11 @@
 ﻿using System;
 using Game.Base;
-using Game.Enemy.Asteroid.Interface;
 using Game.Enemy.Asteroid.Movement;
+using Game.Enemy.Interface;
 
 namespace Game.Enemy.Asteroid
 {
-    public class AsteroidController : Controller<AsteroidData>, IAsteroid
+    public class AsteroidController : Controller<AsteroidData>, IEnemy
     {
         private readonly AsteroidMovementController movementController;
 
@@ -15,6 +15,8 @@ namespace Game.Enemy.Asteroid
             this.movementController = movementController;
         }
 
+        public bool IsDead { get; private set; }
+
         public void Update()
         {
             movementController.Update();
@@ -22,8 +24,6 @@ namespace Game.Enemy.Asteroid
             if (model.IsDamaged)
                 HandleDamaged();
         }
-
-        public bool IsDead { get; private set; }
 
         public void HandleDamaged()
         {

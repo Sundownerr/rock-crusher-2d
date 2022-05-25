@@ -1,31 +1,31 @@
-﻿using Game.Base.Interface;
+﻿using Game.Ship.Weapons.Bullet;
 using UnityEngine;
 
 namespace Game
 {
     public class BulletPool : Pool<Transform>
     {
-        private readonly IFactory<Transform> factory;
+        private readonly BulletFactory bulletFactory;
 
-        public BulletPool(IFactory<Transform> factory)
+        public BulletPool(BulletFactory bulletFactory)
         {
-            this.factory = factory;
+            this.bulletFactory = bulletFactory;
         }
 
-        public override Transform Give()
+        public override Transform Get()
         {
-            var bullet = base.Give();
+            var bullet = base.Get();
             bullet.gameObject.SetActive(true);
 
             return bullet;
         }
 
-        public override void Take(Transform item)
+        public override void Return(Transform item)
         {
-            base.Take(item);
             item.gameObject.SetActive(false);
+            base.Return(item);
         }
 
-        protected override Transform GetNewItem() => factory.Create().transform;
+        protected override Transform GetNew() => bulletFactory.Create();
     }
 }

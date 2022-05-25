@@ -14,6 +14,7 @@ namespace Game.Ship.Weapons.Bullet
         private readonly Dictionary<Transform, Coroutine> destroyCoroutines = new();
         private readonly WaitForSeconds destroyDelay;
         private readonly BulletPool pool;
+        private readonly RaycastHit2D[] results = new RaycastHit2D[1];
         private readonly CoroutineRunner runner;
         private readonly Transform shootPoint;
 
@@ -43,20 +44,21 @@ namespace Game.Ship.Weapons.Bullet
                 }
 
                 bullet.position += bullet.up * (Time.deltaTime * model.BulletSpeed);
-                var hit = Physics2D.Raycast(bullet.position, bullet.forward, 1, model.BulletTargetLayer);
+                var hitCount = Physics2D.RaycastNonAlloc(bullet.position, bullet.forward, results, 1,
+                    model.BulletTargetLayer);
 
-                if (hit.collider != null)
+                for (var j = 0; j < hitCount; j++)
                 {
                     bullets.Remove(bullet);
-                    pool.Take(bullet);
+                    pool.Return(bullet);
 
                     if (destroyCoroutines.TryGetValue(bullet, out var coroutine))
                     {
-                        destroyCoroutines.Remove(bullet);
                         runner.StopCoroutine(coroutine);
+                        destroyCoroutines.Remove(bullet);
                     }
 
-                    Hit?.Invoke(hit.transform);
+                    Hit?.Invoke(results[j].transform);
                 }
             }
         }
@@ -65,7 +67,7 @@ namespace Game.Ship.Weapons.Bullet
 
         public void Shoot()
         {
-            var bullet = pool.Give();
+            var bullet = pool.Get();
             bullet.position = shootPoint.position;
             bullet.rotation = shootPoint.rotation;
 
@@ -86,7 +88,7 @@ namespace Game.Ship.Weapons.Bullet
                 yield break;
 
             destroyCoroutines.Remove(bullet);
-            pool.Take(bullet);
+            pool.Return(bullet);
         }
     }
 }

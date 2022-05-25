@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Game.Base.Interface;
 
 namespace Game
@@ -7,17 +8,23 @@ namespace Game
     {
         private readonly Stack<T> pool = new();
 
-        public virtual T Give()
+        public event Action<T> ItemGiven;
+        public event Action<T> ItemReturned;
+
+        public virtual T Get()
         {
-            var item = pool.TryPop(out var deactivatedItem) ? deactivatedItem : GetNewItem();
+            var item = pool.TryPop(out var deactivatedItem) ? deactivatedItem : GetNew();
+
+            ItemGiven?.Invoke(item);
             return item;
         }
 
-        public virtual void Take(T item)
+        public virtual void Return(T item)
         {
             pool.Push(item);
+            ItemReturned?.Invoke(item);
         }
 
-        protected abstract T GetNewItem();
+        protected abstract T GetNew();
     }
 }

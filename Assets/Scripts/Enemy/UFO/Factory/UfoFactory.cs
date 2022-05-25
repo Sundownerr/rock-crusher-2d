@@ -1,37 +1,21 @@
 ﻿using System;
-using Game.Base;
+using Game.Enemy.Factory;
 using Game.Enemy.Interface;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Game.Enemy.UFO.Factory
 {
-    public class UfoFactory : Controller<UfoFactoryData>, IUfoFactory
+    public class UfoFactory : EnemyFactory<UfoFactoryData, UfoData>
     {
-        private readonly Transform parent;
         private readonly Transform target;
 
-        public UfoFactory(UfoFactoryData model, Transform parent, Transform target) : base(model)
+        public UfoFactory(UfoFactoryData model, Transform parent, Transform target) : base(model, parent)
         {
-            this.parent = parent;
             this.target = target;
         }
 
-        public event Action<(IEnemy, UfoData)> Created;
-
-        public (IEnemy, UfoData) Create()
-        {
-            var x = Mathf.Sin(Time.time * model.SpawnRadius) * model.SpawnRadius;
-            var y = Mathf.Cos(Time.time * model.SpawnRadius) * model.SpawnRadius;
-
-            var randomOffset = new Vector3(x, y);
-
-            var spawnPos = target.position + randomOffset;
-
-            return CreateUfo(spawnPos);
-        }
-
-        private (IEnemy, UfoData) CreateUfo(Vector3 position)
+        public override (IEnemy controller, UfoData model) Create(Vector3 position)
         {
             var ufoGameObject = Object.Instantiate(model.Prefab, position, Quaternion.identity, parent);
 
@@ -46,9 +30,11 @@ namespace Game.Enemy.UFO.Factory
 
             var result = (controller, ufo);
 
-            Created?.Invoke(result);
+            Created?.Invoke(controller, ufo);
 
             return result;
         }
+
+        public override event Action<IEnemy, UfoData> Created;
     }
 }

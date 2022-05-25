@@ -1,8 +1,12 @@
-﻿namespace Game.Base.Interface
+﻿using System;
+
+namespace Game.Base.Interface
 {
     public interface IPool<T>
     {
-        T Give();
-        void Take(T item);
+        event Action<T> ItemGiven;
+        event Action<T> ItemReturned;
+        T Get();
+        void Return(T item);
     }
 }

@@ -1,63 +1,28 @@
 ﻿using System;
-using Game.Base;
-using Game.Enemy.Asteroid.Interface;
 using Game.Enemy.Asteroid.Movement;
-using Game.Enemy.Factory.Interface;
+using Game.Enemy.Factory;
+using Game.Enemy.Interface;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Game.Enemy.Asteroid.Factory
 {
-    public class AsteroidFactory : Controller<AsteroidFactoryData>, IAsteroidFactory
+    public class AsteroidFactory : EnemyFactory<AsteroidFactoryData, AsteroidData>
     {
-        private readonly Transform parent;
-        private readonly Transform ship;
+        public AsteroidFactory(AsteroidFactoryData model, Transform parent) : base(model, parent)
+        { }
 
-        public AsteroidFactory(AsteroidFactoryData model, Transform ship, Transform parent) : base(model)
+        public override (IEnemy controller, AsteroidData model) Create(Vector3 position)
         {
-            this.ship = ship;
-            this.parent = parent;
+            var instancedPrefab = Object.Instantiate(model.Prefab, position, Quaternion.identity, parent);
+            var asteroid = instancedPrefab.GetComponent<AsteroidData>();
+            var movementController = new AsteroidMovementController(model.SpeedData, instancedPrefab.transform);
+            var controller = new AsteroidController(asteroid, movementController);
+
+            Created?.Invoke(controller, asteroid);
+            return (controller, asteroid);
         }
 
-        public event Action<(IAsteroid, AsteroidData)> Created;
-
-        public (IAsteroid, AsteroidData) Create()
-        {
-            var x = Mathf.Sin(Time.time * model.SpawnRadius) * model.SpawnRadius;
-            var y = Mathf.Cos(Time.time * model.SpawnRadius) * model.SpawnRadius;
-
-            var randomOffset = new Vector3(x, y);
-
-            var spawnPos = ship.position + randomOffset;
-
-            return CreateAsteroid(model.PrefabBig, model.SpeedDataBig, spawnPos);
-        }
-
-        public void CreateSmall(Vector3 position)
-        {
-            CreateAsteroid(model.PrefabSmall, model.SpeedDataSmall, position);
-        }
-
-        public void CreateMedium(Vector3 position)
-        {
-            CreateAsteroid(model.PrefabMedium, model.SpeedDataMedium, position);
-        }
-
-        private (IAsteroid, AsteroidData) CreateAsteroid(GameObject prefab,
-                                                         AsteroidSpeedData speedData,
-                                                         Vector3 position)
-        {
-            var asteroid = Object.Instantiate(prefab, position, Quaternion.identity, parent);
-            var data = asteroid.GetComponent<AsteroidData>();
-
-            var movementController = new AsteroidMovementController(speedData, asteroid.transform);
-            var controller = new AsteroidController(data, movementController);
-
-            var result = (controller, data);
-
-            Created?.Invoke(result);
-
-            return result;
-        }
+        public override event Action<IEnemy, AsteroidData> Created;
     }
 }

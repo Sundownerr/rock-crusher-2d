@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace Game.Enemy.Factory.Interface
 {
-    public interface IEnemyFactory : IFactory<(IEnemy, Transform)>
-    { }
+    public interface IEnemyFactory<T> : IFactory<IEnemy, T>
+    {
+        (IEnemy controller, T model) Create(Vector3 position);
+    }
 }

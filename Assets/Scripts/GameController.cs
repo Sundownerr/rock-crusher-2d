@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Game.Base;
 using Game.Gameplay.Utility;
 using Game.Scenes;
 using Game.Scenes.Interface;
@@ -9,9 +10,8 @@ using Object = UnityEngine.Object;
 
 namespace Game
 {
-    public class GameController : IUpdate
+    public class GameController : Controller<GameplayData>, IUpdate
     {
-        private readonly GameplayData gameplayData;
         private readonly SceneController sceneController;
         private readonly ISceneLoader sceneLoader;
         private readonly UIController uiController;
@@ -19,17 +19,15 @@ namespace Game
         private GameplayController gameplayController;
         private CoroutineRunner runner;
 
-        public GameController(GameplayData gameplayData, SceneData sceneData)
+        public GameController(GameplayData model, SceneData sceneData) : base(model)
         {
-            this.gameplayData = gameplayData;
-
             sceneController = new SceneController(sceneData);
 
             sceneLoader = new SceneLoader(sceneData);
             sceneLoader.GameplaySceneLoaded += OnGameplaySceneLoaded;
             sceneLoader.GameplaySceneUnloaded += OnGameplaySceneUnloaded;
 
-            uiController = new UIController(sceneLoader, gameplayData);
+            uiController = new UIController(sceneLoader, model);
             uiController.ButtonPressed += OnButtonPressed;
 
             sceneController.LoadMenuScene();
@@ -75,7 +73,7 @@ namespace Game
             var parentData = Object.FindObjectOfType<ParentData>();
             runner = Object.FindObjectOfType<CoroutineRunner>();
 
-            gameplayController = new GameplayController(gameplayData, runner, parentData);
+            gameplayController = new GameplayController(model, runner, parentData);
             gameplayController.CreateGameplayObjects();
             gameplayController.ShipDestroyed += OnShipDestroyed;
 

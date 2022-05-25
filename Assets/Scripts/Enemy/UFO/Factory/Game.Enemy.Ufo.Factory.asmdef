@@ -1,9 +1,21 @@
 {
-  "name": "Game.Enemy.Ufo.Factory",
-  "references": [
-    "GUID:1f46120b987e187479c8315949646ad0",
-    "GUID:d633cbf06b7fcd640bbb8098fdddaba9",
-    "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
-    "GUID:371098313ef9f6b4986f85d72d4bf5eb"
-  ]
+    "name": "Game.Enemy.Ufo.Factory",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1f46120b987e187479c8315949646ad0",
+        "GUID:d633cbf06b7fcd640bbb8098fdddaba9",
+        "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
+        "GUID:371098313ef9f6b4986f85d72d4bf5eb",
+        "GUID:1ac94264573111b469b472b675063274",
+        "GUID:67fb50947bb560440aca076805bb435f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

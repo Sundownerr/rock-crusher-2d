@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6116c3f3787d4886818cf868ba784696, type: 3}
+  m_Name: EnemyData
+  m_EditorClassIdentifier: 
+  bigAsteroidFactoryData: {fileID: 11400000, guid: 5bd3975c5555dcc48b8b9c4faed4fa37, type: 2}
+  mediumAsteroidFactoryData: {fileID: 11400000, guid: 24e6f2407e022884f82eed4a86a7681c, type: 2}
+  smallAsteroidFactoryData: {fileID: 11400000, guid: 9fbf228bde4369a4eab230752ccb2cad, type: 2}
+  ufoFactoryData: {fileID: 11400000, guid: 391c9afba7d775a49bed9f125717e483, type: 2}
+  asteroidSpawnInterval: 3
+  asteroidSpawnRadius: 8
+  ufoSpawnInterval: 3
+  ufoSpawnRadius: 8

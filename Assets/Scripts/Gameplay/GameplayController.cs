@@ -99,10 +99,9 @@ namespace Game
             screenBoundsController.Add(shipSpawnResult.Item3.transform);
 
             enemyController = new EnemyController(
+                model.EnemyData,
                 runner,
                 screenBoundsController,
-                model.AsteroidFactoryData,
-                model.UfoFactoryData,
                 parentData,
                 shipSpawnResult.Item3.transform);
 
