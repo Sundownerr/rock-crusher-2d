@@ -18,17 +18,17 @@ namespace Game.Scenes
         {
             UnloadScene(sceneData.GameoverUI);
 
-            UnloadScene(sceneData.GameplayUI);
-            LoadSceneAdditive(sceneData.GameplayUI);
-
             UnloadScene(sceneData.Gameplay);
             LoadSceneAdditive(sceneData.Gameplay, true);
+
+            UnloadScene(sceneData.GameplayUI);
+            LoadSceneAdditive(sceneData.GameplayUI);
         }
 
         public void LoadMenuScene()
         {
-            UnloadScene(sceneData.GameplayUI);
             UnloadScene(sceneData.Gameplay);
+            UnloadScene(sceneData.GameplayUI);
 
             LoadSceneAdditive(sceneData.MenuUI, true);
         }
@@ -37,8 +37,8 @@ namespace Game.Scenes
         {
             UnloadScene(sceneData.MenuUI);
 
-            LoadSceneAdditive(sceneData.GameplayUI);
             LoadSceneAdditive(sceneData.Gameplay, true);
+            LoadSceneAdditive(sceneData.GameplayUI);
         }
 
         public void LoadGameOverScene()

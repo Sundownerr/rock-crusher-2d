@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game.Enemy
+namespace Game.Base.Interface
 {
     public interface IContainer<T>
     {
@@ -15,6 +15,6 @@ namespace Game.Enemy
         event Action<T1, T2> ItemGiven;
         event Action<T1, T2> ItemReturned;
         (T1, T2) Get();
-        void Return((T1, T2) item);
+        void Return(T1 item1, T2 item2);
     }
 }

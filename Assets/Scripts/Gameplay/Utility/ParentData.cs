@@ -10,7 +10,6 @@ namespace Game.Gameplay.Utility
         [SerializeField] private Transform vfxParent;
 
         public Transform VFXParent => vfxParent;
-
         public Transform BulletParent => bulletParent;
         public Transform AsteroidParent => asteroidParent;
         public Transform UfoParent => ufoParent;

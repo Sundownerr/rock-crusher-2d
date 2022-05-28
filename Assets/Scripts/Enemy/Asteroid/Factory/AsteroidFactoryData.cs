@@ -1,10 +1,11 @@
-﻿using Game.Base;
+﻿using System;
+using Game.Base;
 using Game.Enemy.Asteroid.Movement;
 using UnityEngine;
 
 namespace Game.Enemy.Asteroid.Factory
 {
-    [CreateAssetMenu(fileName = "AsteroidFactory", menuName = "Data/AsteroidFactory")]
+    [Serializable]
     public class AsteroidFactoryData : GameObjectFactoryData
     {
         [SerializeField] private AsteroidSpeedData speedData;

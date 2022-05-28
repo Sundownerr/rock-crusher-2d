@@ -1,5 +1,5 @@
 using Game.Base;
-using Game.Movement.Interface;
+using Game.Ship.Movement.Interface;
 using UnityEngine;
 
 namespace Game.Ship.Movement
@@ -11,6 +11,7 @@ namespace Game.Ship.Movement
         private readonly Transform targetTransform;
         private Vector3 inertia;
         private bool isMoving;
+        private float rotateValue;
 
         public ShipMovementController(ShipMovementData model,
                                       ShipSpeedData shipSpeedData,
@@ -20,7 +21,7 @@ namespace Game.Ship.Movement
             this.shipSpeedData = shipSpeedData;
             this.targetTransform = targetTransform;
 
-            shipSpeedController = new ShipSpeedController(shipSpeedData);
+            shipSpeedController = new ShipSpeedController(this.shipSpeedData);
         }
 
         public void Update()
@@ -53,10 +54,13 @@ namespace Game.Ship.Movement
         public void Stop()
         {
             isMoving = false;
+            rotateValue = 0;
         }
 
         public void Turn(Vector2 direction)
         {
+            rotateValue = Mathf.Lerp(rotateValue, direction.x * model.TurnSpeed, Time.deltaTime * 7f);
+
             targetTransform.Rotate(Vector3.back, direction.x * model.TurnSpeed * Time.deltaTime);
         }
     }

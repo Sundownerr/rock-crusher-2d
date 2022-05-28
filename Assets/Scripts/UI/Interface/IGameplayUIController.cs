@@ -1,4 +1,5 @@
-﻿using Game.Ship.Movement;
+﻿using Game.Base.Interface;
+using Game.Ship.Movement;
 using Game.Ship.Weapons.Laser;
 
 namespace Game.UI.Interface

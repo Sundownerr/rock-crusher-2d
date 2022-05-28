@@ -1,4 +1,5 @@
 using System;
+using Game.Base.Interface;
 using UnityEngine;
 
 namespace Game.Input.Interface
@@ -9,7 +10,7 @@ namespace Game.Input.Interface
         bool IsMovingForwardPressed { get; }
         bool IsShootingBulletsPressed { get; }
 
-        event Action MovingForwardPressed;
+        event Action MovingPressed;
         event Action ShootLaserPressed;
         event Action MovingReleased;
     }

@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Game.Input
 {
-    [CreateAssetMenu(fileName = "PlayerInputData", menuName = "Data/Player Input")]
-    public class PlayerInputData : ScriptableObject
+    [Serializable]
+    public class PlayerInputData
     {
         [SerializeField] public InputActionReference shootBullet;
         [SerializeField] public InputActionReference shootLaser;

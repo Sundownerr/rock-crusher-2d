@@ -1,12 +1,13 @@
 ﻿using System;
-using Game.Enemy.Factory;
+using Game.Damagables;
 using Game.Enemy.Interface;
+using Game.Enemy.UFO.Movement;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Game.Enemy.UFO.Factory
 {
-    public class UfoFactory : EnemyFactory<UfoFactoryData, UfoData>
+    public class UfoFactory : DamagableFactory<UfoFactoryData, IEnemy, UfoData>
     {
         private readonly Transform target;
 
@@ -15,18 +16,17 @@ namespace Game.Enemy.UFO.Factory
             this.target = target;
         }
 
-        public override (IEnemy controller, UfoData model) Create(Vector3 position)
+        public (IEnemy controller, UfoData model) Create(Vector3 position)
         {
-            var ufoGameObject = Object.Instantiate(model.Prefab, position, Quaternion.identity, parent);
+            var ufoGameObject = Object.Instantiate(factoryData.Prefab, position, Quaternion.identity, parent);
 
             var movementController = new UfoMovementController(
-                model.MovementData,
+                factoryData.MovementData,
                 ufoGameObject.transform,
                 target);
 
             var ufo = ufoGameObject.GetComponent<UfoData>();
-
-            var controller = new UfoController(movementController);
+            var controller = new UfoController(ufo, movementController);
 
             var result = (controller, ufo);
 

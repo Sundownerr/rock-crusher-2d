@@ -1,11 +1,10 @@
 ﻿using Game.Base.Interface;
-using Game.Ship.Interface;
 using UnityEngine;
 
 namespace Game.Ship.Factory.Interface
 {
-    public interface IShipFactory : IFactory<(IShipController, IFactory<Transform>, ShipData)>
+    public interface IShipFactory : IFactory<ShipController, ShipData, IContainer<Transform>>
     {
-        (IShipController, IFactory<Transform>, ShipData) Create();
+        (ShipController, ShipData, IContainer<Transform>) Create();
     }
 }

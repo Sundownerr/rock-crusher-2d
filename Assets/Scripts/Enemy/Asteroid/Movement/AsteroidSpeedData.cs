@@ -1,11 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Game.Enemy.Asteroid.Movement
 {
-    [CreateAssetMenu(fileName = "AsteroidSpeedData", menuName = "Data/Asteroid/Speed Data")]
-    public class AsteroidSpeedData : ScriptableObject
+    [Serializable]
+    public struct AsteroidSpeedData
     {
         [SerializeField] public Vector2 minMaxSpeed;
         [SerializeField] public Vector2 minMaxRotationSpeed;
+
+        public float CurrentSpeed { get; set; }
+        public float CurrentRotationSpeed { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 {
   "name": "Game.Ship.Factory",
+  "rootNamespace": "",
   "references": [
-    "GUID:7ee2f8d407177204b9071ac0a92ae9ce",
     "GUID:1740e91fd8211fb4e9c9a8f6f7b0c87e",
     "GUID:1f46120b987e187479c8315949646ad0",
     "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
@@ -12,8 +12,17 @@
     "GUID:ac9cd879919b19044abba0377b037b56",
     "GUID:cdbc8cda60812074e97ce878faccea6d",
     "GUID:1acd76c89f87f0946ba927d0e4776845",
-    "GUID:07ba45d796582c44c958328323a4afa4",
     "GUID:85b86d11885bc8b4a922805285c22e8d",
-    "GUID:67fb50947bb560440aca076805bb435f"
-  ]
+    "GUID:efd6c7a2f45269a448a627df908d108c",
+    "GUID:df2a5764ba5f4a544838a8554b643446"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

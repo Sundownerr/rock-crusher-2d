@@ -15,22 +15,18 @@ namespace Game.Enemy.Asteroid
             this.movementController = movementController;
         }
 
-        public bool IsDead { get; private set; }
-
         public void Update()
         {
             movementController.Update();
 
+            if (model.IsCompletlyDestroyed)
+                CompletelyDestroyed?.Invoke();
+
             if (model.IsDamaged)
-                HandleDamaged();
+                Damaged?.Invoke();
         }
 
-        public void HandleDamaged()
-        {
-            IsDead = true;
-            Dead?.Invoke(model);
-        }
-
-        public event Action<AsteroidData> Dead;
+        public event Action Damaged;
+        public event Action CompletelyDestroyed;
     }
 }

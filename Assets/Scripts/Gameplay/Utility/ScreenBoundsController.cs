@@ -7,6 +7,7 @@ namespace Game.Gameplay.Utility
     public class ScreenBoundsController : IUpdate, IDestroyable
     {
         private readonly Camera camera;
+        private readonly List<IContainer<Transform>> containers = new();
         private readonly List<IFactory<Transform>> factoriesTransform = new();
         private readonly List<Transform> targetTransforms = new();
 
@@ -19,6 +20,9 @@ namespace Game.Gameplay.Utility
         {
             foreach (var factory in factoriesTransform)
                 factory.Created -= OnObjectCreated;
+
+            foreach (var container in containers)
+                container.ItemGiven -= OnObjectCreated;
         }
 
         public void Update()
@@ -65,6 +69,12 @@ namespace Game.Gameplay.Utility
         {
             factory.Created += OnObjectCreated;
             factoriesTransform.Add(factory);
+        }
+
+        public void Add(IContainer<Transform> container)
+        {
+            container.ItemGiven += OnObjectCreated;
+            containers.Add(container);
         }
     }
 }

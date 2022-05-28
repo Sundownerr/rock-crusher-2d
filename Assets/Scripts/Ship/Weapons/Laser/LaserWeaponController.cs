@@ -9,8 +9,6 @@ namespace Game.Ship.Weapons.Laser
 {
     public class LaserWeaponController : Controller<LaserWeaponData>, ILaserWeaponController
     {
-        private readonly float cooldownDelta = 0.1f;
-        private readonly WaitForSeconds cooldownDeltaWaitForSeconds;
         private readonly WaitForSeconds delay;
         private readonly RaycastHit2D[] results = new RaycastHit2D[10];
         private readonly CoroutineRunner runner;
@@ -24,7 +22,6 @@ namespace Game.Ship.Weapons.Laser
 
             model.CurrentCharges = model.MaxCharges;
             delay = new WaitForSeconds(model.Delay);
-            cooldownDeltaWaitForSeconds = new WaitForSeconds(cooldownDelta);
         }
 
         public event Action<Transform> Hit;
@@ -53,8 +50,8 @@ namespace Game.Ship.Weapons.Laser
 
             while (model.CurrentCooldown > 0)
             {
-                model.CurrentCooldown -= cooldownDelta;
-                yield return cooldownDeltaWaitForSeconds;
+                model.CurrentCooldown -= Time.deltaTime;
+                yield return null;
             }
 
             model.CurrentCharges++;

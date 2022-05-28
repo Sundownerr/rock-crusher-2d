@@ -1,4 +1,4 @@
-namespace Game
+namespace Game.Base.Interface
 {
     public interface IUpdate
     {

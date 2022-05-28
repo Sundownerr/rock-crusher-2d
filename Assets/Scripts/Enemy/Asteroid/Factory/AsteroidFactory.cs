@@ -1,22 +1,22 @@
 ﻿using System;
+using Game.Damagables;
 using Game.Enemy.Asteroid.Movement;
-using Game.Enemy.Factory;
 using Game.Enemy.Interface;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Game.Enemy.Asteroid.Factory
 {
-    public class AsteroidFactory : EnemyFactory<AsteroidFactoryData, AsteroidData>
+    public class AsteroidFactory : DamagableFactory<AsteroidFactoryData, IEnemy, AsteroidData>
     {
         public AsteroidFactory(AsteroidFactoryData model, Transform parent) : base(model, parent)
         { }
 
-        public override (IEnemy controller, AsteroidData model) Create(Vector3 position)
+        public (IEnemy controller, AsteroidData model) Create(Vector3 position)
         {
-            var instancedPrefab = Object.Instantiate(model.Prefab, position, Quaternion.identity, parent);
+            var instancedPrefab = Object.Instantiate(factoryData.Prefab, position, Quaternion.identity, parent);
             var asteroid = instancedPrefab.GetComponent<AsteroidData>();
-            var movementController = new AsteroidMovementController(model.SpeedData, instancedPrefab.transform);
+            var movementController = new AsteroidMovementController(factoryData.SpeedData, instancedPrefab.transform);
             var controller = new AsteroidController(asteroid, movementController);
 
             Created?.Invoke(controller, asteroid);

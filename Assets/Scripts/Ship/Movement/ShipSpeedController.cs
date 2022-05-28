@@ -1,5 +1,5 @@
 using Game.Base;
-using Game.Movement.Interface;
+using Game.Ship.Movement.Interface;
 using UnityEngine;
 
 namespace Game.Ship.Movement

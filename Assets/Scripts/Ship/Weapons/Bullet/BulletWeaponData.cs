@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 
 namespace Game.Ship.Weapons.Bullet
 {
-    [CreateAssetMenu(fileName = "BulletWeaponData", menuName = "Data/Weapon/Bullet")]
-    public class BulletWeaponData : ScriptableObject
+    [Serializable]
+    public class BulletWeaponData
     {
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private float bulletSpeed;

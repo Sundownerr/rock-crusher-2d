@@ -1,4 +1,6 @@
-﻿namespace Game.Ship.Weapons.Interface
+﻿using Game.Base.Interface;
+
+namespace Game.Ship.Weapons.Interface
 {
     public interface IShipWeaponController : IUpdate, IDestroyable
     {

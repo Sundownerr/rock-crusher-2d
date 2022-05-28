@@ -1,5 +1,6 @@
 using System;
 using Game.Base;
+using Game.Base.Interface;
 using Game.Input.Interface;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -30,7 +31,7 @@ namespace Game.Input
         public bool IsMovingForwardPressed { get; private set; }
         public bool IsShootingBulletsPressed { get; private set; }
 
-        public event Action MovingForwardPressed;
+        public event Action MovingPressed;
         public event Action ShootLaserPressed;
         public event Action MovingReleased;
 
@@ -72,7 +73,7 @@ namespace Game.Input
 
         private void OnStartMove(InputAction.CallbackContext ctx)
         {
-            MovingForwardPressed?.Invoke();
+            MovingPressed?.Invoke();
         }
     }
 }

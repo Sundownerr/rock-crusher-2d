@@ -1,39 +1,32 @@
-using System;
-using Game.Combat;
-using Game.Enemy.Factory.Interface;
+﻿using System;
+using Game.Base;
 using Game.Enemy.Interface;
-using UnityEngine;
 
-namespace Game.Enemy.Asteroid.Factory
+namespace Game.Enemy.Base
 {
-    public class EnemyPool<T> : Pool<(IEnemy controller, T data)> where T : EnemyDamagable
+    public class EnemyPool<T1, T2> : Pool<T1, T2>
+        where T1 : IEnemy
+        where T2 : EnemyDamagable
     {
-        private readonly IEnemyFactory<T> factory;
-        private readonly Func<Vector3> getSpawnPosition;
+        private readonly Func<(T1, T2)> factory;
 
-        public EnemyPool(IEnemyFactory<T> factory, Func<Vector3> getSpawnPosition)
+        public EnemyPool(Func<(T1, T2)> factory)
         {
             this.factory = factory;
-            this.getSpawnPosition = getSpawnPosition;
         }
 
-        public override (IEnemy controller, T data) Get()
+        protected override (T1, T2) GetNew() => factory();
+
+        protected override void ActivateItem(T1 item1, T2 item2)
         {
-            var asteroid = base.Get();
-
-            asteroid.data.gameObject.SetActive(true);
-            return asteroid;
+            item2.IsCompletlyDestroyed = false;
+            item2.IsDamaged = false;
+            item2.gameObject.SetActive(true);
         }
 
-        public override void Return((IEnemy controller, T data) item)
+        protected override void DeactivateItem(T1 item1, T2 item2)
         {
-            item.data.gameObject.SetActive(false);
-            item.data.IsDamaged = false;
-            item.data.IsCompletlyDestroyed = false;
-            base.Return(item);
+            item2.gameObject.SetActive(false);
         }
-
-        protected override (IEnemy controller, T data) GetNew() =>
-            factory.Create(getSpawnPosition());
     }
 }

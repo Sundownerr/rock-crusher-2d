@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 
 namespace Game.Ship.Movement
 {
-    [CreateAssetMenu(fileName = "ShipMovementData", menuName = "Data/Ship Movement")]
-    public class ShipMovementData : ScriptableObject
+    [Serializable]
+    public class ShipMovementData
     {
         [SerializeField] private float turnSpeed;
         [SerializeField] private float inertiaFadeMultiplier;

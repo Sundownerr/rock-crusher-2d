@@ -2,7 +2,7 @@
 {
     public abstract class Controller<T>
     {
-        protected readonly T model;
+        protected T model;
 
         protected Controller(T model)
         {

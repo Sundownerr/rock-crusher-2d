@@ -1,9 +1,8 @@
-using Game.Combat.Interface;
 using UnityEngine;
 
-namespace Game.Combat
+namespace Game.Damagables
 {
-    public class Damagable : MonoBehaviour, IDamagable
+    public class Damagable : MonoBehaviour
     {
         public bool IsDamaged { get; set; }
     }

@@ -1,15 +1,16 @@
 ﻿using System.Collections;
 using Game.Base;
+using Game.Combat;
 using Game.Gameplay.Utility;
-using Game.Ship.Weapons;
 using Game.Ship.Weapons.Bullet;
+using Game.Ship.Weapons.Bullet.Factory;
 using Game.Ship.Weapons.Bullet.Interface;
 using Game.Ship.Weapons.Interface;
 using Game.Ship.Weapons.Laser;
 using Game.Ship.Weapons.Laser.Interface;
 using UnityEngine;
 
-namespace Game.Ship
+namespace Game.Ship.Weapons
 {
     public class ShipWeaponController : Controller<ShipWeaponsData>, IShipWeaponController
     {
@@ -24,7 +25,7 @@ namespace Game.Ship
 
         public ShipWeaponController(ShipWeaponsData model,
                                     ShipData shipData,
-                                    BulletPool bulletPool,
+                                    BulletProvider bulletPool,
                                     CoroutineRunner runner) : base(model)
         {
             this.shipData = shipData;

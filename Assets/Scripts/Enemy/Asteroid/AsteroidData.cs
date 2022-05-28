@@ -1,4 +1,4 @@
-using Game.Combat;
+using Game.Enemy.Base;
 using UnityEngine;
 
 namespace Game.Enemy.Asteroid

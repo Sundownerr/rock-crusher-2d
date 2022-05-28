@@ -1,18 +1,9 @@
 {
-    "name": "Game.Combat",
-    "rootNamespace": "",
-    "references": [
-        "GUID:c48ce2d2d8e1d47478b28190fd484d53",
-        "GUID:67fb50947bb560440aca076805bb435f",
-        "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "Game.Combat",
+  "references": [
+    "GUID:1acd76c89f87f0946ba927d0e4776845",
+    "GUID:ad822de9d788a88478d6cdebdf9bf030",
+    "GUID:1ac94264573111b469b472b675063274",
+    "GUID:efd6c7a2f45269a448a627df908d108c"
+  ]
 }

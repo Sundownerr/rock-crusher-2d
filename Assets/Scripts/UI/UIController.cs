@@ -1,5 +1,9 @@
 ﻿using System;
+using Game.Base.Interface;
 using Game.Scenes.Interface;
+using Game.UI.GameOver;
+using Game.UI.Gameplay;
+using Game.UI.Menu;
 using Object = UnityEngine.Object;
 
 namespace Game.UI
@@ -13,16 +17,17 @@ namespace Game.UI
             Quit,
         }
 
-        private readonly GameplayData gameplayData;
+        private readonly Func<GameplayData> getGameplayData;
+
         private readonly ISceneLoader sceneLoader;
         private GameOverUIController gameOverUIController;
         private GameplayUIController gameplayUIController;
         private MenuUIController menuUIController;
 
-        public UIController(ISceneLoader sceneLoader, GameplayData gameplayData)
+        public UIController(ISceneLoader sceneLoader, Func<GameplayData> getGameplayData)
         {
             this.sceneLoader = sceneLoader;
-            this.gameplayData = gameplayData;
+            this.getGameplayData = getGameplayData;
 
             sceneLoader.GameplayUISceneLoaded += OnGameplayUISceneLoaded;
             sceneLoader.GameoverUISceneLoaded += OnGameoverUISceneLoaded;
@@ -30,6 +35,8 @@ namespace Game.UI
             sceneLoader.MenuUISceneLoaded += OnMenuUISceneLoaded;
             sceneLoader.MenuUISceneUnoaded += OnMenuUISceneUnoaded;
         }
+
+        private GameplayData gameplayData => getGameplayData();
 
         public void Destroy()
         {
@@ -103,8 +110,8 @@ namespace Game.UI
 
             gameplayUIController = new GameplayUIController(
                 model,
-                gameplayData.ShipMovementData,
-                gameplayData.ShipWeaponsData.LaserWeaponData);
+                gameplayData.ShipFactoryData.ShipMovementData,
+                gameplayData.ShipFactoryData.ShipWeaponsData.LaserWeaponData);
         }
     }
 }

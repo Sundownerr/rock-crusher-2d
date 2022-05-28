@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 
 namespace Game.Ship.Weapons.Laser
 {
-    [CreateAssetMenu(fileName = "LaserWeaponData", menuName = "Data/Weapon/Laser")]
-    public class LaserWeaponData : ScriptableObject
+    [Serializable]
+    public class LaserWeaponData
     {
         [SerializeField] private int maxCharges;
         [SerializeField] private float cooldownTime;
@@ -16,10 +17,8 @@ namespace Game.Ship.Weapons.Laser
         public float SizeX => sizeX;
         public float SizeY => sizeY;
         public float Delay => delay;
-
         public int CurrentCharges { get; set; }
         public float CurrentCooldown { get; set; }
-
         public LayerMask TargetLayer => targetLayer;
     }
 }

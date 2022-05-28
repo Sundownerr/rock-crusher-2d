@@ -11,4 +11,9 @@ namespace Game.Base.Interface
     {
         event Action<T1, T2> Created;
     }
+
+    public interface IFactory<T1, T2, T3>
+    {
+        event Action<T1, T2, T3> Created;
+    }
 }

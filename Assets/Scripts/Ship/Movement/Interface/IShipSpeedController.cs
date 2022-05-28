@@ -1,4 +1,6 @@
-namespace Game.Movement.Interface
+using Game.Base.Interface;
+
+namespace Game.Ship.Movement.Interface
 {
     public interface IShipSpeedController : IUpdate
     {

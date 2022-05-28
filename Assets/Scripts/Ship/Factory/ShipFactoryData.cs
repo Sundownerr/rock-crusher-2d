@@ -1,11 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using Game.Base;
+using Game.Ship.Movement;
+using Game.Ship.Weapons;
+using UnityEngine;
 
 namespace Game.Ship.Factory
 {
-    [CreateAssetMenu(fileName = "ShipFactoryData", menuName = "Data/Ship/Factory")]
-    public class ShipFactoryData : ScriptableObject
+    [Serializable]
+    public class ShipFactoryData : GameObjectFactoryData
     {
-        [SerializeField] private GameObject prefab;
-        public GameObject Prefab => prefab;
+        [SerializeField] private ShipWeaponsData shipWeaponsData;
+        [SerializeField] private ShipMovementData shipMovementData;
+        [SerializeField] private ShipSpeedData shipSpeedData;
+
+        public ShipWeaponsData ShipWeaponsData => shipWeaponsData;
+        public ShipMovementData ShipMovementData => shipMovementData;
+        public ShipSpeedData ShipSpeedData => shipSpeedData;
     }
 }

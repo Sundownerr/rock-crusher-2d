@@ -1,0 +1,27 @@
+{
+    "name": "Game.Enemy.Factory",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d633cbf06b7fcd640bbb8098fdddaba9",
+        "GUID:a1819c97c7106d341858984d19a62b53",
+        "GUID:feb206faf4d33b743b08243f664082f2",
+        "GUID:1f46120b987e187479c8315949646ad0",
+        "GUID:d0332cbb5dfdfc346b4691c02d1f2c6c",
+        "GUID:1ac94264573111b469b472b675063274",
+        "GUID:b55e72b8f19e0234ab42278d25c3024f",
+        "GUID:ef7c8dff95be65f40a3282273490b070",
+        "GUID:371098313ef9f6b4986f85d72d4bf5eb",
+        "GUID:82d212a632a26f34f9b861234f8ecbce",
+        "GUID:6155b464b72461c46a2a714d578e8e62",
+        "GUID:efd6c7a2f45269a448a627df908d108c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

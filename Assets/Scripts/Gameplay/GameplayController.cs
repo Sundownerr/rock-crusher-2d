@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using Game.Base;
+using Game.Base.Interface;
 using Game.Enemy;
+using Game.Enemy.Base;
+using Game.Enemy.Interface;
 using Game.Gameplay.Utility;
 using Game.Input;
 using Game.Input.Interface;
+using Game.Score;
 using Game.Ship;
 using Game.Ship.Factory;
 using Game.Ship.Factory.Interface;
-using Game.Ship.Interface;
+using Game.Vfx;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -20,11 +24,12 @@ namespace Game
         private readonly CoroutineRunner runner;
         private readonly List<IUpdate> updatees = new();
         private EnemyController enemyController;
-        private bool isShipDestroyed;
+        private EnemyDeathFactory enemyDeathFactory;
+        private EnemyFactory enemyFactory;
         private IPlayerInputController playerInputController;
         private ScoreController scoreController;
         private ScreenBoundsController screenBoundsController;
-        private IShipController shipController;
+        private ShipController shipController;
         private ShipData shipData;
         private IShipFactory shipFactory;
         private VfxController vfxController;
@@ -40,8 +45,10 @@ namespace Game
             updatees.Clear();
 
             screenBoundsController.Destroy();
-            shipController.Destroy();
+            enemyFactory.Destroy();
+            enemyDeathFactory.Destroy();
             enemyController.Destroy();
+            shipController.Destroy();
             playerInputController.Destroy();
             scoreController.Destroy();
             vfxController.Destroy();
@@ -49,23 +56,6 @@ namespace Game
 
         public void Update()
         {
-            if (shipData.IsDamaged && !isShipDestroyed)
-            {
-                isShipDestroyed = true;
-
-                enemyController.HandleShipDestroyed();
-                enemyController.StopSpawn();
-
-                updatees.Remove(playerInputController);
-                updatees.Remove(shipController);
-
-                playerInputController.Destroy();
-                shipController.Destroy();
-
-                ShipDestroyed?.Invoke(shipData.transform);
-                Object.Destroy(shipData.gameObject);
-            }
-
             for (var i = 0; i < updatees.Count; i++)
                 updatees[i].Update();
         }
@@ -82,36 +72,64 @@ namespace Game
 
             shipFactory = new ShipFactory(
                 model.ShipFactoryData,
-                model.ShipWeaponsData,
                 parentData.BulletParent,
-                model.ShipMovementData,
-                model.ShipShipSpeedData,
+                parentData.BulletParent,
                 runner,
                 playerInputController);
 
             var shipSpawnResult = shipFactory.Create();
 
             shipController = shipSpawnResult.Item1;
-            shipData = shipSpawnResult.Item3;
-
+            shipController.Damaged += OnShipDamaged;
             updatees.Add(shipController);
-            screenBoundsController.Add(shipSpawnResult.Item2);
-            screenBoundsController.Add(shipSpawnResult.Item3.transform);
+
+            shipData = shipSpawnResult.Item2;
+
+            screenBoundsController.Add(shipData.transform);
+            screenBoundsController.Add(shipSpawnResult.Item3);
+
+            enemyFactory = new EnemyFactory(model.EnemyData, runner, parentData, shipData.transform);
+            enemyFactory.Created += OnEnemyCreated;
+
+            enemyDeathFactory = new EnemyDeathFactory(enemyFactory);
 
             enemyController = new EnemyController(
-                model.EnemyData,
-                runner,
-                screenBoundsController,
-                parentData,
-                shipSpawnResult.Item3.transform);
+                enemyFactory,
+                enemyDeathFactory);
 
-            if (model.SpawnEnemies)
-                enemyController.StartSpawn();
+            scoreController = new ScoreController(model.ScoreData, enemyDeathFactory);
 
+            vfxController = new VfxController(model.VFXData, parentData.VFXParent, shipData, shipController,
+                enemyDeathFactory);
+
+            if (!model.SpawnEnemies)
+                return;
+
+            enemyFactory.CreateEnemies();
             updatees.Add(enemyController);
+        }
 
-            scoreController = new ScoreController(model.ScoreData, enemyController);
-            vfxController = new VfxController(model.VFXData, enemyController, this, parentData.VFXParent);
+        private void OnEnemyCreated(IEnemy arg1, EnemyDamagable arg2)
+        {
+            screenBoundsController.Add(arg2.transform);
+        }
+
+        private void OnShipDamaged()
+        {
+            enemyController.HandleShipDestroyed();
+            enemyFactory.StopCreatingEnemies();
+
+            updatees.Remove(playerInputController);
+            updatees.Remove(shipController);
+
+            playerInputController.Destroy();
+            shipController.Destroy();
+
+            ShipDestroyed?.Invoke(shipData.transform);
+            Object.Destroy(shipData.gameObject);
+
+            shipController.Damaged -= OnShipDamaged;
+            enemyFactory.Created -= OnEnemyCreated;
         }
     }
 }

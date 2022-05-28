@@ -1,4 +1,5 @@
-﻿using Game.Ship.Weapons.Interface;
+﻿using Game.Base.Interface;
+using Game.Ship.Weapons.Interface;
 
 namespace Game.Ship.Weapons.Bullet.Interface
 {

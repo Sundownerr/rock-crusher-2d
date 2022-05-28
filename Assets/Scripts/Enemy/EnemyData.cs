@@ -1,14 +1,12 @@
-﻿using Game.Enemy.Asteroid;
+﻿using System;
 using Game.Enemy.Asteroid.Factory;
-using Game.Enemy.Factory;
-using Game.Enemy.UFO;
 using Game.Enemy.UFO.Factory;
 using UnityEngine;
 
 namespace Game.Enemy
 {
-    [CreateAssetMenu(fileName = "EnemyData", menuName = "Data/Enemy Data")]
-    public class EnemyData : ScriptableObject
+    [Serializable]
+    public class EnemyData
     {
         [SerializeField] private AsteroidFactoryData bigAsteroidFactoryData;
         [SerializeField] private AsteroidFactoryData mediumAsteroidFactoryData;
@@ -18,11 +16,6 @@ namespace Game.Enemy
         [SerializeField] private float asteroidSpawnRadius;
         [SerializeField] private float ufoSpawnInterval;
         [SerializeField] private float ufoSpawnRadius;
-
-        public EnemyFactory<AsteroidFactoryData, AsteroidData> BigAsteroidFactory { get; set; }
-        public EnemyFactory<AsteroidFactoryData, AsteroidData> MediumAsteroidFactory { get; set; }
-        public EnemyFactory<AsteroidFactoryData, AsteroidData> SmallAsteroidFactory { get; set; }
-        public EnemyFactory<UfoFactoryData, UfoData> UfoFactory { get; set; }
 
         public UfoFactoryData UfoFactoryData => ufoFactoryData;
         public AsteroidFactoryData BigAsteroidFactoryData => bigAsteroidFactoryData;

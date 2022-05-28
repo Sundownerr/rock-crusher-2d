@@ -1,4 +1,4 @@
-using Game.Combat;
+using Game.Damagables;
 using UnityEngine;
 
 namespace Game.Ship

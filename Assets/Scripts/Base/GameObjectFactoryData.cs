@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Game.Base
 {
-    public abstract class GameObjectFactoryData : ScriptableObject
+    [Serializable]
+    public abstract class GameObjectFactoryData
     {
         [SerializeField] private GameObject prefab;
         public GameObject Prefab => prefab;
